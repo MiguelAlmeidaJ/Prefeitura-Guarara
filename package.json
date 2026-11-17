@@ -1,0 +1,19 @@
+{
+  "name": "prefeitura-argirita",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "npm@10.8.2",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n WEB,API -c cyan,green \"npm run dev -w @argirita/web\" \"npm run start:dev -w @argirita/api\"",
+    "build": "npm run build -w @argirita/api && npm run build -w @argirita/web",
+    "db:generate": "npm run prisma:generate -w @argirita/api",
+    "db:migrate": "npm run prisma:migrate -w @argirita/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  }
+}
