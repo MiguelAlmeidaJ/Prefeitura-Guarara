@@ -33,7 +33,10 @@ export class CmsController {
   catch(e){if(e instanceof Prisma.PrismaClientKnownRequestError&&e.code==='P2002')throw new ConflictException('Slug em uso');throw e;}
  }
  @UseGuards(AuthGuard) @Patch('admin/paginas/:id')
- async update(@Param('id') id:string,@Body() body:unknown){
+ async update(@Req() req:{user:AuthUser},@Param('id') id:string,@Body() body:unknown){
+  const previous=await this.prisma.pagina.findUnique({where:{id}});
+  if(!previous)throw new NotFoundException();
+  if(req.user.papel==='EDITOR'&&previous.estado!=='RASCUNHO')throw new BadRequestException('Editores só podem alterar rascunhos');
   const parsed=pageInput.safeParse(body);if(!parsed.success)throw new BadRequestException(parsed.error.flatten());
   try{return await this.prisma.pagina.update({where:{id},data:{...parsed.data,conteudo:parsed.data.conteudo as Prisma.InputJsonValue}});}
   catch(e){if(e instanceof Prisma.PrismaClientKnownRequestError&&e.code==='P2002')throw new ConflictException('Slug em uso');if(e instanceof Prisma.PrismaClientKnownRequestError&&e.code==='P2025')throw new NotFoundException();throw e;}
