@@ -8,8 +8,8 @@ Projeto monorepo em **TypeScript**, com **Next.js**, **NestJS**, **Prisma** e **
 
 ```text
 apps/
-  web/   # Next.js: portal público (porta 3000)
-  api/   # NestJS: API e Prisma (porta 3001)
+  web/   # Next.js: portal público (porta 3006)
+  api/   # NestJS: API e Prisma (porta 3007)
 docs/
   mapeamento-maripa.md
 ```
@@ -33,9 +33,9 @@ O PostgreSQL do Docker é exposto em `127.0.0.1:5433` para evitar conflitos com 
 
 O comando de migração cria a primeira migração de desenvolvimento quando solicitado; os modelos iniciais estão em `apps/api/prisma/schema.prisma`. O arquivo `apps/api/.env` fornece `DATABASE_URL` ao Prisma e à API. `NEXT_PUBLIC_API_URL` reserva a URL da API para integrações futuras.
 
-- Web: http://localhost:3000
-- API: http://localhost:3001/api/health
-- Comunicados publicados (inicialmente vazios): http://localhost:3001/api/comunicados
+- Web: http://localhost:3006
+- API: http://localhost:3007/api/health
+- Comunicados publicados (inicialmente vazios): http://localhost:3007/api/comunicados
 
 ## Documentação
 
@@ -72,3 +72,41 @@ O painel inicial utiliza um campo JSON para os conteúdos estruturados; o editor
 O catálogo de tabelas fica em `/admin/tabelas`. Configure colunas do tipo **Texto** ou **Link** e permita um ou vários links por célula. Depois, escolha a tabela no criador de páginas em `/admin` (Tabela Simples ou Tabela em Abas). Veja [a documentação](docs/tabelas-reutilizaveis.md).
 
 **Nota:** tabelas são referenciadas por ID nos dados da página; a aplicação valida as referências. A futura camada de integridade relacional reforçará essa associação.
+
+## Execução com PM2 (portas 3006 / 3007)
+
+O arquivo [`ecosystem.config.cjs`](ecosystem.config.cjs) executa dois processos com código compilado:
+
+| Processo | Aplicação | Porta |
+| --- | --- | --- |
+| `guarara-web` | Next.js (`next start`) | 3006 |
+| `guarara-api` | NestJS (`dist/main.js`) | 3007 |
+
+No PowerShell (Windows), a partir da raiz do projeto:
+
+```powershell
+npm install
+docker compose up -d
+# Verifique DATABASE_URL e JWT_SECRET em apps/api/.env.
+# Se apps/api/.env já existe, altere PORT=3007 e WEB_ORIGIN=http://localhost:3006.
+npm run db:generate
+npm run db:migrate
+$env:NEXT_PUBLIC_API_URL = "http://localhost:3007"
+npm run build
+npm run pm2:start
+npm run pm2:status
+```
+
+A variável `NEXT_PUBLIC_API_URL` **precisa estar configurada antes de `next build`**: o Next.js incorpora seu valor nas páginas cliente durante o build. Para acesso em outra máquina ou domínio, substitua `localhost` pelo endereço público correto, configure `WEB_ORIGIN` para a origem real do site e utilize HTTPS/reverse proxy em produção. A API utiliza `API_URL=http://127.0.0.1:3007` para buscar páginas no servidor.
+
+Comandos úteis:
+
+```powershell
+npm run pm2:logs
+npm run pm2:restart
+npm run pm2:stop
+npx pm2 delete guarara-api guarara-web
+npx pm2 save
+```
+
+`pm2:restart` reinicia os processos, mas não recompila o projeto: depois de um `git pull`, execute `npm install`, `npm run build` e só então reinicie. O PM2 não inicia o PostgreSQL; mantenha o Docker ativo. O modo `npm run dev` também usa 3006/3007 por padrão após atualizar `apps/api/.env`.

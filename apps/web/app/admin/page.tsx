@@ -2,7 +2,7 @@
 import {useEffect,useState} from 'react';
 type Page={id:string;titulo:string;slug:string;tipo:'GRID_LINKS'|'TABELA_SIMPLES'|'TABELA_ABAS';estado:string;subtitulo:string|null;ordem:number;conteudo:unknown};
 type Session={accessToken:string;user:{nome:string;papel:string}};
-const api=process.env.NEXT_PUBLIC_API_URL||'http://localhost:3001';
+const api=process.env.NEXT_PUBLIC_API_URL||'http://localhost:3007';
 function defaultContent(tipo:Page['tipo']){
  if(tipo==='GRID_LINKS')return {links:[{texto:'Novo serviço',url:'https://exemplo.gov.br/',novaAba:true}]};
  return tipo==='TABELA_SIMPLES'?{tabelaId:''}:{abas:[{titulo:'Geral',tabelaId:''}]};

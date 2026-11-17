@@ -8,7 +8,7 @@ type Cell=string|CellLink|CellLink[];
 type Row=Record<string,Cell>;
 type Table={id:string;nome:string;descricao:string|null;colunas:Column[];linhas:Row[]};
 type Session={accessToken:string;user:{nome:string;papel:string}};
-const api=process.env.NEXT_PUBLIC_API_URL||'http://localhost:3001';
+const api=process.env.NEXT_PUBLIC_API_URL||'http://localhost:3007';
 const blank=():Omit<Table,'id'>=>({nome:'',descricao:'',colunas:[{chave:'nome',titulo:'Nome',tipo:'TEXTO',multiplos:false}],linhas:[]});
 const empty=(c:Column):Cell=>c.tipo==='TEXTO'?'':c.multiplos?[]:{texto:'',url:''};
 export default function TablesAdmin(){
