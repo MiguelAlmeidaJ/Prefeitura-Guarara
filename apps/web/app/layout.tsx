@@ -3,8 +3,8 @@ import Link from 'next/link';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: { default: 'Prefeitura de Argirita - MG', template: '%s | Prefeitura de Argirita' },
-  description: 'Portal institucional da Prefeitura Municipal de Argirita, Minas Gerais.',
+  title: { default: 'Prefeitura de Guarará - MG', template: '%s | Prefeitura de Guarará' },
+  description: 'Portal institucional da Prefeitura Municipal de Guarará, Minas Gerais.',
 };
 
 const menu = [
@@ -16,9 +16,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return <html lang="pt-BR"><body>
     <a className="skip" href="#conteudo">Pular para o conteúdo</a>
     <header className="header"><div className="wrap header-inner"><Link className="brand" href="/">
-      <span className="brand-mark" aria-hidden="true">MG</span><span>Prefeitura Municipal<br/><strong>Argirita - MG</strong></span>
+      <span className="brand-mark" aria-hidden="true">MG</span><span>Prefeitura Municipal<br/><strong>Guarará - MG</strong></span>
     </Link><nav aria-label="Navegação principal">{menu.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav></div></header>
     <main id="conteudo">{children}</main>
-    <footer><div className="wrap"><strong>Prefeitura Municipal de Argirita</strong><p>Portal institucional em desenvolvimento. Informações oficiais serão publicadas após validação.</p></div></footer>
+    <footer><div className="wrap"><strong>Prefeitura Municipal de Guarará</strong><p>Portal institucional em desenvolvimento. Informações oficiais serão publicadas após validação.</p></div></footer>
   </body></html>;
 }

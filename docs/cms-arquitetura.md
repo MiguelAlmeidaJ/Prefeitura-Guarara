@@ -1,4 +1,4 @@
-# CMS modular da Prefeitura de Argirita
+# CMS modular da Prefeitura de Guarará
 
 O construtor publica páginas dinâmicas em /p/[slug] e mantém páginas especiais desenvolvidas à mão em Next.js.
 

@@ -1,5 +1,5 @@
 {
-  "name": "prefeitura-argirita",
+  "name": "prefeitura-guarara",
   "private": true,
   "version": "0.1.0",
   "packageManager": "npm@10.8.2",
@@ -7,10 +7,10 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "concurrently -n WEB,API -c cyan,green \"npm run dev -w @argirita/web\" \"npm run start:dev -w @argirita/api\"",
-    "build": "npm run build -w @argirita/api && npm run build -w @argirita/web",
-    "db:generate": "npm run prisma:generate -w @argirita/api",
-    "db:migrate": "npm run prisma:migrate -w @argirita/api"
+    "dev": "concurrently -n WEB,API -c cyan,green \"npm run dev -w @guarara/web\" \"npm run start:dev -w @guarara/api\"",
+    "build": "npm run build -w @guarara/api && npm run build -w @guarara/web",
+    "db:generate": "npm run prisma:generate -w @guarara/api",
+    "db:migrate": "npm run prisma:migrate -w @guarara/api"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",

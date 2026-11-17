@@ -5,13 +5,13 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: argirita
-      POSTGRES_PASSWORD: argirita_dev
-      POSTGRES_DB: argirita
+      POSTGRES_USER: guarara
+      POSTGRES_PASSWORD: guarara_dev
+      POSTGRES_DB: guarara
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U argirita -d argirita']
+      test: ['CMD-SHELL', 'pg_isready -U guarara -d guarara']
       interval: 5s
       timeout: 5s
       retries: 10

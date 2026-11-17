@@ -47,10 +47,10 @@ Referência: https://maripademinas.mg.gov.br/ (consulta exploratória em 17/11/2
 - Atendimento e-SIC: o site de referência descreve abertura e acompanhamento de tickets.
 - Área do Servidor: atalho para contracheque online.
 
-## Decisões para Argirita
+## Decisões para Guarará
 
 1. Reutilizar **estrutura e padrões de interação**, não conteúdo, identidade visual exclusiva, documentos ou dados de Maripá.
-2. Criar páginas com dados próprios de Argirita e integrar serviços externos apenas após validação de seus endereços oficiais.
+2. Criar páginas com dados próprios de Guarará e integrar serviços externos apenas após validação de seus endereços oficiais.
 3. Priorizar acessibilidade, responsividade, LGPD, controle editorial e mecanismos de busca.
 4. Confirmar menus completos, rodapé, imagens, comportamento mobile e enlaces externos em uma segunda auditoria visual.
 

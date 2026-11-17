@@ -1,8 +1,8 @@
-# Prefeitura de Argirita — portal institucional
+# Prefeitura de Guarará — portal institucional
 
 Projeto monorepo em **TypeScript**, com **Next.js**, **NestJS**, **Prisma** e **PostgreSQL**.
 
-> A navegação toma Maripá de Minas como referência funcional. Conteúdo e informações oficiais serão próprios da Prefeitura de Argirita. A interface atual é um esqueleto inicial, não uma reprodução visual final.
+> A navegação toma Maripá de Minas como referência funcional. Conteúdo e informações oficiais serão próprios da Prefeitura de Guarará. A interface atual é um esqueleto inicial, não uma reprodução visual final.
 
 ## Estrutura
 
@@ -57,7 +57,7 @@ docker compose up -d
 npm run db:generate
 npm run db:migrate
 # Configure ADMIN_EMAIL e ADMIN_PASSWORD (12+ caracteres) em apps/api/.env
-npm run admin:bootstrap -w @argirita/api
+npm run admin:bootstrap -w @guarara/api
 npm run dev
 ```
 
