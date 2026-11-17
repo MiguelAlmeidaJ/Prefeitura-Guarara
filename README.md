@@ -21,13 +21,15 @@ Node.js 20+, npm 10+, Docker/Compose para PostgreSQL.
 ## Executando localmente
 
 ```bash
-cp .env.example apps/api/.env
+cp apps/api/.env.example apps/api/.env
 npm install
 docker compose up -d
 npm run db:generate
 npm run db:migrate
 npm run dev
 ```
+
+O PostgreSQL do Docker é exposto em `127.0.0.1:5433` para evitar conflitos com uma instalação local que já utiliza `5432`. Se você já possui `apps/api/.env`, atualize manualmente a porta de `DATABASE_URL` para `5433` antes de executar o Prisma. Nunca sobrescreva credenciais existentes sem conferir.
 
 O comando de migração cria a primeira migração de desenvolvimento quando solicitado; os modelos iniciais estão em `apps/api/prisma/schema.prisma`. O arquivo `apps/api/.env` fornece `DATABASE_URL` ao Prisma e à API. `NEXT_PUBLIC_API_URL` reserva a URL da API para integrações futuras.
 

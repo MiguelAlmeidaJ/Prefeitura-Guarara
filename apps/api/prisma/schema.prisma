@@ -5,10 +5,29 @@ datasource db {
  provider = "postgresql"
  url = env("DATABASE_URL")
 }
-enum PapelUsuario { ADMINISTRADOR GESTOR EDITOR }
-enum TipoPagina { GRID_LINKS TABELA_SIMPLES TABELA_ABAS }
-enum EstadoPagina { RASCUNHO PUBLICADA ARQUIVADA }
-enum TipoDocumento { LEI DECRETO PORTARIA EDITAL RELATORIO OUTRO }
+enum PapelUsuario {
+  ADMINISTRADOR
+  GESTOR
+  EDITOR
+}
+enum TipoPagina {
+  GRID_LINKS
+  TABELA_SIMPLES
+  TABELA_ABAS
+}
+enum EstadoPagina {
+  RASCUNHO
+  PUBLICADA
+  ARQUIVADA
+}
+enum TipoDocumento {
+  LEI
+  DECRETO
+  PORTARIA
+  EDITAL
+  RELATORIO
+  OUTRO
+}
 model Usuario {
  id String @id @default(cuid())
  nome String
@@ -69,7 +88,10 @@ model Secretaria {
  criadoEm DateTime @default(now())
 }
 
-enum TipoColunaTabela { TEXTO LINK }
+enum TipoColunaTabela {
+  TEXTO
+  LINK
+}
 model Tabela {
  id String @id @default(cuid())
  nome String
