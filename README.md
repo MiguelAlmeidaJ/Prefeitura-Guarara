@@ -42,3 +42,25 @@ Consulte [o mapeamento das páginas de Maripá](docs/mapeamento-maripa.md).
 ## Estado do projeto
 
 Estrutura inicial de desenvolvimento: páginas institucionais ainda são placeholders; faltam autenticação, painel administrativo, migrações versionadas, testes e integrações com serviços oficiais.
+
+## CMS de páginas padronizadas
+
+O primeiro incremento do CMS está na branch `create`. Disponibiliza perfis `ADMINISTRADOR`, `GESTOR` e `EDITOR`, modelos `GRID_LINKS`, `TABELA_SIMPLES` e `TABELA_ABAS`, endpoints públicos de leitura e um painel editorial inicial em `/admin`. As páginas publicadas ficam em `/p/<slug>`.
+
+Configure a API antes de iniciar:
+
+```bash
+cp apps/api/.env.example apps/api/.env
+# Edite apps/api/.env e defina JWT_SECRET com uma chave aleatória forte.
+npm install
+docker compose up -d
+npm run db:generate
+npm run db:migrate
+# Configure ADMIN_EMAIL e ADMIN_PASSWORD (12+ caracteres) em apps/api/.env
+npm run admin:bootstrap -w @argirita/api
+npm run dev
+```
+
+O painel inicial utiliza um campo JSON para os conteúdos estruturados; o editor visual de cartões, colunas, linhas e abas é um incremento futuro. Referência: [arquitetura do CMS](docs/cms-arquitetura.md).
+
+**Segurança:** ainda faltam rate limiting, auditoria, recuperação de senha e testes de produção. Não exponha este protótipo à internet antes dessas melhorias.
