@@ -21,7 +21,7 @@ Node.js 20+, npm 10+, Docker/Compose para PostgreSQL.
 ## Executando localmente
 
 ```bash
-cp .env.example .env
+cp .env.example apps/api/.env
 npm install
 docker compose up -d
 npm run db:generate
@@ -29,7 +29,7 @@ npm run db:migrate
 npm run dev
 ```
 
-O comando de migração cria a primeira migração de desenvolvimento quando solicitado; os modelos iniciais estão em `apps/api/prisma/schema.prisma`. Certifique-se de disponibilizar `DATABASE_URL` para o processo da API (por exemplo, usando variáveis exportadas no shell ou um arquivo `apps/api/.env`). `NEXT_PUBLIC_API_URL` reserva a URL da API para integrações futuras.
+O comando de migração cria a primeira migração de desenvolvimento quando solicitado; os modelos iniciais estão em `apps/api/prisma/schema.prisma`. O arquivo `apps/api/.env` fornece `DATABASE_URL` ao Prisma e à API. `NEXT_PUBLIC_API_URL` reserva a URL da API para integrações futuras.
 
 - Web: http://localhost:3000
 - API: http://localhost:3001/api/health
