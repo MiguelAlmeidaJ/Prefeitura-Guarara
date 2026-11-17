@@ -1,52 +1,70 @@
 generator client {
-  provider = "prisma-client-js"
+ provider = "prisma-client-js"
 }
-
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+ provider = "postgresql"
+ url = env("DATABASE_URL")
 }
-
-enum TipoDocumento {
-  LEI
-  DECRETO
-  PORTARIA
-  EDITAL
-  RELATORIO
-  OUTRO
+enum PapelUsuario { ADMINISTRADOR GESTOR EDITOR }
+enum TipoPagina { GRID_LINKS TABELA_SIMPLES TABELA_ABAS }
+enum EstadoPagina { RASCUNHO PUBLICADA ARQUIVADA }
+enum TipoDocumento { LEI DECRETO PORTARIA EDITAL RELATORIO OUTRO }
+model Usuario {
+ id String @id @default(cuid())
+ nome String
+ email String @unique
+ senhaHash String
+ papel PapelUsuario @default(EDITOR)
+ ativo Boolean @default(true)
+ paginas Pagina[]
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
 }
-
+model Pagina {
+ id String @id @default(cuid())
+ titulo String
+ slug String @unique
+ subtitulo String?
+ tipo TipoPagina
+ estado EstadoPagina @default(RASCUNHO)
+ conteudo Json
+ ordem Int @default(0)
+ autorId String
+ autor Usuario @relation(fields:[autorId],references:[id])
+ publicadoEm DateTime?
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([estado,ordem])
+}
 model Comunicado {
-  id          String   @id @default(cuid())
-  titulo      String
-  slug        String   @unique
-  resumo      String?
-  conteudo    String   @db.Text
-  categoria   String?
-  publicado   Boolean  @default(false)
-  publicadoEm DateTime?
-  criadoEm    DateTime @default(now())
-  atualizadoEm DateTime @updatedAt
+ id String @id @default(cuid())
+ titulo String
+ slug String @unique
+ resumo String?
+ conteudo String @db.Text
+ categoria String?
+ publicado Boolean @default(false)
+ publicadoEm DateTime?
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
 }
-
 model Documento {
-  id           String        @id @default(cuid())
-  titulo       String
-  tipo         TipoDocumento
-  ano          Int
-  arquivoUrl   String
-  descricao    String?       @db.Text
-  publicadoEm  DateTime      @default(now())
-  criadoEm     DateTime      @default(now())
-  @@index([tipo, ano])
+ id String @id @default(cuid())
+ titulo String
+ tipo TipoDocumento
+ ano Int
+ arquivoUrl String
+ descricao String? @db.Text
+ publicadoEm DateTime @default(now())
+ criadoEm DateTime @default(now())
+ @@index([tipo,ano])
 }
-
 model Secretaria {
-  id          String   @id @default(cuid())
-  nome        String   @unique
-  descricao   String?  @db.Text
-  responsavel String?
-  telefone    String?
-  email       String?
-  criadoEm    DateTime @default(now())
+ id String @id @default(cuid())
+ nome String @unique
+ descricao String? @db.Text
+ responsavel String?
+ telefone String?
+ email String?
+ criadoEm DateTime @default(now())
 }
