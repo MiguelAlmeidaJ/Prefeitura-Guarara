@@ -22,16 +22,23 @@ Referência: https://maripademinas.mg.gov.br/ (consulta exploratória em 17/11/2
 | Transparência | Transparência Estadual | https://maripademinas.mg.gov.br/transparencia/transparencia-estadual/ |
 | Transparência | Obras Públicas | https://maripademinas.mg.gov.br/transparencia/obras-publicas/ |
 | Gestão | Planejamento e Gestão | https://maripademinas.mg.gov.br/planejamento/ |
+| Licitações | Solicitação de processos na íntegra | https://maripademinas.mg.gov.br/licitacoes/solicitacao-processos/ |
 | Licitações | Processos em andamento | https://maripademinas.mg.gov.br/licitacoes/processos-andamento/ |
 | Concursos | Concursos e processos seletivos | https://maripademinas.mg.gov.br/concursos/ |
 | Pessoal | Recursos Humanos | https://maripademinas.mg.gov.br/recursos-humanos/ |
 | Pessoal | Área do Servidor | https://maripademinas.mg.gov.br/area-do-servidor-municipal/ |
 | Publicações | Comunicados | https://maripademinas.mg.gov.br/comunicado/ |
+| Legislação | Índice da legislação | https://maripademinas.mg.gov.br/legislacao-municipal/ |
+| Legislação | Leis | https://maripademinas.mg.gov.br/legislacao-municipal/leis/ |
+| Legislação | Decretos | https://maripademinas.mg.gov.br/legislacao-municipal/decretos/ |
 | Legislação | Portarias | https://maripademinas.mg.gov.br/legislacao-municipal/portarias/ |
+| Empreendedor | Espaço do empreendedor | https://maripademinas.mg.gov.br/espaco-do-empreendedor-empresario-e-produtor-rural/ |
 | Empreendedor | Editais de Fomento | https://maripademinas.mg.gov.br/espaco-do-empreendedor-empresario-e-produtor-rural/editais-de-fomentos/ |
 
 ## Itens identificados como navegação/funcionalidade
 
+- Empreendedor: editais de fomento, nota fiscal eletrônica, sala do empreendedor, Aprumar e MEI.
+- Legislação: leis, decretos, portarias, PPA, LOA, LDO, Lei Orgânica e Estatuto do Servidor.
 - Transparência: legislação municipal, transparência municipal/estadual/federal, licitações, solicitação de processos na íntegra, planejamento, concursos, RH, contas públicas, conselhos, radar, emendas, obras, diárias, RREO e FUNDEB.
 - Planejamento: prestação de contas, análises pelo TCE/Câmara, relatórios de gestão, SIOPS, RREO, RGF, LDO, PPA, LOA, planos municipais, cultura e dívida ativa.
 - Concursos: categorias concursos/processos seletivos/convocações, filtros e anos; na consulta algumas tabelas retornavam falha de carregamento.
