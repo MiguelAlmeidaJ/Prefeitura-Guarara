@@ -68,3 +68,14 @@ model Secretaria {
  email String?
  criadoEm DateTime @default(now())
 }
+
+enum TipoColunaTabela { TEXTO LINK }
+model Tabela {
+ id String @id @default(cuid())
+ nome String
+ descricao String?
+ colunas Json
+ linhas Json
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+}

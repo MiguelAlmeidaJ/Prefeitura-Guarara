@@ -64,3 +64,9 @@ npm run dev
 O painel inicial utiliza um campo JSON para os conteúdos estruturados; o editor visual de cartões, colunas, linhas e abas é um incremento futuro. Referência: [arquitetura do CMS](docs/cms-arquitetura.md).
 
 **Segurança:** ainda faltam rate limiting, auditoria, recuperação de senha e testes de produção. Não exponha este protótipo à internet antes dessas melhorias.
+
+## Tabelas reutilizáveis
+
+O catálogo de tabelas fica em `/admin/tabelas`. Configure colunas do tipo **Texto** ou **Link** e permita um ou vários links por célula. Depois, escolha a tabela no criador de páginas em `/admin` (Tabela Simples ou Tabela em Abas). Veja [a documentação](docs/tabelas-reutilizaveis.md).
+
+**Nota:** tabelas são referenciadas por ID nos dados da página; a aplicação valida as referências. A futura camada de integridade relacional reforçará essa associação.
