@@ -1,6 +1,6 @@
-# Portal da Prefeitura de Argirita
+# Portal da Prefeitura de Guarará
 
-Portal institucional da Prefeitura de Argirita (MG), com referência de arquitetura de informação e layout no portal público da Prefeitura de Maripá de Minas.
+Portal institucional da Prefeitura de Guarará (MG), com referência de arquitetura de informação e layout no portal público da Prefeitura de Maripá de Minas.
 
 ## Tecnologias planejadas
 
@@ -16,4 +16,4 @@ O código inicial está na branch [`create`](../../tree/create). A branch `main`
 
 ## Escopo
 
-Páginas institucionais, notícias e comunicados, transparência, licitações, concursos, atendimento e serviços públicos. O conteúdo e os dados oficiais serão próprios de Argirita, sem replicar informações administrativas de outro município.
+Páginas institucionais, notícias e comunicados, transparência, licitações, concursos, atendimento e serviços públicos. O conteúdo e os dados oficiais serão próprios de Guarará, sem replicar informações administrativas de outro município.
