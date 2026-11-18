@@ -6,6 +6,8 @@ type Cover={file:string;mime:string;version:number};
 export default function ImagensPadronizadas(){
  const [cover,setCover]=useState<Cover|null>(null),[file,setFile]=useState<File|null>(null);
  const [categories,setCategories]=useState<Category[]>([]);
+ const [categoryFiles,setCategoryFiles]=useState<Record<string,File|null>>({});
+ const [savingCategory,setSavingCategory]=useState<string|null>(null);
  const [role,setRole]=useState(''),[loading,setLoading]=useState(true),[busy,setBusy]=useState(false);
  const [message,setMessage]=useState<{error:boolean;text:string}|null>(null);
  useEffect(()=>{let active=true;(async()=>{try{
@@ -23,6 +25,22 @@ export default function ImagensPadronizadas(){
    setMessage({text:'Capa padrão atualizada para os comunicados.',error:false});
   }catch(e){setMessage({text:String(e),error:true});}finally{setBusy(false);}
  }
+ async function saveCategoryCover(category:Category){
+  const chosen=categoryFiles[category.id];if(!chosen)return;
+  setSavingCategory(category.id);setMessage(null);
+  try{
+   if(chosen.size>4*1024*1024)throw Error('Imagem deve ter no máximo 4 MB');
+   const form=new FormData();form.append('arquivo',chosen);
+   const upload=await fetch('/api/admin-capa-comunicado',{method:'POST',body:form});
+   const result=await upload.json() as {arquivo?:string;error?:string};
+   if(!upload.ok||!result.arquivo)throw Error(result.error||'Erro ao enviar capa');
+   const response=await fetch('/api/admin-proxy/admin/comunicados/categorias/'+category.id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:category.nome,slug:category.slug,capaArquivo:result.arquivo})});
+   if(!response.ok)throw Error('Não foi possível vincular a capa à categoria.');
+   setCategories(current=>current.map(item=>item.id===category.id?{...item,capaArquivo:result.arquivo!}:item));
+   setCategoryFiles(current=>({...current,[category.id]:null}));
+   setMessage({error:false,text:'Capa da categoria '+category.nome+' atualizada.'});
+  }catch(e){setMessage({error:true,text:String(e)});}finally{setSavingCategory(null);}
+ }
  return <div className="admin-dashboard"><div className="admin-dashboard-header"><div><span className="admin-kicker">CONFIGURAÇÕES / PORTAL</span><h1>Imagens padronizadas</h1><p>Gerencie os elementos visuais usados automaticamente nos conteúdos do portal.</p></div></div>
  {message&&<div className={'admin-alert '+(message.error?'admin-alert-error':'admin-alert-ok')}>{message.text}</div>}
  <div className="admin-panel standard-cover-panel"><div className="admin-panel-title"><div><span className="admin-step">COMUNICADOS</span><h2>Capa padrão dos comunicados</h2><p>Essa imagem será exibida na home, na lista de comunicados e nas páginas individuais.</p></div></div>
@@ -34,6 +52,7 @@ export default function ImagensPadronizadas(){
  <div className="standard-category-grid">{categories.length?categories.map(category=><div className="standard-category-card" key={category.id}>
   <div className="standard-category-image">{category.capaArquivo?<img src={'/api/capas-comunicados/'+category.capaArquivo} alt={'Capa da categoria '+category.nome}/>:cover?<img src={'/api/capa-comunicados?v='+cover.version} alt="Capa geral aplicada provisoriamente"/>:<span>Sem imagem padrão</span>}</div>
   <div><strong>{category.nome}</strong><small>{category.capaArquivo?'Capa exclusiva da categoria':'Usa a capa geral'}</small></div>
+  {(role==='ADMINISTRADOR'||role==='GESTOR')&&<div className="standard-category-upload"><input aria-label={'Enviar capa para '+category.nome} type="file" accept="image/png,image/jpeg,image/webp" onChange={e=>setCategoryFiles(p=>({...p,[category.id]:e.target.files?.[0]||null}))}/><button className="admin-button admin-button-outline" type="button" disabled={!categoryFiles[category.id]||savingCategory!==null} onClick={()=>void saveCategoryCover(category)}>{savingCategory===category.id?'Enviando...':'Salvar capa'}</button></div>}
  </div>):<div className="admin-empty">Nenhuma categoria cadastrada. <Link href="/admin/comunicados/categorias">Criar primeira categoria →</Link></div>}</div>
  </section></div>;
 }
