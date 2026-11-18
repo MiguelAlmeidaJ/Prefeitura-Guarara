@@ -5,6 +5,10 @@ import {COOKIE_NAME,apiBase} from '../../../../lib/admin-session';
 async function proxy(req:Request,ctx:{params:Promise<{path:string[]}>}){
  const {path}=await ctx.params;
  if(!path.length||path[0]!=='admin'||path.some(segment=>!segment||segment==='..'))return NextResponse.json({error:'Rota inválida'},{status:404});
+ if(req.method!=='GET'){
+  const origin=req.headers.get('origin');
+  if(!origin||origin!==new URL(req.url).origin)return NextResponse.json({error:'Origem não autorizada'},{status:403});
+ }
  const token=(await cookies()).get(COOKIE_NAME)?.value;
  if(!token)return NextResponse.json({error:'Não autenticado'},{status:401});
  try{
