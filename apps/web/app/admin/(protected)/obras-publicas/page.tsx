@@ -6,7 +6,11 @@ type Options={categorias:Option[];recursos:Option[]};
 type Obra={id:string;ano:number;numero:string;objeto:string;categoriaId:string;recursoId:string;inicio:string;comprovacaoUrl:string;categoria:Option;recurso:Option};
 type Draft={ano:number;numero:string;objeto:string;categoriaId:string;recursoId:string;inicio:string;comprovacaoUrl:string};
 type Notice={text:string;error:boolean};
-const today=()=>new Date().toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'});
+const today=()=>{
+ const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+ const field=(type:string)=>parts.find(part=>part.type===type)?.value||'';
+ return field('year')+'-'+field('month')+'-'+field('day');
+};
 const blank=():Draft=>({ano:Number(today().slice(0,4)),numero:'',objeto:'',categoriaId:'',recursoId:'',inicio:today(),comprovacaoUrl:''});
 async function api<T>(path:string,method='GET',body?:unknown):Promise<T>{
  const response=await fetch('/api/admin-proxy/admin/obras-publicas'+path,{method,headers:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),cache:'no-store'});
