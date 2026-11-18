@@ -18,6 +18,7 @@ export default async function ProtectedLayout({children}:Readonly<{children:Reac
     <Link href="/admin/transparencia/leis" className="admin-sidebar-link"><span aria-hidden="true">§</span> Leis Municipais</Link>
     <Link href="/admin/transparencia/decretos" className="admin-sidebar-link"><span aria-hidden="true">§</span> Decretos Municipais</Link>
     <Link href="/admin/transparencia/portarias" className="admin-sidebar-link"><span aria-hidden="true">§</span> Portarias Municipais</Link>
+    <Link href="/admin/transparencia/folha-de-pagamento" className="admin-sidebar-link"><span aria-hidden="true">▦</span> Folha de Pagamento</Link>
     <div className="admin-sidebar-label admin-sidebar-group">SERVIÇOS</div>
     <Link href="/admin/servicos/protocolo" className="admin-sidebar-link"><span aria-hidden="true">▤</span> Protocolo</Link>
     <Link href="/admin/servicos/emails" className="admin-sidebar-link"><span aria-hidden="true">✉</span> E-mails oficiais</Link>
