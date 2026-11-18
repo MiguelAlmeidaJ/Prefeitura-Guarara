@@ -2,14 +2,9 @@
 import {useEffect,useMemo,useState,type FormEvent} from 'react';
 import Link from 'next/link';
 
-export type Categoria='comissionados'|'efetivos'|'contratados';
+import {folhaCategorias,meses,type CategoriaFolha} from '../lib/folha-pagamento';
+type Categoria=CategoriaFolha;
 type Competencia={id:string;ano:number;mes:number;link:string};
-export const folhaCategorias:{slug:Categoria;nome:string;descricao:string}[]=[
- {slug:'comissionados',nome:'Comissionados',descricao:'Consulte as folhas de pagamento de cargos comissionados.'},
- {slug:'efetivos',nome:'Efetivos',descricao:'Consulte as folhas de pagamento dos servidores efetivos.'},
- {slug:'contratados',nome:'Contratados',descricao:'Consulte as folhas de pagamento dos servidores contratados.'}
-];
-export const meses=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 export function FolhaPagamentoPublica({categoria}:{categoria:Categoria}){
  const [registros,setRegistros]=useState<Competencia[]>([]);
  const [loading,setLoading]=useState(true);

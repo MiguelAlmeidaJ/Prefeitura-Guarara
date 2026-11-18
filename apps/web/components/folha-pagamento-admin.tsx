@@ -1,7 +1,7 @@
 'use client';
 import {useEffect,useMemo,useState,type FormEvent} from 'react';
 import Link from 'next/link';
-import {folhaCategorias,meses,type Categoria} from './folha-pagamento-publica';
+import {folhaCategorias,meses,type CategoriaFolha as Categoria} from '../lib/folha-pagamento';
 type Entry={id:string;ano:number;mes:number;link:string;publicado:boolean};
 type Draft=Omit<Entry,'id'>;
 const yearNow=()=>Number(new Intl.DateTimeFormat('en-US',{year:'numeric',timeZone:'America/Sao_Paulo'}).format(new Date()));
