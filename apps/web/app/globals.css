@@ -975,3 +975,125 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
 .identity-upload-area .admin-button{justify-self:start}
 .identity-loading{padding:30px}
 @media(max-width:700px){.identity-admin-grid{grid-template-columns:1fr}.identity-preview{margin:0 16px 18px}.identity-upload-area{padding:0 16px 18px}}
+
+
+/* Refinamento visual 2026 — cabeçalho, marca e rodapé */
+.site-header{background:#fff}
+.site-topbar{background:#fff}
+.topbar-content{min-height:110px;gap:clamp(20px,4vw,55px)}
+.site-brand{min-width:210px;flex:0 1 310px;gap:0;overflow:hidden}
+.site-brand .brand-text{display:none!important}
+.municipal-logo{position:relative;display:inline-grid;place-items:center;overflow:hidden;vertical-align:middle;flex-shrink:0}
+.municipal-logo img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;position:relative;z-index:1}
+.municipal-logo img:not([src]){display:none}
+.municipal-logo:not(.has-image) img{opacity:0;position:absolute;pointer-events:none}
+.municipal-logo-skeleton{position:absolute;inset:0;border-radius:12px;background:linear-gradient(110deg,#eaf0f5 8%,#f7f9fc 20%,#eaf0f5 36%);background-size:220% 100%;animation:municipal-logo-pulse 2s ease-in-out infinite}
+.municipal-logo.has-image .municipal-logo-skeleton{display:none}
+@keyframes municipal-logo-pulse{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media(prefers-reduced-motion:reduce){.municipal-logo-skeleton{animation:none}}
+.header-logo{width:clamp(185px,20vw,288px);height:73px;max-width:100%}
+.header-logo img{max-width:100%;max-height:73px}
+.topbar-search{flex:1 1 430px;justify-content:center}
+.topbar-service{padding:13px 21px;border-radius:10px;box-shadow:0 5px 13px #19844417}
+.site-nav-items{display:flex;align-items:center;justify-content:center;min-height:61px}
+.public-nav-root{width:auto;max-width:100%}
+.public-nav-menu{justify-content:center;gap:10px}
+.site-nav-fallback{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+.site-nav-fallback a{padding:16px 7px}
+.site-nav{border-top:1px solid #edf1f6}
+.site-footer{background:#f5f8fc;color:#1A2E4A;padding:0;border-top:1px solid #dfe8f1}
+.footer-main{padding-top:64px;padding-bottom:55px;display:grid;grid-template-columns:minmax(255px,1.5fr) repeat(3,minmax(125px,1fr));gap:clamp(26px,4vw,66px)}
+.footer-identity{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:13px}
+.footer-logo-link{display:inline-flex;max-width:100%;border-radius:9px}
+.footer-logo{width:235px;height:67px;max-width:100%}
+.footer-logo img{max-height:67px}
+.footer-identity p{margin:0;color:#1A2E4A;font-weight:800;font-size:14px;line-height:1.45}
+.footer-identity>span{font-size:11px;line-height:1.8;color:#647992}
+.footer-links-block{display:flex;flex-direction:column;align-items:flex-start;gap:11px}
+.footer-links-block h2{color:#1A2E4A;font-size:12px;font-weight:800;margin:2px 0 12px;letter-spacing:.01em}
+.site-footer .footer-links-block a{font-size:11px;text-decoration:none;color:#526982;line-height:1.5;transition:color .15s}
+.site-footer .footer-links-block a:hover{color:#198444;text-decoration:none}
+.site-footer .footer-bottom{display:flex;justify-content:space-between;gap:14px;padding-top:19px;padding-bottom:23px;font-size:10px;color:#8192a6;border-top:1px solid #dce6ef}
+@media(max-width:1000px){.footer-main{grid-template-columns:repeat(3,minmax(0,1fr))}.footer-identity{grid-column:1/-1}.topbar-content{gap:16px}}
+@media(max-width:850px){.site-nav-items{justify-content:stretch;min-height:55px}.public-nav-root{width:100%}.public-nav-menu{justify-content:flex-start}.site-nav-fallback{justify-content:flex-start}.topbar-content{min-height:95px}.site-brand{min-width:170px}}
+@media(max-width:650px){.site-brand{min-width:0;flex:1 1 165px}.header-logo{height:53px;width:clamp(145px,42vw,205px)}.header-logo img{max-height:53px}.topbar-content{gap:12px}.footer-main{grid-template-columns:repeat(2,minmax(0,1fr));padding-top:42px;padding-bottom:36px;gap:30px}.footer-identity{grid-column:1/-1}.footer-logo{width:210px;height:60px}.site-footer .footer-bottom{flex-direction:column;gap:5px}.site-nav-items{display:block}.site-nav-fallback{overflow-x:auto;flex-wrap:nowrap}}
+@media(max-width:420px){.site-brand .municipal-logo{display:inline-grid}.topbar-service{font-size:10px;padding:10px 12px}.footer-main{gap:24px}}
+
+/* Sidebar administrativa: superfície clara, alinhamento e grupos */
+.admin-shell.admin-shell-modern{--sidebar-width:278px;grid-template-columns:var(--sidebar-width) minmax(0,1fr);background:#f6f8fc;transition:grid-template-columns .22s ease}
+.admin-shell.admin-shell-modern.sidebar-is-collapsed{--sidebar-width:82px}
+.admin-sidebar.admin-sidebar-modern{background:#fff;color:#1A2E4A;border-right:1px solid #e3eaf2;padding:0;position:sticky;top:0;height:100dvh;min-height:0;z-index:110;box-shadow:5px 0 25px #1A2E4A04}
+.admin-sidebar-top{display:flex;align-items:center;gap:7px;min-height:104px;padding:21px 15px 16px;border-bottom:1px solid #eff2f7}
+.admin-sidebar-brand-modern{display:flex;align-items:center;gap:12px;flex:1;min-width:0;text-decoration:none}
+.admin-brand-logo{width:63px;height:57px;flex:0 0 63px}
+.admin-brand-logo img{max-height:57px;max-width:100%}
+.admin-sidebar-brand-copy{display:flex;flex-direction:column;min-width:0;line-height:1.3}
+.admin-sidebar-brand-copy strong{font-size:17px;font-weight:800;letter-spacing:-.035em;color:#1A2E4A}
+.admin-sidebar-brand-copy small{font-size:9px;color:#8598ac;white-space:nowrap}
+.admin-sidebar-collapse,.admin-sidebar-close-mobile,.admin-sidebar-open-mobile{border:1px solid #e0e9f3;background:#f6f9fc;color:#526e8e;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;flex:0 0 auto}
+.admin-sidebar-collapse:hover,.admin-sidebar-close-mobile:hover,.admin-sidebar-open-mobile:hover{color:#3366A8;border-color:#b9d0e7}
+.admin-sidebar-collapse svg{transform:rotate(90deg)}
+.admin-sidebar-close-mobile,.admin-sidebar-open-mobile{display:none}
+.admin-sidebar-scroll{flex:1;min-height:0;overflow-x:hidden;overflow-y:auto;padding:25px 13px 22px;scrollbar-width:thin;scrollbar-color:#dce6ee transparent}
+.admin-sidebar-caption{color:#9aaabb;font-size:9px;letter-spacing:.17em;font-weight:800;padding:0 14px 13px}
+.admin-sidebar-modern nav.admin-nav-modern{display:flex;flex-direction:column;gap:7px}
+.admin-nav-section{display:flex;flex-direction:column;gap:2px}
+.admin-nav-group{border:0;background:transparent;display:flex;align-items:center;gap:12px;width:100%;min-height:46px;border-radius:10px;color:#546b84;padding:8px 13px;text-align:left;font-weight:700;font-size:12px}
+.admin-nav-group:hover{background:#f0f5fb;color:#1A2E4A}
+.admin-nav-section.is-active>.admin-nav-group{background:#e9f4ed;color:#146b38}
+.admin-nav-group-icon{display:grid;place-items:center;width:22px;height:22px;flex:0 0 22px;color:#6986a5}
+.admin-nav-section.is-active>.admin-nav-group .admin-nav-group-icon{color:#198444}
+.admin-nav-group-label{flex:1;min-width:0}
+.admin-nav-group-caret{color:#8ca0b4;transition:transform .2s;display:grid;place-items:center}
+.admin-nav-group[aria-expanded=true] .admin-nav-group-caret{transform:rotate(180deg)}
+.admin-nav-children{display:flex;flex-direction:column;gap:3px;margin:3px 0 6px 27px;padding-left:14px;border-left:1px solid #e4ebf2}
+.admin-nav-child{position:relative;display:flex;align-items:center;min-height:37px;text-decoration:none;padding:8px 11px 8px 13px;color:#667a90;font-size:11px;font-weight:600;line-height:1.4;border-radius:8px}
+.admin-nav-child:hover{background:#f2f6fb;color:#1A2E4A}
+.admin-nav-child.is-current{color:#146b38;background:#edf8f1;font-weight:800}
+.admin-nav-child.is-current:before{content:'';position:absolute;left:-15px;top:11px;bottom:11px;width:2px;background:#198444;border-radius:2px}
+.admin-nav-divider{margin:20px 10px 13px;border-top:1px solid #edf1f6}
+.admin-nav-site{display:flex;align-items:center;gap:12px;padding:11px 13px;color:#60758c;text-decoration:none;font-size:11px;font-weight:700;border-radius:9px}
+.admin-nav-site:hover{background:#f0f5fb;color:#3366A8}
+.admin-nav-site svg{color:#6986a5;flex:0 0 auto}
+.admin-sidebar-profile{display:flex;align-items:center;gap:11px;min-height:78px;border-top:1px solid #e9eef4;padding:15px 18px;background:#fbfcfe}
+.admin-sidebar-profile-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:12px;background:#e7f3ec;color:#198444;font-weight:800;display:grid;place-items:center;font-size:14px}
+.admin-sidebar-profile-copy{display:flex;flex-direction:column;min-width:0;gap:1px}
+.admin-sidebar-profile-copy strong{font-size:11px;color:#1A2E4A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.admin-sidebar-profile-copy small{font-size:10px;color:#7c8fa4;text-transform:capitalize}
+.admin-workspace-header.admin-workspace-header-modern{background:#fff;height:72px;border-bottom:1px solid #e3eaf2;padding:0 clamp(18px,3.5vw,48px)}
+.admin-workspace-left{display:flex;align-items:center;gap:0;min-width:0}
+.admin-workspace-left strong{font-size:11px;color:#1A2E4A}
+.admin-workspace-header .admin-logout{border-radius:8px}
+.admin-sidebar-backdrop{display:none}
+.sidebar-is-collapsed .admin-sidebar-top{padding:16px 12px;min-height:104px;justify-content:center;flex-direction:column;gap:10px}
+.sidebar-is-collapsed .admin-brand-logo{width:53px;height:44px;flex-basis:44px}
+.sidebar-is-collapsed .admin-brand-logo img{max-height:44px}
+.sidebar-is-collapsed .admin-sidebar-brand-copy,.sidebar-is-collapsed .admin-sidebar-caption,.sidebar-is-collapsed .admin-nav-group-label,.sidebar-is-collapsed .admin-nav-group-caret,.sidebar-is-collapsed .admin-nav-site span,.sidebar-is-collapsed .admin-sidebar-profile-copy{display:none}
+.sidebar-is-collapsed .admin-sidebar-scroll{padding-left:11px;padding-right:11px}
+.sidebar-is-collapsed .admin-nav-group{justify-content:center;padding:10px;min-height:47px}
+.sidebar-is-collapsed .admin-nav-group-icon{width:24px;height:24px;flex-basis:24px}
+.sidebar-is-collapsed .admin-sidebar-profile{justify-content:center;padding:14px 8px}
+.sidebar-is-collapsed .admin-nav-site{justify-content:center}
+.sidebar-is-collapsed .admin-nav-children{display:none}
+.sidebar-is-collapsed .admin-sidebar-collapse{width:25px;height:25px}
+@media(max-width:1050px){.admin-shell.admin-shell-modern{--sidebar-width:244px}.admin-sidebar-top{padding-left:12px;padding-right:12px}.admin-brand-logo{width:47px;height:51px;flex-basis:47px}.admin-sidebar-brand-copy strong{font-size:15px}}
+@media(max-width:760px){
+ .admin-shell.admin-shell-modern,.admin-shell.admin-shell-modern.sidebar-is-collapsed{display:block}
+ .admin-sidebar.admin-sidebar-modern{position:fixed;top:0;bottom:0;left:0;width:min(290px,88vw);height:100dvh;transform:translateX(-105%);transition:transform .2s ease;z-index:350;box-shadow:10px 0 50px #070D1830}
+ .admin-shell.sidebar-mobile-open .admin-sidebar.admin-sidebar-modern{transform:translateX(0)}
+ .admin-sidebar-backdrop{display:block;position:fixed;inset:0;z-index:340;background:#070D1873;border:0;border-radius:0;width:100%;height:100dvh}
+ .admin-sidebar-open-mobile,.admin-sidebar-close-mobile{display:grid;width:34px;height:34px}
+ .admin-sidebar-collapse{display:none}
+ .sidebar-is-collapsed .admin-sidebar-top{flex-direction:row;min-height:104px;padding:21px 15px 16px;justify-content:space-between}
+ .sidebar-is-collapsed .admin-brand-logo{width:58px;height:55px;flex-basis:58px}
+ .sidebar-is-collapsed .admin-sidebar-brand-copy,.sidebar-is-collapsed .admin-sidebar-caption,.sidebar-is-collapsed .admin-nav-group-label,.sidebar-is-collapsed .admin-nav-group-caret,.sidebar-is-collapsed .admin-sidebar-profile-copy,.sidebar-is-collapsed .admin-nav-site span{display:flex}
+ .sidebar-is-collapsed .admin-sidebar-scroll{padding:25px 13px 22px}
+ .sidebar-is-collapsed .admin-nav-group{justify-content:flex-start;padding:8px 13px}
+ .sidebar-is-collapsed .admin-nav-children{display:flex}
+ .sidebar-is-collapsed .admin-sidebar-profile{justify-content:flex-start;padding:15px 18px}
+ .sidebar-is-collapsed .admin-nav-site{justify-content:flex-start}
+ .admin-workspace-header.admin-workspace-header-modern{padding:0 16px}
+ .admin-workspace-left{gap:12px}
+ .admin-workspace-left .admin-breadcrumb-divider{margin:0 2px}
+ .admin-online-label{display:none}
+}
