@@ -917,3 +917,46 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
 .payroll-admin-form{padding:0 26px 26px;display:grid;gap:18px}
 .transparency-acts-shortcuts{grid-template-columns:repeat(auto-fit,minmax(185px,1fr))}
 @media(max-width:750px){.payroll-landing-grid{grid-template-columns:1fr}.payroll-landing-card{min-height:170px}.payroll-admin-form{padding:0 18px 24px}.payroll-admin-form .admin-two-fields{grid-template-columns:1fr}}
+
+/* Navegação institucional renovada — menus e submenus acessíveis */
+.site-nav{position:relative;z-index:65;border-bottom:1px solid #dde8f2;box-shadow:0 5px 13px #1A2E4A08}
+.site-nav-items{display:block;min-height:58px}
+.public-nav-root{position:relative;width:100%}
+.public-nav-menu{display:flex;align-items:stretch;gap:6px;min-height:58px}
+.public-nav-item{position:relative;flex-shrink:0;min-width:0}
+.public-nav-item-row{display:flex;align-items:center;height:100%;border-radius:8px}
+.public-nav-item-link{display:flex;align-items:center;min-height:50px;font-weight:700!important;font-size:12px!important;color:#1A2E4A!important;text-decoration:none!important;padding:13px 10px 13px 14px!important;white-space:nowrap}
+.public-nav-expand{border:0;background:none;color:#3366A8;padding:10px 9px 10px 4px;display:grid;place-items:center}
+.public-nav-expand svg{transition:transform .18s}
+.public-nav-item.is-open>.public-nav-item-row .public-nav-expand svg{transform:rotate(180deg)}
+.public-nav-item:hover>.public-nav-item-row,.public-nav-item.is-open>.public-nav-item-row{background:#edf4fc}
+.public-nav-item.is-active>.public-nav-item-row:after{content:'';position:absolute;bottom:0;left:14px;right:12px;height:3px;background:#198444;border-radius:5px}
+.public-nav-item-link:hover{color:#3366A8!important}
+.public-nav-panel[hidden]{display:none!important}
+.public-nav-panel{position:absolute;top:calc(100% + 5px);left:0;min-width:265px;max-width:360px;background:#fff;border:1px solid #dbe6ef;border-radius:12px;box-shadow:0 22px 55px #070D1829;z-index:90;padding:9px}
+.public-nav-panel-inner{display:grid;gap:3px}
+.public-nav-panel-caption{color:#7790a9;font-size:9px;letter-spacing:.1em;font-weight:800;padding:11px 12px 7px}
+.public-nav-panel .public-nav-item-row{min-height:43px}
+.public-nav-panel .public-nav-item-link{min-height:41px;white-space:normal;overflow-wrap:anywhere;flex:1;font-size:11px!important;line-height:1.5;padding:10px 11px!important}
+.public-nav-panel .public-nav-item.is-open>.public-nav-item-row{background:#f1f6fc}
+.public-nav-panel .public-nav-panel{top:-8px;left:calc(100% + 8px)}
+.public-nav-menu>.public-nav-item:last-child>.public-nav-panel{right:0;left:auto}
+.public-nav-menu>.public-nav-item:last-child .public-nav-panel .public-nav-panel{left:auto;right:calc(100% + 8px)}
+.public-nav-mobile-toggle{display:none}
+.brand-uploaded{height:60px;min-width:60px;max-width:190px;display:flex;align-items:center}
+.brand-uploaded img{max-height:60px;max-width:190px;width:auto;height:auto;object-fit:contain}
+@media(max-width:850px){
+ .site-nav-items{min-height:55px}
+ .public-nav-root{padding:9px 0}
+ .public-nav-mobile-toggle{display:flex;align-items:center;gap:10px;border:1px solid #d9e6f1;background:#f6f9fc;border-radius:9px;padding:10px 15px;font-size:12px;font-weight:700;color:#1A2E4A}
+ .public-nav-menu{display:none;min-height:0;flex-direction:column;gap:3px;padding:10px;margin-top:10px;border:1px solid #dce6ef;border-radius:12px;background:#fff;box-shadow:0 8px 20px #1A2E4A0b;max-height:70dvh;overflow-y:auto}
+ .public-nav-menu.is-mobile-open{display:flex}
+ .public-nav-item{width:100%;flex-shrink:1}
+ .public-nav-item-row{min-height:45px}
+ .public-nav-item-link{white-space:normal;flex:1;min-height:43px}
+ .public-nav-expand{padding:12px 14px}
+ .public-nav-panel,.public-nav-panel .public-nav-panel,.public-nav-menu>.public-nav-item:last-child>.public-nav-panel,.public-nav-menu>.public-nav-item:last-child .public-nav-panel .public-nav-panel{position:static;max-width:none;min-width:0;box-shadow:none;border:0;border-left:2px solid #d6e6f4;border-radius:0;margin:0 0 6px 16px;padding:0 0 0 8px;background:#f9fbfe}
+ .public-nav-panel-caption{display:none}
+ .public-nav-item.is-active>.public-nav-item-row:after{display:none}
+}
+@media(max-width:540px){.brand-uploaded{height:47px;max-width:104px;min-width:35px}.brand-uploaded img{max-width:104px;max-height:47px}.brand-text strong{font-size:18px}}
