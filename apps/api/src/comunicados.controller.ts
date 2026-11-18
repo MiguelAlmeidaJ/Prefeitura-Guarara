@@ -31,12 +31,12 @@ export class ComunicadosController{
  listPublic(){
   return this.prisma.comunicado.findMany({
    where:{publicado:true},orderBy:[{publicadoEm:'desc'},{criadoEm:'desc'}],
-   select:{id:true,titulo:true,slug:true,resumo:true,conteudo:true,publicadoEm:true,criadoEm:true}
+   select:{id:true,titulo:true,slug:true,resumo:true,conteudo:true,capaArquivo:true,publicadoEm:true,criadoEm:true}
   });
  }
  @Get('comunicados/:slug')
  async details(@Param('slug') slug:string){
-  const item=await this.prisma.comunicado.findFirst({where:{slug,publicado:true},select:{id:true,titulo:true,slug:true,resumo:true,conteudo:true,publicadoEm:true,criadoEm:true}});
+  const item=await this.prisma.comunicado.findFirst({where:{slug,publicado:true},select:{id:true,titulo:true,slug:true,resumo:true,conteudo:true,capaArquivo:true,publicadoEm:true,criadoEm:true}});
   if(!item)throw new NotFoundException();
   return item;
  }
