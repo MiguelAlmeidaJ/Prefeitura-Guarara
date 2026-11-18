@@ -186,3 +186,13 @@ model SaudeConteudo {
  @@index([tipo, ordem])
  @@index([ano])
 }
+
+model ProtocoloFormulario {
+ id String @id @default(cuid())
+ nome String
+ link String
+ ordem Int @default(0)
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([ordem, criadoEm])
+}
