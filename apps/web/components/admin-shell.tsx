@@ -67,7 +67,7 @@ export function AdminShell({children,user}:{children:React.ReactNode;user:{nome:
   {mobile&&<button className="admin-sidebar-backdrop" aria-label="Fechar menu administrativo" onClick={()=>setMobile(false)}/>}
   <aside className="admin-sidebar admin-sidebar-modern" aria-label="Barra de navegação">
    <div className="admin-sidebar-top">
-    <Link href="/admin" className="admin-sidebar-brand-modern" aria-label="Guarará — painel administrativo"><MunicipalLogo className="admin-brand-logo"/><span className="admin-sidebar-brand-copy"><strong>Guarará</strong><small>Painel administrativo</small></span></Link>
+    <Link href="/admin" className="admin-sidebar-brand-modern" aria-label="Guarará — painel administrativo"><MunicipalLogo className="admin-brand-logo"/></Link>
     <button type="button" className="admin-sidebar-collapse" aria-label={collapsed?'Expandir menu lateral':'Recolher menu lateral'} title={collapsed?'Expandir menu':'Recolher menu'} onClick={collapse}><Icon name={collapsed?'menu':'chevron'}/></button>
     <button className="admin-sidebar-close-mobile" aria-label="Fechar menu" onClick={()=>setMobile(false)}><Icon name="close"/></button>
    </div>
