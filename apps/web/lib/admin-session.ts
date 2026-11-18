@@ -1,7 +1,7 @@
 import {cookies} from 'next/headers';
 export const COOKIE_NAME='guarara_admin_session';
 export function apiBase(){return process.env.API_URL||'http://127.0.0.1:3007';}
-export async function getAdminUser():Promise<{id:string;papel:string}|null>{
+export async function getAdminUser():Promise<{id:string;nome:string;papel:string}|null>{
  const token=(await cookies()).get(COOKIE_NAME)?.value;
  if(!token)return null;
  try{
