@@ -485,3 +485,77 @@ button:disabled{opacity:.65;cursor:not-allowed}
 .obras-pagination button:disabled{opacity:.35}
 @media(max-width:900px){.obras-public-filters{grid-template-columns:1fr 1fr}.obras-public-statbar{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.obras-two-fields{grid-template-columns:1fr}.obras-form-fields{padding:0 18px}.obras-public-filters{grid-template-columns:1fr;padding:12px 18px 20px}.obras-public-card-head{padding:24px 18px}.obras-public-resultbar{padding:12px 18px}.obras-public-hero{padding:50px 0}.obras-modal-form,.obras-modal-list{padding-left:18px;padding-right:18px}}
+
+
+/* Secretaria de Saúde — página pública */
+.health-hero{background:radial-gradient(circle at 90% 40%,#0c586569,transparent 36%),linear-gradient(120deg,#070D18,#1A2E4A 62%,#0c3c54);color:#fff;position:relative;overflow:hidden;padding:58px 0 0}
+.health-hero-inner{min-height:160px;display:flex;justify-content:space-between;gap:20px}
+.health-hero-eyebrow{font-size:10px;font-weight:800;letter-spacing:.16em;color:#8bb9d9}
+.health-hero h1{font-size:clamp(29px,4vw,48px);letter-spacing:-.05em;margin:13px 0 15px;line-height:1.1}
+.health-hero h1 em{font-style:italic;color:#f5bf52;font-family:Georgia,serif}
+.health-icon{background:#0d6365;border:1px solid #3d8d96;border-radius:12px;display:inline-grid;place-items:center;font-size:24px;width:49px;height:49px;vertical-align:middle;margin-right:14px;color:#fff}
+.health-hero p{color:#c2d0e4;font-size:12px;max-width:610px;line-height:1.85}
+.health-hero-cross{font-size:150px;font-weight:800;line-height:1;color:#ffffff0e}
+.health-hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:#ffffff0d;border:1px solid #ffffff18;border-radius:12px 12px 0 0;min-height:82px;margin-top:18px}
+.health-hero-stats div{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:14px 20px;border-right:1px solid #ffffff15;min-width:0}
+.health-hero-stats div:last-child{border-right:0}
+.health-hero-stats strong{font-size:18px;color:#efbe57;font-family:Georgia,serif;overflow-wrap:anywhere;line-height:1.3}
+.health-hero-stats span{color:#b7c7d9;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.health-body{background:#fbfaf7;padding:40px 0 55px}
+.health-body>.wrap{max-width:1180px}
+.health-feature{border-radius:12px;box-shadow:0 12px 26px #142b3e17;color:#fff;display:flex;align-items:center;gap:22px;padding:28px 30px;margin:0 0 42px}
+.health-feature-green{background:linear-gradient(110deg,#0c7772,#0e5851)}
+.health-feature-navy{background:linear-gradient(110deg,#0d213d,#113a53)}
+.health-feature-symbol{font-size:29px;display:grid;place-items:center;background:#ffffff1a;border:1px solid #ffffff29;border-radius:10px;width:55px;height:55px;flex-shrink:0}
+.health-feature>div:nth-child(2){flex:1;min-width:0}
+.health-feature-tag{color:#ffe39f;font-size:9px;font-weight:800;letter-spacing:.12em}
+.health-feature h2{font-size:21px;line-height:1.3;font-family:Georgia,serif;letter-spacing:-.015em;margin:8px 0 9px;color:white}
+.health-feature p{font-size:11px;line-height:1.8;color:#e0edf1;margin:0;max-width:630px}
+.health-feature-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.health-download{background:#d39b24;color:#101d2f;border:0;border-radius:7px;padding:10px 16px;display:inline-block;text-decoration:none;font-weight:800;font-size:10px;text-align:center;white-space:nowrap}
+.health-download:hover{background:#f2c35a}
+.health-download-alt{background:#ffffff24;color:#fff;border:1px solid #ffffff34}
+.health-download-alt:hover{background:#ffffff3d}
+.health-section{margin:35px 0 48px}
+.health-section-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #dce6e7;padding-bottom:10px;margin-bottom:20px}
+.health-section-heading span{font-size:11px;font-weight:800;letter-spacing:.12em;color:#4c738f}
+.health-section-heading small{font-size:10px;color:#8497ab}
+.health-years{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
+.health-year-card{min-height:147px;background:#fff;border:1px solid #dbe5ec;border-radius:12px;box-shadow:0 4px 12px #102b4013;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:6px;padding:18px 14px 13px;text-align:center;border-top:3px solid #ccd9e5}
+.health-year-card.is-current{border-top-color:#0d8278;background:#f8fffd}
+.health-year-card strong{font-size:24px;font-family:Georgia,serif;color:#18304d}
+.health-year-card.is-current strong{color:#0b766c}
+.health-year-card small{font-size:9px;letter-spacing:.03em;font-weight:700;color:#64778c;min-height:24px}
+.health-year-card .health-download{width:100%;background:#122743;color:#fff}
+.health-year-card.is-current .health-download{background:#0d7d73}
+.health-documents{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.health-document-card{display:flex;align-items:center;gap:10px;min-width:0;background:#fff;border:1px solid #dbe5ec;border-left:3px solid #0d8b79;border-radius:8px;padding:15px;text-decoration:none;color:#18304d}
+.health-document-card>span{font-size:20px}
+.health-document-card>div{min-width:0;flex:1}
+.health-document-card strong{display:block;font-size:11px;text-decoration:underline}
+.health-document-card small{display:block;color:#7a8da2;font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.health-document-card b{color:#0d7f70}
+.health-service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.health-service-card{background:#fff;border:1px solid #dbe5ec;border-top:3px solid #0e8478;border-radius:12px;box-shadow:0 5px 16px #102b4010;padding:19px 20px;display:flex;flex-direction:column;align-items:stretch;min-height:215px}
+.health-service-icon{font-size:22px;margin-bottom:7px}
+.health-service-card h3{font-size:15px;line-height:1.3;color:#182e4b;margin:6px 0}
+.health-service-card p{font-size:11px;line-height:1.7;color:#687c93;margin:0 0 16px;flex:1}
+.health-service-card .health-download{background:#0f7c73;color:#fff}
+.health-med-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.health-med-grid>.health-feature{margin:0;align-items:flex-start;flex-direction:column;gap:8px;min-height:235px}
+.health-med-grid .health-feature h2{font-size:19px}
+.health-med-grid .health-feature .health-download{margin-top:15px}
+.health-empty{background:#fff;border:1px dashed #c9d6e1;color:#73889a;border-radius:10px;padding:24px;font-size:12px}
+.health-info{background:#fff;border:1px solid #dbe5ec;border-radius:10px;padding:20px;color:#18304d;font-size:12px;margin-top:20px}
+.health-info p{color:#64748b;font-size:11px;line-height:1.75}
+@media(max-width:950px){.health-years{grid-template-columns:repeat(3,minmax(0,1fr))}.health-documents{grid-template-columns:repeat(2,minmax(0,1fr))}.health-feature{flex-wrap:wrap}.health-feature-actions{width:100%}}
+@media(max-width:650px){.health-hero{padding-top:38px}.health-hero-cross{display:none}.health-hero-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.health-body{padding-top:25px}.health-feature{padding:23px 19px;margin-bottom:30px}.health-years{grid-template-columns:repeat(2,minmax(0,1fr))}.health-documents{grid-template-columns:1fr}.health-service-grid,.health-med-grid{grid-template-columns:1fr}.health-section{margin-bottom:35px}}
+/* Secretaria de Saúde — painel editorial */
+.health-admin-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px}
+.health-admin-tabs button{border:1px solid #d9e4ed;background:#fff;color:#314b67;border-radius:8px;padding:11px 14px;font-size:11px;font-weight:700}
+.health-admin-tabs button.active{background:#1A2E4A;color:#fff;border-color:#1A2E4A}
+.health-admin-panel{min-height:220px}
+.health-admin-form{display:grid;gap:18px;padding:0 26px 27px}
+.health-admin-actions{display:flex;gap:12px;flex-wrap:wrap}
+.admin-sidebar-group{margin-top:22px}
+@media(max-width:650px){.health-admin-form{padding:0 18px 22px}.health-admin-form .admin-two-fields{grid-template-columns:1fr}}
