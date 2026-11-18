@@ -6,8 +6,18 @@ async function proxy(req:Request,ctx:{params:Promise<{path:string[]}>}){
  const {path}=await ctx.params;
  if(!path.length||path[0]!=='admin'||path.some(segment=>!segment||segment==='..'))return NextResponse.json({error:'Rota inválida'},{status:404});
  if(req.method!=='GET'){
+  // Next.js pode reconstruir req.url usando 0.0.0.0/127.0.0.1 em
+  // servidores PM2; o navegador informa o host real no cabeçalho Host.
+  // Compare o Origin com esse host, mantendo a proteção CSRF.
   const origin=req.headers.get('origin');
-  if(!origin||origin!==new URL(req.url).origin)return NextResponse.json({error:'Origem não autorizada'},{status:403});
+  const host=req.headers.get('host');
+  let sameOrigin=false;
+  try{
+   const originUrl=origin?new URL(origin):null;
+   sameOrigin=Boolean(originUrl&&host&&originUrl.host.toLowerCase()===host.toLowerCase()&&
+    (originUrl.protocol==='http:'||originUrl.protocol==='https:'));
+  }catch{sameOrigin=false;}
+  if(!sameOrigin)return NextResponse.json({error:'Origem não autorizada'},{status:403});
  }
  const token=(await cookies()).get(COOKIE_NAME)?.value;
  if(!token)return NextResponse.json({error:'Não autenticado'},{status:401});
