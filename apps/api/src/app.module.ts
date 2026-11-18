@@ -7,8 +7,9 @@ import {ObrasController} from './obras.controller';
 import {SaudeController} from './saude.controller';
 import {ProtocoloController} from './protocolo.controller';
 import {EmailsController} from './emails.controller';
+import {TransparenciaController} from './transparencia.controller';
 import {PrismaService} from './prisma.service';
 import {AuthGuard} from './auth.guard';
 if(!process.env.JWT_SECRET||process.env.JWT_SECRET.length<32)throw new Error('Defina JWT_SECRET (32+ caracteres)');
-@Module({imports:[JwtModule.register({secret:process.env.JWT_SECRET,signOptions:{expiresIn:'8h'}})],controllers:[AppController,CmsController,MenuController,ObrasController,SaudeController,ProtocoloController,EmailsController],providers:[PrismaService,AuthGuard]})
+@Module({imports:[JwtModule.register({secret:process.env.JWT_SECRET,signOptions:{expiresIn:'8h'}})],controllers:[AppController,CmsController,MenuController,ObrasController,SaudeController,ProtocoloController,EmailsController,TransparenciaController],providers:[PrismaService,AuthGuard]})
 export class AppModule {}

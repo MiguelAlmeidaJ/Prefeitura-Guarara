@@ -218,3 +218,34 @@ model EmailOficial {
  atualizadoEm DateTime @updatedAt
  @@index([grupoId, ordem])
 }
+
+model TransparenciaConfiguracao {
+ id String @id @default("principal")
+ portalUrl String?
+ portalDescricao String? @db.Text
+ atualizadoEm DateTime @updatedAt
+}
+model TransparenciaGrupo {
+ id String @id @default(cuid())
+ nome String @unique
+ descricao String?
+ ordem Int @default(0)
+ links TransparenciaLink[]
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([ordem, criadoEm])
+}
+model TransparenciaLink {
+ id String @id @default(cuid())
+ titulo String
+ descricao String? @db.Text
+ url String
+ etiqueta String?
+ novaGuia Boolean @default(true)
+ grupoId String
+ grupo TransparenciaGrupo @relation(fields:[grupoId],references:[id],onDelete:Restrict)
+ ordem Int @default(0)
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([grupoId, ordem])
+}
