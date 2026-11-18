@@ -1,4 +1,5 @@
 'use client';
+import {DocumentUpload} from './document-upload';
 import {useEffect,useMemo,useState,type FormEvent} from 'react';
 import Link from 'next/link';
 type Tipo='leis'|'decretos'|'portarias';
@@ -47,7 +48,7 @@ export function AtosNormativosAdmin({tipo}:{tipo:Tipo}){
    <div className="admin-field"><label htmlFor="ato-title">Identificação / título <b>*</b></label><input id="ato-title" maxLength={250} required placeholder={tipo==='leis'?'Ex.: Lei nº 1261/2026':tipo==='decretos'?'Ex.: Decreto nº 001/2026':'Ex.: Portaria nº 001/2026'} value={draft.titulo} onChange={e=>change('titulo',e.target.value)}/></div>
    <div className="admin-field"><label htmlFor="ato-ementa">Ementa / descrição</label><textarea id="ato-ementa" rows={4} maxLength={6000} value={draft.ementa||''} onChange={e=>change('ementa',e.target.value||null)} placeholder="Resumo do conteúdo do documento..."/></div>
    <div className="admin-two-fields"><div className="admin-field"><label htmlFor="ato-processo">Processo (opcional)</label><input id="ato-processo" maxLength={160} value={draft.processo||''} onChange={e=>change('processo',e.target.value||null)} placeholder="Número ou referência do processo"/></div><div className="admin-field"><label htmlFor="ato-acao">Tipo de acesso</label><select id="ato-acao" value={draft.acao} onChange={e=>change('acao',e.target.value as Draft['acao'])}><option value="VISUALIZAR">Visualizar</option><option value="BAIXAR">Baixar PDF</option></select></div></div>
-   <div className="admin-field"><label htmlFor="ato-link">Link do arquivo <b>*</b></label><input id="ato-link" type="url" required pattern="https?://.+" maxLength={2048} value={draft.link} onChange={e=>change('link',e.target.value)} placeholder="https://portal.gov.br/documento.pdf"/><small>Use um link HTTP(S) público e verificado.</small></div>
+   <div className="admin-field"><label htmlFor="ato-link">Link do arquivo <b>*</b></label><input id="ato-link" type="url" required pattern="https?://.+" maxLength={2048} value={draft.link} onChange={e=>change('link',e.target.value)} placeholder="https://portal.gov.br/documento.pdf"/><small>Use um link HTTP(S) ou faça upload.</small><DocumentUpload value={draft.link} onChange={v=>change('link',v)}/></div>
    <label className="admin-check"><input type="checkbox" checked={draft.publicado} onChange={e=>change('publicado',e.target.checked)}/> Publicar documento imediatamente</label>
    <div className="health-admin-actions"><button className="admin-button admin-button-primary" type="submit" disabled={busy}>{busy?'Salvando...':editing?'Salvar alterações':'Cadastrar documento'}</button><button type="button" className="admin-button admin-button-outline" onClick={()=>setEditor(false)}>Cancelar</button></div>
   </form></section>}

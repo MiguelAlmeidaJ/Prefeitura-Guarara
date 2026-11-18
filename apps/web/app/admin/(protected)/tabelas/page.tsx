@@ -1,4 +1,5 @@
 'use client';
+import {DocumentUpload} from '../../../../components/document-upload';
 
 import {useEffect,useMemo,useState,type FormEvent} from 'react';
 import Link from 'next/link';
@@ -171,7 +172,7 @@ export default function TablesAdmin(){
          <div className="admin-record-links">
           {(column.multiplos?toLinks(row[column.chave]):[toLink(row[column.chave])]).map((link,linkIndex)=><div className="admin-record-link" key={linkIndex}>
             <div className="admin-two-fields"><div className="admin-field"><label htmlFor={'link-label-'+rowIndex+'-'+column.chave+'-'+linkIndex}>Texto do link</label><input id={'link-label-'+rowIndex+'-'+column.chave+'-'+linkIndex} required maxLength={200} placeholder="Nome do documento" value={link.texto} onChange={e=>changeLink(rowIndex,column,linkIndex,{texto:e.target.value})}/></div>
-            <div className="admin-field"><label htmlFor={'link-url-'+rowIndex+'-'+column.chave+'-'+linkIndex}>Endereço (URL)</label><input id={'link-url-'+rowIndex+'-'+column.chave+'-'+linkIndex} required type="url" pattern="https?://.+" placeholder="https://..." value={link.url} onChange={e=>changeLink(rowIndex,column,linkIndex,{url:e.target.value})}/></div></div>
+            <div className="admin-field"><label htmlFor={'link-url-'+rowIndex+'-'+column.chave+'-'+linkIndex}>Endereço (URL)</label><input id={'link-url-'+rowIndex+'-'+column.chave+'-'+linkIndex} required type="url" pattern="https?://.+" placeholder="https://..." value={link.url} onChange={e=>changeLink(rowIndex,column,linkIndex,{url:e.target.value})}/><DocumentUpload value={link.url} onChange={v=>changeLink(rowIndex,column,linkIndex,{url:v})}/></div></div>
             {column.multiplos&&<button className="admin-inline-remove" type="button" onClick={()=>updateCell(rowIndex,column.chave,toLinks(row[column.chave]).filter((_,i)=>i!==linkIndex))}>Remover link</button>}
            </div>)}
           {column.multiplos&&<button type="button" className="admin-button admin-button-outline" disabled={toLinks(row[column.chave]).length>=30} onClick={()=>updateCell(rowIndex,column.chave,[...toLinks(row[column.chave]),emptyLink()])}>+ Adicionar link</button>}

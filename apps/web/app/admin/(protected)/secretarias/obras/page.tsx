@@ -1,4 +1,5 @@
 'use client';
+import {DocumentUpload} from '../../../../../components/document-upload';
 import {useEffect,useMemo,useState,type FormEvent} from 'react';
 
 type Option={id:string;nome:string};
@@ -122,7 +123,7 @@ export default function ObrasAdmin(){
       <button type="button" className="obras-manage-link" onClick={()=>openManager('categorias')}>Gerir categorias ↗</button></div>
       <div className="admin-field"><label htmlFor="obra-recurso">Recurso <b>*</b></label><select id="obra-recurso" required value={draft.recursoId} onChange={e=>setDraft(prev=>({...prev,recursoId:e.target.value}))}><option value="">Selecione um recurso</option>{options.recursos.map(recurso=><option key={recurso.id} value={recurso.id}>{recurso.nome}</option>)}</select><button type="button" className="obras-manage-link" onClick={()=>openManager('recursos')}>Gerir recursos ↗</button></div>
      </div>
-     <div className="obras-two-fields"><div className="admin-field"><label htmlFor="obra-inicio">Início <b>*</b></label><input id="obra-inicio" type="date" required value={draft.inicio} onChange={e=>setDraft(prev=>({...prev,inicio:e.target.value}))}/></div><div className="admin-field"><label htmlFor="obra-link">Link de comprovação <b>*</b></label><input id="obra-link" type="url" pattern="https?://.+" required maxLength={2000} placeholder="https://..." value={draft.comprovacaoUrl} onChange={e=>setDraft(prev=>({...prev,comprovacaoUrl:e.target.value}))}/></div></div>
+     <div className="obras-two-fields"><div className="admin-field"><label htmlFor="obra-inicio">Início <b>*</b></label><input id="obra-inicio" type="date" required value={draft.inicio} onChange={e=>setDraft(prev=>({...prev,inicio:e.target.value}))}/></div><div className="admin-field"><label htmlFor="obra-link">Link de comprovação <b>*</b></label><input id="obra-link" type="url" pattern="https?://.+" required maxLength={2000} placeholder="https://..." value={draft.comprovacaoUrl} onChange={e=>setDraft(prev=>({...prev,comprovacaoUrl:e.target.value}))}/><DocumentUpload value={draft.comprovacaoUrl} onChange={v=>setDraft(prev=>({...prev,comprovacaoUrl:v}))}/></div></div>
     </div>
    </section>
    <aside className="admin-editor-aside"><section className="admin-panel"><div className="admin-panel-title"><div><h2>Publicação</h2><p>Dados salvos ficam públicos imediatamente.</p></div></div><div className="admin-save-box"><button type="submit" disabled={busy||!canManage} className="admin-button admin-button-primary">{busy?'Salvando...':editing?'Salvar alterações':'Cadastrar obra'}</button><button type="button" className="admin-button admin-button-outline" onClick={()=>setEditingOpen(false)}>Cancelar</button></div></section></aside>
