@@ -2,15 +2,15 @@
 import Link from 'next/link';
 import {useEffect,useMemo,useState} from 'react';
 
-export type Comunicado={id:string;titulo:string;slug:string;resumo:string|null;conteudo:string;publicadoEm:string|null;criadoEm:string};
+export type Comunicado={id:string;titulo:string;slug:string;resumo:string|null;conteudo:string;capaArquivo:string|null;publicadoEm:string|null;criadoEm:string};
 function dates(date:string|null){return date?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'}).format(new Date(date)):'';}
-function Photo({className=''}:{className?:string}){
+function Photo({className='',capaArquivo=null}:{className?:string;capaArquivo?:string|null}){
  const [broken,setBroken]=useState(false);
- return <div className={'comunicado-cover '+className}>{!broken&&<img src="/api/capa-comunicados" loading="lazy" alt="" onError={()=>setBroken(true)}/>}<div className="comunicado-cover-placeholder" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 4 4 3-3 5 5"/></svg></div></div>;
+ return <div className={'comunicado-cover '+className}>{!broken&&<img src={capaArquivo?'/api/capas-comunicados/'+capaArquivo:'/api/capa-comunicados'} loading="lazy" alt="" onError={()=>setBroken(true)}/>}<div className="comunicado-cover-placeholder" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 4 4 3-3 5 5"/></svg></div></div>;
 }
 export function ComunicadoCard({item}:{item:Comunicado}){
  return <Link href={'/comunicados/'+item.slug} className="comunicado-card">
-  <Photo/><div className="comunicado-card-body"><span className="comunicado-date">{dates(item.publicadoEm)}</span><h3>{item.titulo}</h3><p>{item.resumo||item.conteudo.replace(/[#*\[\]>]/g,'').slice(0,160)}</p><span className="comunicado-read">Ler comunicado <span aria-hidden="true">→</span></span></div>
+  <Photo capaArquivo={item.capaArquivo}/><div className="comunicado-card-body"><span className="comunicado-date">{dates(item.publicadoEm)}</span><h3>{item.titulo}</h3><p>{item.resumo||item.conteudo.replace(/[#*\[\]>]/g,'').slice(0,160)}</p><span className="comunicado-read">Ler comunicado <span aria-hidden="true">→</span></span></div>
  </Link>;
 }
 export function ComunicadosCarousel(){
@@ -37,4 +37,4 @@ export function ComunicadosCatalogo(){
  {error?<p role="alert">{error}</p>:loading?<p>Carregando...</p>:filtered.length?<div className="comunicados-grid">{filtered.map(i=><ComunicadoCard key={i.id} item={i}/>)}</div>:<div className="notice-empty">Nenhum comunicado encontrado.</div>}
  </div></section></>;
 }
-export function ComunicadoImage(){return <Photo className="comunicado-detail-cover"/>;}
+export function ComunicadoImage({capaArquivo}:{capaArquivo?:string|null}){return <Photo capaArquivo={capaArquivo} className="comunicado-detail-cover"/>;}
