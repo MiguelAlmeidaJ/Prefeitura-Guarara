@@ -4,16 +4,16 @@ import {useEffect,useRef,useState} from 'react';
 import {usePathname} from 'next/navigation';
 
 export type MenuEntry={id:string;nome:string;link:string;novaGuia:boolean;ascendenteId:string|null;ordem:number};
-type Node=MenuEntry&{children:Node[]};
-function nest(items:MenuEntry[]):Node[]{
- const nodes=new Map(items.map(item=>[item.id,{...item,children:[] as Node[]}]));
- const roots:Node[]=[];
+type MenuNode=MenuEntry&{children:MenuMenuNode[]};
+function nest(items:MenuEntry[]):MenuNode[]{
+ const nodes=new Map(items.map(item=>[item.id,{...item,children:[] as MenuNode[]}]));
+ const roots:MenuNode[]=[];
  for(const item of items){
   const node=nodes.get(item.id)!;
   if(item.ascendenteId&&nodes.has(item.ascendenteId)&&item.ascendenteId!==item.id)nodes.get(item.ascendenteId)!.children.push(node);
   else roots.push(node);
  }
- const sort=(list:Node[],seen=new Set<string>())=>{
+ const sort=(list:MenuNode[],seen=new Set<string>())=>{
   list.sort((a,b)=>a.ordem-b.ordem||a.nome.localeCompare(b.nome,'pt-BR'));
   for(const node of list){if(seen.has(node.id))continue;seen.add(node.id);sort(node.children,seen);}
  };
@@ -29,7 +29,7 @@ export function PublicMenu({items}:{items:MenuEntry[]}){
  const pathname=usePathname();
  useEffect(()=>{setOpen(false);setExpanded([]);},[pathname]);
  useEffect(()=>{
-  function outside(event:PointerEvent){if(ref.current&&!ref.current.contains(event.target as Node)){setOpen(false);setExpanded([]);}}
+  function outside(event:PointerEvent){if(ref.current&&!ref.current.contains(event.target as globalThis.Node)){setOpen(false);setExpanded([]);}}
   function escape(event:KeyboardEvent){if(event.key==='Escape'){setOpen(false);setExpanded([]);}}
   document.addEventListener('pointerdown',outside);document.addEventListener('keydown',escape);
   return()=>{document.removeEventListener('pointerdown',outside);document.removeEventListener('keydown',escape);};
@@ -38,7 +38,7 @@ export function PublicMenu({items}:{items:MenuEntry[]}){
  function toggle(id:string,depth:number){
   setExpanded(current=>current.includes(id)?current.filter(x=>x!==id):depth===0?[id]:[...current,id]);
  }
- function item(item:Node,depth=0):React.ReactNode{
+ function item(item:MenuNode,depth=0):React.ReactNode{
   if(depth>8)return null;
   const hasChildren=item.children.length>0,active=pathname===item.link||item.link!=='/'&&pathname.startsWith(item.link+'/');
   const shown=expanded.includes(item.id);
@@ -51,7 +51,7 @@ export function PublicMenu({items}:{items:MenuEntry[]}){
   </div>;
  }
  // Named helper avoids colliding with loop-local identifiers.
- function itemRender(node:Node,depth:number):React.ReactNode{return item(node,depth);}
+ function itemRender(node:MenuNode,depth:number):React.ReactNode{return item(node,depth);}
  return <div className="public-nav-root" ref={ref}>
   <button className="public-nav-mobile-toggle" type="button" aria-label={open?'Fechar navegação':'Abrir navegação'} aria-expanded={open} onClick={()=>setOpen(o=>!o)}><Icon name={open?'close':'menu'}/><span>Menu</span></button>
   <div className={'public-nav-menu '+(open?'is-mobile-open':'')} id="menu-principal">{roots.map(root=>item(root))}</div>
