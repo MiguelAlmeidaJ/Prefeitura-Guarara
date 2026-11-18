@@ -559,3 +559,6 @@ button:disabled{opacity:.65;cursor:not-allowed}
 .health-admin-actions{display:flex;gap:12px;flex-wrap:wrap}
 .admin-sidebar-group{margin-top:22px}
 @media(max-width:650px){.health-admin-form{padding:0 18px 22px}.health-admin-form .admin-two-fields{grid-template-columns:1fr}}
+
+/* Páginas de secretarias têm seus próprios cabeçalhos editoriais. */
+body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{display:none}

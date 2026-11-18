@@ -20,7 +20,7 @@ export function SaudePublicContent(){
  const [error,setError]=useState('');
  const [loading,setLoading]=useState(true);
  useEffect(()=>{let active=true;fetch('/api/saude',{cache:'no-store'}).then(async response=>{if(!response.ok)throw Error('Conteúdo indisponível');return response.json() as Promise<Data>}).then(value=>{if(active)setData(value)}).catch(e=>{if(active)setError(String(e))}).finally(()=>{if(active)setLoading(false)});return()=>{active=false};},[]);
- const grouped=useMemo(()=>new Map(sections.map(([type])=>[type,data.conteudos.filter(item=>item.tipo===type).sort(byOrder)])),[data.conteudos]);
+ const grouped=useMemo(()=>new Map(sections.map(([type])=>[type,data.conteudos.filter(item=>item.tipo===type).sort(byOrder)] as [Type,Item[]])),[data.conteudos]);
  const docs=(type:Type)=>grouped.get(type)||[];
  const featured=(type:Type)=>docs(type).find(item=>item.destaque)||docs(type)[0];
  const pas=featured('PAS'),conselho=featured('CONSELHO'),med=featured('MEDICAMENTO');
