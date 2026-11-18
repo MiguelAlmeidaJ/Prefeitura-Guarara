@@ -416,3 +416,72 @@ button:disabled{opacity:.65;cursor:not-allowed}
 .public-nav-dropdown.is-nested>summary{padding:9px 11px;border-radius:7px}
 .public-nav-dropdown.is-nested>.public-nav-submenu{top:0;left:100%}
 @media(max-width:650px){.public-nav-dropdown>summary{padding:10px 0}.public-nav-submenu{position:fixed;top:auto;left:15px;right:15px;max-width:none;min-width:0;max-height:55dvh;overflow-y:auto}.public-nav-dropdown.is-nested>.public-nav-submenu{position:static;box-shadow:none;border-color:var(--border);margin:0 0 7px}}
+
+
+/* Obras públicas: administração */
+.obras-loading{padding:28px}
+.obras-editor-panel{padding-bottom:24px}
+.obras-form-fields{padding:0 26px;display:grid;gap:21px}
+.obras-two-fields{display:grid;grid-template-columns:1fr 1fr;gap:19px}
+.obras-object-cell{min-width:250px;max-width:440px;line-height:1.6}
+.obras-category-field{position:relative}
+.obras-category-input{display:flex;align-items:center;gap:0;border:1px solid #d9e2ee;border-radius:9px;background:#fff}
+.obras-category-input:focus-within{border-color:var(--blue)}
+.obras-category-input input{flex:1;border:0;min-width:0}
+.obras-category-input button{padding:10px 14px;background:transparent;border:0;color:var(--blue);font-size:20px}
+.obras-category-options{position:absolute;top:77px;left:0;right:0;background:#fff;border:1px solid #d9e2ee;border-radius:9px;box-shadow:0 16px 36px #070d1820;z-index:10;display:grid;padding:6px;max-height:245px;overflow-y:auto}
+.obras-category-options button{background:#fff;border:0;text-align:left;color:var(--navy);padding:10px 12px;border-radius:6px;font-size:12px}
+.obras-category-options button:hover,.obras-category-options button:focus-visible{background:#edf4fc}
+.obras-category-options .obras-create-option{color:var(--green);font-weight:800;border-top:1px solid var(--border)}
+.obras-category-options>span{font-size:11px;color:var(--muted);padding:11px}
+.obras-manage-link{background:none;border:0;padding:4px 0;width:max-content;color:var(--blue);font-size:11px;font-weight:700}
+.obras-manage-link:hover{text-decoration:underline}
+.obras-quick-actions{display:flex;gap:10px;flex-wrap:wrap}
+.obras-modal-backdrop{position:fixed;inset:0;background:#070d18a6;z-index:200;display:grid;place-items:center;padding:18px}
+.obras-modal{width:min(620px,100%);max-height:88dvh;overflow:auto}
+.obras-modal-form{display:grid;gap:14px;padding:0 26px 20px;border-bottom:1px solid var(--border)}
+.obras-modal-list{padding:12px 26px 26px;max-height:310px;overflow:auto}
+.obras-modal-list>div{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:1px solid var(--border);padding:13px 0}
+.obras-modal-list strong{font-size:12px;color:var(--navy)}
+.obras-modal-list .admin-row-actions{flex-shrink:0}
+/* Obras públicas: consulta cidadã */
+.obras-public-hero{background:linear-gradient(120deg,#070d18,#1a2e4a 66%,#244c7a);color:#fff;padding:66px 0 59px}
+.obras-public-kicker{color:#41c97d;font-weight:800;font-size:10px;letter-spacing:.16em}
+.obras-public-hero h1{font-size:clamp(30px,4vw,47px);letter-spacing:-.055em;margin:13px 0 10px;line-height:1.18}
+.obras-public-hero h1 em{font-style:normal;color:#a3c6ef}
+.obras-public-hero p{max-width:750px;color:#cedbeb;font-size:13px;line-height:1.85}
+.obras-public-hero-facts{display:flex;gap:24px;flex-wrap:wrap;margin-top:25px;font-size:11px;color:#b0d7c2}
+.obras-public-hero-facts span:before{content:"✓";font-weight:800;color:#5bd88b;margin-right:8px}
+.obras-public-section{padding:36px 0 70px;background:var(--light)}
+.obras-public-statbar{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:23px}
+.obras-public-statbar>div{background:white;border:1px solid var(--border);border-radius:12px;padding:17px 21px;display:flex;flex-direction:column}
+.obras-public-statbar span{color:var(--muted);font-weight:600;font-size:11px}
+.obras-public-statbar strong{font-size:28px;color:var(--navy)}
+.obras-public-card{background:white;border:1px solid var(--border);box-shadow:0 8px 25px #070d1808;border-radius:14px;overflow:hidden}
+.obras-public-card-head{padding:28px 30px 16px}
+.obras-public-card-head h2{font-size:24px;color:var(--navy);letter-spacing:-.04em;margin:6px 0}
+.obras-public-card-head p{color:var(--muted);font-size:12px;margin:0}
+.obras-public-filters{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:12px;padding:13px 30px 24px}
+.obras-public-filters label{font-size:11px;color:var(--navy);font-weight:700;display:grid;gap:7px;min-width:0}
+.obras-public-filters input,.obras-public-filters select{width:100%;min-width:0;background:#f8fafc;border:1px solid #d9e2ee;border-radius:9px;padding:12px 11px;color:var(--navy);font-size:11px}
+.obras-public-resultbar{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#f1f5fa;border-top:1px solid var(--border);padding:12px 30px;color:var(--muted);font-size:11px}
+.obras-public-resultbar button{color:var(--blue);background:none;border:0;font-weight:700}
+.obras-public-table-scroll{overflow-x:auto}
+.obras-public-table{width:100%;border-collapse:collapse;text-align:left;font-size:11px;min-width:850px}
+.obras-public-table thead{background:var(--navy);color:#fff}
+.obras-public-table th{padding:16px 14px;font-size:10px;font-weight:700;white-space:nowrap}
+.obras-public-table td{border-bottom:1px solid #e8eef4;padding:15px 14px;vertical-align:top;color:#52627b;line-height:1.65}
+.obras-public-table tbody tr:nth-child(even){background:#f8fafc}
+.obras-public-table tbody tr:hover{background:#edf4fd}
+.obras-public-table td strong{color:var(--navy)}
+.obras-public-object{min-width:270px;max-width:440px;white-space:pre-wrap;color:#263c57!important}
+.obras-public-category{display:inline-flex;border-radius:5px;padding:5px 8px;background:#e7f6ed;color:#16743a;font-size:10px;font-weight:700}
+.obras-public-proof{display:inline-block;white-space:nowrap;background:var(--blue);color:white;border-radius:7px;padding:7px 12px;text-decoration:none;font-size:10px;font-weight:700}
+.obras-public-proof:hover{background:var(--navy)}
+.obras-public-empty{padding:45px 25px;text-align:center;color:var(--muted)}
+.obras-public-error{padding:26px;color:#a13131}
+.obras-pagination{display:flex;justify-content:center;align-items:center;gap:18px;padding:19px;color:var(--muted);font-size:11px}
+.obras-pagination button{border:1px solid var(--border);background:white;border-radius:7px;color:var(--blue);padding:8px 14px;font-weight:700}
+.obras-pagination button:disabled{opacity:.35}
+@media(max-width:900px){.obras-public-filters{grid-template-columns:1fr 1fr}.obras-public-statbar{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.obras-two-fields{grid-template-columns:1fr}.obras-form-fields{padding:0 18px}.obras-public-filters{grid-template-columns:1fr;padding:12px 18px 20px}.obras-public-card-head{padding:24px 18px}.obras-public-resultbar{padding:12px 18px}.obras-public-hero{padding:50px 0}.obras-modal-form,.obras-modal-list{padding-left:18px;padding-right:18px}}
