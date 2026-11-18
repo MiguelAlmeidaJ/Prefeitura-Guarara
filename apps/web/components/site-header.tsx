@@ -15,7 +15,6 @@ async function getNavigation():Promise<MenuEntry[]>{
 }
 export async function SiteHeader(){
  const menu=await getNavigation();
- const photo=process.env.NEXT_PUBLIC_HEADER_IMAGE_URL?.trim();
  return <header className="site-header">
   <div className="site-utility"><div className="wrap utility-content">
    <span>Portal oficial • Guarará, Minas Gerais</span>
@@ -32,12 +31,5 @@ export async function SiteHeader(){
   <nav className="site-nav" aria-label="Navegação principal"><div className="wrap site-nav-items">
    {menu.length?<PublicMenu items={menu}/>:navigation.map(item=><Link key={item.slug} href={'/'+item.slug}>{item.title.replace(' Municipal','')}</Link>)}
   </div></nav>
-  <div className="site-banner" aria-label="Apresentação da Prefeitura de Guarará">
-   {photo?<div className="site-banner-photo" style={{backgroundImage:'url('+JSON.stringify(photo)+')'}} aria-hidden="true"/>:<div className="site-banner-placeholder" aria-hidden="true"><span className="banner-orbit banner-orbit-one"/><span className="banner-orbit banner-orbit-two"/></div>}
-   <div className="wrap site-banner-inner"><div className="banner-content"><span className="banner-eyebrow"><span className="status-dot"/> PORTAL DO CIDADÃO</span><h1>Guarará, uma cidade<br/><span>para todos.</span></h1><p>Informação pública, serviços e transparência em um só lugar.</p>
-   <div className="banner-actions"><Link className="button button-primary" href="/atendimento">Acessar serviços <span aria-hidden="true">↗</span></Link><Link className="button button-ghost" href="/transparencia">Portal da transparência <span aria-hidden="true">→</span></Link></div></div>
-   <div className="banner-seal" aria-hidden="true"><span className="seal-top">PREFEITURA MUNICIPAL</span><strong>G</strong><span className="seal-bottom">GUARARÁ • MG</span></div>
-   </div>
-  </div>
  </header>;
 }

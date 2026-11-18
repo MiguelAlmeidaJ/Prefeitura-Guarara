@@ -14,6 +14,8 @@ export default async function ProtectedLayout({children}:Readonly<{children:Reac
     <Link href="/admin" className="admin-sidebar-link"><span aria-hidden="true">▦</span> Páginas e conteúdos</Link>
     <Link href="/admin/tabelas" className="admin-sidebar-link"><span aria-hidden="true">▤</span> Tabelas reutilizáveis</Link>
     <Link href="/admin/menu" className="admin-sidebar-link"><span aria-hidden="true">☷</span> Menu do portal</Link>
+    <div className="admin-sidebar-label admin-sidebar-group">SERVIÇOS</div>
+    <Link href="/admin/servicos/protocolo" className="admin-sidebar-link"><span aria-hidden="true">▤</span> Protocolo</Link>
     <div className="admin-sidebar-label admin-sidebar-group">SECRETARIAS</div>
     <Link href="/admin/secretarias/obras" className="admin-sidebar-link"><span aria-hidden="true">▥</span> Obras</Link>
     <Link href="/admin/secretarias/saude" className="admin-sidebar-link"><span aria-hidden="true">✚</span> Saúde</Link>
