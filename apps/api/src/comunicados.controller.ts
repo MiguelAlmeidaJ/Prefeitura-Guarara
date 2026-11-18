@@ -9,6 +9,7 @@ const input=z.object({
  slug:z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(190),
  resumo:z.string().trim().max(400).nullable(),
  conteudo:z.string().trim().min(1).max(30000),
+ categoriaId:z.string().min(1).nullable(),
  capaArquivo:z.string().regex(/^[a-zA-Z0-9_-]{1,128}\.(png|jpg|webp)$/).nullable(),
  publicado:z.boolean()
 }).strict();
@@ -20,10 +21,17 @@ function parse(body:unknown){
 function dbError(error:unknown):never{
  if(error instanceof Prisma.PrismaClientKnownRequestError){
   if(error.code==='P2002')throw new BadRequestException('Já existe um comunicado com esse endereço (slug)');
-  if(error.code==='P2025')throw new NotFoundException('Comunicado não encontrado');
+  if(error.code==='P2025')throw new NotFoundException('Registro não encontrado');
+  if(error.code==='P2003')throw new BadRequestException('Categoria inválida');
  }
  throw error;
 }
+const categoryInput=z.object({
+ nome:z.string().trim().min(2).max(100),
+ slug:z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(110),
+ capaArquivo:z.string().regex(/^[a-zA-Z0-9_-]{1,128}\\.(png|jpg|webp)$/).nullable()
+}).strict();
+
 @Controller()
 export class ComunicadosController{
  constructor(private readonly prisma:PrismaService){}
@@ -31,17 +39,42 @@ export class ComunicadosController{
  listPublic(){
   return this.prisma.comunicado.findMany({
    where:{publicado:true},orderBy:[{publicadoEm:'desc'},{criadoEm:'desc'}],
-   select:{id:true,titulo:true,slug:true,resumo:true,conteudo:true,capaArquivo:true,publicadoEm:true,criadoEm:true}
+   include:{categoriaRel:{select:{id:true,nome:true,slug:true,capaArquivo:true}}}
   });
  }
  @Get('comunicados/:slug')
  async details(@Param('slug') slug:string){
-  const item=await this.prisma.comunicado.findFirst({where:{slug,publicado:true},select:{id:true,titulo:true,slug:true,resumo:true,conteudo:true,capaArquivo:true,publicadoEm:true,criadoEm:true}});
+  const item=await this.prisma.comunicado.findFirst({where:{slug,publicado:true},include:{categoriaRel:{select:{id:true,nome:true,slug:true,capaArquivo:true}}}});
   if(!item)throw new NotFoundException();
   return item;
  }
+ @Get('categorias-comunicados')
+ listPublicCategories(){return this.prisma.categoriaComunicado.findMany({orderBy:{nome:'asc'},select:{id:true,nome:true,slug:true,capaArquivo:true}});}
  @UseGuards(AuthGuard) @Get('admin/comunicados')
  listAdmin(){return this.prisma.comunicado.findMany({orderBy:[{atualizadoEm:'desc'}]});}
+ @UseGuards(AuthGuard) @Get('admin/comunicados/categorias')
+ categories(){return this.prisma.categoriaComunicado.findMany({orderBy:{nome:'asc'},include:{_count:{select:{comunicados:true}}}});}
+ @UseGuards(AuthGuard) @Post('admin/comunicados/categorias')
+ async createCategory(@Req() req:{user:AuthUser},@Body() body:unknown){
+  requireRoles(req.user,'ADMINISTRADOR','GESTOR');
+  const data=categoryInput.safeParse(body);
+  if(!data.success)throw new BadRequestException(data.error.flatten());
+  try{return await this.prisma.categoriaComunicado.create({data:data.data});}catch(error){dbError(error);}
+ }
+ @UseGuards(AuthGuard) @Patch('admin/comunicados/categorias/:id')
+ async editCategory(@Req() req:{user:AuthUser},@Param('id') id:string,@Body() body:unknown){
+  requireRoles(req.user,'ADMINISTRADOR','GESTOR');
+  const data=categoryInput.safeParse(body);
+  if(!data.success)throw new BadRequestException(data.error.flatten());
+  try{return await this.prisma.categoriaComunicado.update({where:{id},data:data.data});}catch(error){dbError(error);}
+ }
+ @UseGuards(AuthGuard) @Delete('admin/comunicados/categorias/:id')
+ async removeCategory(@Req() req:{user:AuthUser},@Param('id') id:string){
+  requireRoles(req.user,'ADMINISTRADOR','GESTOR');
+  const count=await this.prisma.comunicado.count({where:{categoriaId:id}});
+  if(count)throw new BadRequestException('Mova os comunicados antes de excluir a categoria');
+  try{await this.prisma.categoriaComunicado.delete({where:{id}});return {ok:true};}catch(error){dbError(error);}
+ }
  @UseGuards(AuthGuard) @Post('admin/comunicados')
  async create(@Req() req:{user:AuthUser},@Body() body:unknown){
   requireRoles(req.user,'ADMINISTRADOR','GESTOR','EDITOR');
