@@ -249,3 +249,29 @@ model TransparenciaLink {
  atualizadoEm DateTime @updatedAt
  @@index([grupoId, ordem])
 }
+
+enum TipoAtoNormativo {
+ LEI
+ DECRETO
+ PORTARIA
+}
+enum AcaoAtoNormativo {
+ BAIXAR
+ VISUALIZAR
+}
+model AtoNormativo {
+ id String @id @default(cuid())
+ tipo TipoAtoNormativo
+ ano Int
+ numero String
+ titulo String
+ ementa String? @db.Text
+ processo String?
+ link String
+ acao AcaoAtoNormativo @default(VISUALIZAR)
+ publicado Boolean @default(true)
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([tipo,ano])
+ @@index([tipo,publicado])
+}
