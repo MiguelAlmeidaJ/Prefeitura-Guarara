@@ -696,3 +696,63 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
 .protocol-admin-preview{color:#3366A8;font-weight:700;text-decoration:none}
 @media(max-width:950px){.protocol-public-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.protocol-hero{padding:42px 0}.protocol-hero-mark{display:none}.protocol-public-grid{grid-template-columns:1fr}.protocol-public-title{align-items:flex-start;flex-direction:column;gap:8px}.protocol-admin-form{padding:0 18px 22px}.protocol-public-card{padding:17px}}
+
+
+/* E-mails oficiais — catálogo público */
+.official-email-hero{padding:67px 0 64px;background:radial-gradient(ellipse at 83% 15%,#3366A847,transparent 50%),linear-gradient(112deg,#070D18,#1A2E4A 76%,#234c78);color:white}
+.official-email-hero .official-email-kicker{display:flex;align-items:center;gap:9px;color:#9ce0b4;letter-spacing:.15em;font-size:10px;font-weight:800}
+.official-email-kicker span{font-size:24px}
+.official-email-hero h1{font-size:clamp(30px,4.3vw,48px);letter-spacing:-.05em;line-height:1.22;margin:15px 0}
+.official-email-hero h1 span{color:#a3c6ef}
+.official-email-hero p{font-size:13px;color:#d0dceb;max-width:750px;line-height:1.95;margin:0}
+.official-email-public-body{background:#F8FAFC;padding:39px 0 75px}
+.official-email-search{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}
+.official-email-search-input{display:flex;align-items:center;gap:12px;border:1px solid #d8e3ee;border-radius:10px;background:#fff;height:50px;padding:0 17px;flex:1;max-width:690px;color:#3366A8}
+.official-email-search-input input{border:0;outline:0;flex:1;min-width:0;font-size:12px;color:#1A2E4A}
+.official-email-search>span{color:#63748a;font-size:11px;white-space:nowrap}
+.official-email-filters{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 30px}
+.official-email-filters button{border-radius:25px;border:1px solid #d5e1ed;background:#fff;padding:10px 14px;color:#1A2E4A;font-size:11px;font-weight:700;display:flex;align-items:center;gap:9px}
+.official-email-filters button.active{background:#1A2E4A;border-color:#1A2E4A;color:#fff}
+.official-email-filters button span{background:#edf3f8;color:#3366A8;min-width:23px;height:23px;padding:3px 6px;border-radius:15px;font-size:10px}
+.official-email-section{border:1px solid #dfe8f1;border-radius:12px;overflow:hidden;background:#fff;margin:0 0 24px;box-shadow:0 7px 19px #1A2E4A08}
+.official-email-section-title{background:linear-gradient(110deg,#1A2E4A,#3366A8);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:15px;color:white}
+.official-email-section-title h2{margin:0;font-size:15px;font-weight:700;letter-spacing:-.02em}
+.official-email-section-title>span{color:#fff;background:#ffffff26;padding:5px 10px;border-radius:18px;font-size:10px;font-weight:700;white-space:nowrap}
+.official-email-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.official-email-card{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:21px 18px;border-bottom:1px solid #edf2f6;border-right:1px solid #edf2f6;min-width:0}
+.official-email-card h3{font-size:12px;font-weight:700;color:#1A2E4A;margin:0 0 6px}
+.official-email-card>div{min-width:0;overflow-wrap:anywhere}
+.official-email-card a{font-size:11px;color:#3366A8;font-weight:600;text-decoration:none;overflow-wrap:anywhere}
+.official-email-card a:hover{text-decoration:underline}
+.official-email-card button{display:inline-flex;align-items:center;gap:6px;flex-shrink:0;background:#edf4fb;color:#3366A8;border:1px solid #dce7f2;border-radius:7px;font-size:10px;font-weight:700;padding:8px 10px}
+.official-email-card button:hover{background:#e1ecf7}
+.official-email-card button.is-copied{background:#e5f6ea;color:#198444;border-color:#b4e1c3}
+.official-email-public-empty{background:white;padding:40px 25px;border:1px dashed #cddaea;border-radius:10px;color:#63748a;font-size:12px}
+.official-email-public-note{display:flex;flex-direction:column;gap:6px;margin-top:27px;padding:23px;border-left:4px solid #3366A8;background:#eaf2fa;border-radius:10px}
+.official-email-public-note strong{color:#1A2E4A;font-size:12px}
+.official-email-public-note p{color:#607791;font-size:11px;line-height:1.85;margin:0}
+/* E-mails oficiais — área administrativa */
+.official-emails-editor{margin-bottom:22px}
+.official-emails-form{padding:0 26px 26px;display:grid;gap:17px}
+.official-emails-admin-groups{padding:0 23px 25px;display:grid;gap:18px}
+.official-email-admin-group{border:1px solid #dfe8f1;border-radius:11px;overflow:hidden}
+.official-email-admin-group-head{display:flex;align-items:center;gap:10px;background:#edf4fb;border-bottom:1px solid #dfe8f1;padding:12px 15px}
+.official-email-admin-group-head strong{color:#1A2E4A;font-size:13px;flex:1}
+.official-admin-count{color:#607791;font-size:10px;margin-right:8px}
+.official-email-admin-list{display:grid}
+.official-email-admin-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #edf2f6}
+.official-email-admin-row:last-child{border-bottom:0}
+.official-email-admin-row>div:nth-child(2){flex:1;min-width:0}
+.official-email-admin-row strong{display:block;font-size:11px;color:#1A2E4A}
+.official-email-admin-row small{font-size:10px;color:#607791;overflow-wrap:anywhere}
+.official-email-admin-empty{padding:20px;font-size:11px;color:#607791;margin:0}
+.official-email-admin-row.drag-over,.official-email-admin-group.drag-over{outline:2px dashed #3366A8;outline-offset:-3px;background:#edf5ff}
+.official-email-modal-overlay{position:fixed;inset:0;background:#070D18a6;z-index:200;display:grid;place-items:center;padding:18px}
+.official-email-modal{width:min(620px,100%);max-height:88dvh;overflow:auto}
+.official-email-modal-list{display:grid;padding:0 26px 25px;max-height:340px;overflow-y:auto}
+.official-email-modal-list>div{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #edf2f6;padding:14px 0}
+.official-email-modal-list>div>div:first-child{display:grid;gap:4px}
+.official-email-modal-list strong{font-size:12px;color:#1A2E4A}
+.official-email-modal-list small{font-size:10px;color:#607791}
+@media(max-width:1050px){.official-email-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.official-email-card{align-items:flex-start;flex-wrap:wrap}}
+@media(max-width:650px){.official-email-hero{padding:46px 0}.official-email-grid{grid-template-columns:1fr}.official-email-card{align-items:center;flex-wrap:nowrap}.official-email-section-title{padding:13px 16px}.official-email-search{flex-direction:column;align-items:stretch}.official-email-search-input{max-width:none;width:100%}.official-email-admin-row{flex-wrap:wrap}.official-email-admin-row .admin-row-actions{width:100%;padding-left:33px}.official-email-admin-group-head{flex-wrap:wrap}.official-emails-form,.official-email-modal-list{padding-left:18px;padding-right:18px}.official-emails-form .admin-two-fields{grid-template-columns:1fr}.official-emails-admin-groups{padding:0 12px 20px}}
