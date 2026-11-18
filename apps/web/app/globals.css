@@ -1178,3 +1178,27 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
 .comunicado-detail-foot a{color:#198444;text-decoration:none;font-size:12px;font-weight:800}
 @media(max-width:900px){.comunicados-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.comunicados-carousel-track .comunicado-card{flex-basis:calc((100% - 18px)/2)}.comunicados-carousel-viewport{overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.comunicados-carousel-track{transform:none!important}.comunicados-carousel .comunicado-card{scroll-snap-align:start}.comunicados-carousel-controls{display:none}}
 @media(max-width:660px){.comunicados-grid{grid-template-columns:1fr}.comunicados-carousel-track .comunicado-card{flex-basis:88%}.comunicados-catalog-top{align-items:stretch;flex-direction:column}.comunicados-catalog-top input{width:100%}.comunicado-detail>.wrap>.rich-content{padding:22px}.comunicados-admin-form{padding:0 17px 22px}.standard-cover-content{grid-template-columns:1fr;padding:0 17px 22px}.standard-cover-inline{flex-direction:column;align-items:flex-start}.standard-cover-inline-image{width:100%}}
+
+
+/* Refinamento do editor visual e da marca no painel */
+.rich-editor-wysiwyg .rich-editor-visual{min-height:320px;padding:26px 29px;outline:none;background:#fff;cursor:text;font-size:13px;line-height:1.95}
+.rich-editor-wysiwyg .rich-editor-visual:focus{box-shadow:inset 0 0 0 2px #3366A838}
+.rich-editor-wysiwyg .rich-editor-visual:empty:before{content:attr(data-placeholder);color:#91a1b2;pointer-events:none}
+.rich-editor-wysiwyg .rich-editor-visual p{margin:0 0 15px}
+.rich-editor-wysiwyg .rich-editor-visual h2{font-size:23px;margin:12px 0 15px;color:#1A2E4A}
+.rich-editor-wysiwyg .rich-editor-visual h3{font-size:18px;margin:12px 0 14px}
+.rich-editor-wysiwyg .rich-editor-visual a{color:#3366A8;text-decoration:underline}
+.rich-editor-wysiwyg .rich-editor-visual ul,.rich-editor-wysiwyg .rich-editor-visual ol{margin:10px 0 18px;padding-left:25px}
+.comunicado-cover-editor{display:grid;gap:14px}
+.comunicado-cover-editor select{width:100%;padding:13px;border:1px solid #dbe5ef;border-radius:9px;background:white;color:#1A2E4A}
+.comunicado-cover-editor .standard-cover-inline{align-items:center}
+.comunicado-cover-editor input[type=file]{display:block;width:100%;max-width:410px;font-size:11px;color:#48627d;margin-top:9px}
+.comunicado-cover-picker{display:block;color:#3366A8;font-size:11px;font-weight:750;margin-top:10px}
+.admin-sidebar-modern .admin-sidebar-brand-modern{justify-content:center;width:100%}
+.admin-sidebar-modern .admin-sidebar-top{justify-content:space-between}
+.admin-sidebar-modern .admin-brand-logo{width:165px;height:63px;flex:1 1 auto;max-width:180px}
+.admin-sidebar-modern .admin-brand-logo img{max-width:100%;max-height:63px}
+.admin-sidebar-modern .admin-sidebar-brand-copy{display:none!important}
+.sidebar-is-collapsed .admin-sidebar-modern .admin-brand-logo{width:53px;height:47px;flex-basis:47px}
+@media(max-width:1050px){.admin-sidebar-modern .admin-brand-logo{width:135px;max-width:145px}}
+@media(max-width:760px){.admin-sidebar-modern .admin-brand-logo{width:175px;max-width:190px}.sidebar-is-collapsed .admin-sidebar-modern .admin-brand-logo{width:170px;max-width:180px;flex:1 1 auto}}
