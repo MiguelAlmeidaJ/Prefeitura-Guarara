@@ -116,3 +116,37 @@ model MenuItem {
 
  @@index([ascendenteId, ordem])
 }
+
+model CategoriaObra {
+ id String @id @default(cuid())
+ nome String @unique
+ obras ObraPublica[]
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+}
+
+model RecursoObra {
+ id String @id @default(cuid())
+ nome String @unique
+ obras ObraPublica[]
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+}
+
+model ObraPublica {
+ id String @id @default(cuid())
+ ano Int
+ numero String
+ objeto String @db.Text
+ categoriaId String
+ categoria CategoriaObra @relation(fields:[categoriaId],references:[id],onDelete:Restrict)
+ recursoId String
+ recurso RecursoObra @relation(fields:[recursoId],references:[id],onDelete:Restrict)
+ inicio DateTime @db.Date
+ comprovacaoUrl String
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([ano,inicio])
+ @@index([categoriaId])
+ @@index([recursoId])
+}
