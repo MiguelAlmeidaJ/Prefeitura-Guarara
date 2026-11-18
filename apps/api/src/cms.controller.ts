@@ -39,7 +39,7 @@ export class CmsController {
   return p;
  }
  @UseGuards(AuthGuard) @Get('admin/me')
- me(@Req() req:{user:AuthUser}){return req.user;}
+ async me(@Req() req:{user:AuthUser}){return this.prisma.usuario.findUnique({where:{id:req.user.id},select:{id:true,nome:true,papel:true}});}
  @UseGuards(AuthGuard) @Get('admin/paginas')
  list(){return this.prisma.pagina.findMany({orderBy:{atualizadoEm:'desc'}});}
  @UseGuards(AuthGuard) @Post('admin/paginas')

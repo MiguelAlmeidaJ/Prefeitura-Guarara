@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { sections } from '../../lib/navigation';
+import { sections } from '../../../lib/navigation';
 export function generateStaticParams(){ return sections.map(s => ({ secao: s.slug })); }
 export async function generateMetadata({params}: {params: Promise<{secao:string}>}): Promise<Metadata>{
  const {secao}=await params; const page=sections.find(s=>s.slug===secao); return {title:page?.title??'Página não encontrada'};

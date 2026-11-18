@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { sections } from '../lib/navigation';
+import { sections } from '../../lib/navigation';
 
 const featured=['atendimento','transparencia','licitacoes','concursos','municipio','administracao'];
 const iconMap:Record<string,string>={atendimento:'↗',transparencia:'◈',licitacoes:'▤',concursos:'♙',municipio:'⌂',administracao:'▦'};

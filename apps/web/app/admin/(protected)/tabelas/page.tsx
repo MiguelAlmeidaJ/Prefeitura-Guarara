@@ -1,5 +1,5 @@
 'use client';
-import {useState} from 'react';
+import {useEffect,useState} from 'react';
 import Link from 'next/link';
 
 type Column={chave:string;titulo:string;tipo:'TEXTO'|'LINK';multiplos:boolean};
@@ -7,25 +7,22 @@ type CellLink={texto:string;url:string};
 type Cell=string|CellLink|CellLink[];
 type Row=Record<string,Cell>;
 type Table={id:string;nome:string;descricao:string|null;colunas:Column[];linhas:Row[]};
-type Session={accessToken:string;user:{nome:string;papel:string}};
-const api=process.env.NEXT_PUBLIC_API_URL||'http://localhost:3007';
+type Session={user:{nome:string;papel:string}};
+
 const blank=():Omit<Table,'id'>=>({nome:'',descricao:'',colunas:[{chave:'nome',titulo:'Nome',tipo:'TEXTO',multiplos:false}],linhas:[]});
 const empty=(c:Column):Cell=>c.tipo==='TEXTO'?'':c.multiplos?[]:{texto:'',url:''};
 export default function TablesAdmin(){
  const [session,setSession]=useState<Session|null>(null);
- const [email,setEmail]=useState('');const [senha,setSenha]=useState('');
+
  const [tables,setTables]=useState<Table[]>([]);const [editing,setEditing]=useState<string|null>(null);
  const [form,setForm]=useState<Omit<Table,'id'>>(blank());
  const [message,setMessage]=useState('');const [busy,setBusy]=useState(false);
- async function request(path:string,method='GET',body?:unknown,token=session?.accessToken){
-  const res=await fetch(api+'/api/'+path,{method,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},body:body===undefined?undefined:JSON.stringify(body)});
-  if(!res.ok)throw new Error('Erro '+res.status+': '+(await res.text()).slice(0,400));
+ async function request(path:string,method='GET',body?:unknown){
+  const res=await fetch('/api/admin-proxy/'+path,{method,headers:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),cache:'no-store'});
+  if(res.status===401){window.location.assign('/admin/login');throw new Error('Sessão expirada');}if(!res.ok)throw new Error('Erro '+res.status+': '+(await res.text()).slice(0,400));
   return res.json();
  }
- async function login(e:React.FormEvent){e.preventDefault();setBusy(true);try{
-  const auth=await request('auth/login','POST',{email,senha}) as Session;setSession(auth);setSenha('');
-  setTables(await request('admin/tabelas','GET',undefined,auth.accessToken));setMessage('');
- }catch(err){setMessage(String(err));}finally{setBusy(false);}}
+ useEffect(()=>{let active=true;fetch('/api/admin-session',{cache:'no-store'}).then(async res=>{if(!res.ok)throw Error('Sessão inválida');return res.json();}).then(async (user:{nome:string;papel:string})=>{if(!active)return;setSession({user});setTables(await request('admin/tabelas'));}).catch(()=>{if(active)window.location.assign('/admin/login');});return()=>{active=false};},[]);
  async function reload(){setTables(await request('admin/tabelas'));}
  function updateCol(i:number,values:Partial<Column>){
   setForm(prev=>{const cols=prev.colunas.map((c,j)=>j===i?{...c,...values}:c);
@@ -56,8 +53,8 @@ export default function TablesAdmin(){
  return <section className="section"><div className="wrap">
  <p><Link href="/admin">Painel editorial</Link> / Tabelas</p><h1>Cadastro de tabelas</h1>
  <p className="muted">Crie uma tabela uma única vez e vincule-a a páginas de Tabela Simples ou Tabela em Abas.</p>
- {!session?<form className="cms-admin-form" onSubmit={login}><label>Email<input type="email" required value={email} onChange={e=>setEmail(e.target.value)}/></label><label>Senha<input type="password" required value={senha} onChange={e=>setSenha(e.target.value)}/></label><button disabled={busy}>Entrar</button></form>:<>
- <p>Conectado: {session.user.nome} <button type="button" onClick={()=>{setSession(null);setTables([]);newTable();}}>Sair</button></p>
+ {!session?<p>Carregando tabelas...</p>:<>
+ <p>Conectado: {session.user.nome} <button type="button" onClick={async()=>{await fetch('/api/admin-logout',{method:'POST'});window.location.assign('/admin/login');}}>Sair</button></p>
  <h2>Tabelas cadastradas</h2>
  {tables.length===0?<p>Nenhuma tabela cadastrada.</p>:<ul className="cms-table-list">{tables.map(t=><li key={t.id}><strong>{t.nome}</strong> ({t.linhas.length} registros) <button onClick={()=>edit(t)} type="button">Editar</button>{' '}{session.user.papel==='ADMINISTRADOR'&&<button type="button" disabled={busy} onClick={()=>remove(t)}>Excluir</button>}</li>)}</ul>}
  <h2>{editing?'Editar tabela':'Nova tabela'}</h2>
