@@ -19,6 +19,7 @@ const recordInput=z.object({
  destaque:z.boolean(),
  ordem:z.number().int().min(0).max(99999),
 }).strict();
+const orderInput=z.object({tipo:z.nativeEnum(TipoConteudoSaude),ids:z.array(z.string().min(1)).max(1000)}).strict();
 const configInput=z.object({
  nomeSecretario:optionalText(160),telefone:optionalText(80),endereco:optionalText(300),
  horario:optionalText(200),descricao:optionalText(3000),
@@ -44,6 +45,19 @@ export class SaudeController {
   if(!parsed.success)throw new BadRequestException(parsed.error.flatten());
   return this.prisma.saudeConfiguracao.upsert({where:{id:'principal'},create:{id:'principal',...parsed.data},update:parsed.data});
  }
+ @UseGuards(AuthGuard) @Patch('admin/saude/ordenar')
+ async reorder(@Req() req:{user:AuthUser},@Body() input:unknown){
+  requireRoles(req.user,'ADMINISTRADOR','GESTOR');
+  const parsed=orderInput.safeParse(input);
+  if(!parsed.success)throw new BadRequestException(parsed.error.flatten());
+  const {tipo,ids}=parsed.data;
+  const siblings=await this.prisma.saudeConteudo.findMany({where:{tipo},select:{id:true}});
+  if(siblings.length!==ids.length||new Set(ids).size!==ids.length||siblings.some(item=>!ids.includes(item.id))){
+   throw new BadRequestException('A lista de ordenação deve incluir todos os registros desta seção sem repetições');
+  }
+  await this.prisma.$transaction(ids.map((id,ordem)=>this.prisma.saudeConteudo.update({where:{id},data:{ordem}})));
+  return {ok:true};
+ }
  @UseGuards(AuthGuard) @Post('admin/saude/conteudos')
  async create(@Req() req:{user:AuthUser},@Body() input:unknown){
   requireRoles(req.user,'ADMINISTRADOR','GESTOR');
@@ -64,9 +78,19 @@ export class SaudeController {
  private parse(input:unknown){
   const parsed=recordInput.safeParse(input);
   if(!parsed.success)throw new BadRequestException(parsed.error.flatten());
+  if(parsed.data.tipo==='ESTOQUE'||parsed.data.tipo==='PAS'){
+   if(parsed.data.ano===null)throw new BadRequestException('Informe o ano');
+  }
   if(parsed.data.linkSecundario&&!parsed.data.textoBotaoSecundario)throw new BadRequestException('Informe o título do botão secundário');
   if(parsed.data.tipo==='ESCALA'&&!parsed.data.categoria?.trim())throw new BadRequestException('Informe a categoria da escala');
   if(parsed.data.tipo==='ESCALA'&&!parsed.data.textoBotao?.trim())throw new BadRequestException('Informe o nome do botão');
-  return {...parsed.data,categoria:parsed.data.tipo==='ESCALA'?(parsed.data.categoria?.trim()??null):null};
+  const item={...parsed.data,categoria:parsed.data.tipo==='ESCALA'?(parsed.data.categoria?.trim()??null):null};
+  if(item.tipo==='ESTOQUE'){
+   return {...item,titulo:'Estoque de medicamentos '+item.ano,descricao:null,textoBotao:'Baixar PDF',linkSecundario:null,textoBotaoSecundario:null,destaque:false};
+  }
+  if(item.tipo==='PORTARIA'){
+   return {...item,ano:null,textoBotao:null,linkSecundario:null,textoBotaoSecundario:null,destaque:false};
+  }
+  return item;
  }
 }
