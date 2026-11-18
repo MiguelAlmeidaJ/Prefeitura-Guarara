@@ -4,7 +4,7 @@ import {useEffect,useRef,useState} from 'react';
 import {usePathname} from 'next/navigation';
 
 export type MenuEntry={id:string;nome:string;link:string;novaGuia:boolean;ascendenteId:string|null;ordem:number};
-type MenuNode=MenuEntry&{children:MenuMenuNode[]};
+type MenuNode=MenuEntry&{children:MenuNode[]};
 function nest(items:MenuEntry[]):MenuNode[]{
  const nodes=new Map(items.map(item=>[item.id,{...item,children:[] as MenuNode[]}]));
  const roots:MenuNode[]=[];
