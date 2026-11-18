@@ -9,6 +9,7 @@ const input=z.object({
  slug:z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(190),
  resumo:z.string().trim().max(400).nullable(),
  conteudo:z.string().trim().min(1).max(30000),
+ capaArquivo:z.string().regex(/^[a-zA-Z0-9_-]{1,128}\.(png|jpg|webp)$/).nullable(),
  publicado:z.boolean()
 }).strict();
 function parse(body:unknown){

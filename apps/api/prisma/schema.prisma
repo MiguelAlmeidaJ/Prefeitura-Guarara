@@ -61,6 +61,7 @@ model Comunicado {
  slug String @unique
  resumo String?
  conteudo String @db.Text
+ capaArquivo String?
  categoria String?
  publicado Boolean @default(false)
  publicadoEm DateTime?

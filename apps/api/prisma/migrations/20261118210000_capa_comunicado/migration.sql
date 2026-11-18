@@ -1,0 +1,1 @@
+ALTER TABLE "Comunicado" ADD COLUMN "capaArquivo" TEXT;
