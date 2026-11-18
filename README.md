@@ -110,3 +110,18 @@ npx pm2 save
 ```
 
 `pm2:restart` reinicia os processos, mas não recompila o projeto: depois de um `git pull`, execute `npm install`, `npm run build` e só então reinicie. O PM2 não inicia o PostgreSQL; mantenha o Docker ativo. O modo `npm run dev` também usa 3006/3007 por padrão após atualizar `apps/api/.env`.
+
+### Diagnóstico da compilação NestJS no PM2
+
+O comando de build da API utiliza `tsc -p apps/api/tsconfig.json`, com `rootDir=src` e `outDir=dist`. Isso garante que o entrypoint seja `apps/api/dist/main.js`, correspondente ao `ecosystem.config.cjs`. A compilação incremental foi desativada para evitar a situação em que o diretório `dist` foi apagado, mas o cache do TypeScript omite a geração dos arquivos.
+
+Se o PM2 informar `Script not found`, execute, na raiz do repositório:
+
+```powershell
+npm run build -w @guarara/api
+Test-Path .\\apps\\api\\dist\\main.js
+npx pm2 update
+npx pm2 start ecosystem.config.cjs
+```
+
+`Test-Path` deve retornar `True`. Caso já exista `guarara-web` em execução, o PM2 apenas o reiniciará.
