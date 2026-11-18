@@ -1,6 +1,6 @@
 import {NextResponse} from 'next/server';
-import {getAdminUser} from '../../../../lib/admin-session';
-import {readSiteIdentity,writeIdentity,type Kind} from '../../../../lib/site-identity';
+import {getAdminUser} from '../../../lib/admin-session';
+import {readSiteIdentity,writeIdentity,type Kind} from '../../../lib/site-identity';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
 const maxSize=2*1024*1024;
