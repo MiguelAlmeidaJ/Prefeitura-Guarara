@@ -1,5 +1,5 @@
 'use client';
-import {useEffect,useMemo,useState,type FormEvent} from 'react';
+import {useEffect,useMemo,useState,type FormEvent,type DragEvent} from 'react';
 import Link from 'next/link';
 
 type Kind='PAS'|'CONSELHO'|'PORTARIA'|'ESCALA'|'MEDICAMENTO'|'ESTOQUE';
@@ -26,6 +26,8 @@ export default function SaudeAdmin(){
  const [form,setForm]=useState<Form>(empty);
  const [editor,setEditor]=useState(false);
  const [busy,setBusy]=useState(false);
+ const [dragId,setDragId]=useState<string|null>(null);
+ const [dragOver,setDragOver]=useState<string|null>(null);
  const [loading,setLoading]=useState(true);
  const [message,setMessage]=useState<{text:string;error:boolean}|null>(null);
  const canManage=user?.papel==='ADMINISTRADOR'||user?.papel==='GESTOR';
@@ -39,13 +41,22 @@ export default function SaudeAdmin(){
   }catch(e){if(active)setMessage({text:String(e),error:true});}finally{if(active)setLoading(false);}
  })();return()=>{active=false};},[]);
  async function reload(){const content=await request<Data>('');setData(content);setConfig({...configBlank(),...(content.configuracao||{})});}
- const filtered=useMemo(()=>data.conteudos.filter(item=>tab!=='CONFIG'&&item.tipo===tab).sort((a,b)=>a.ordem-b.ordem||(b.ano||0)-(a.ano||0)),[data.conteudos,tab]);
- function newEntry(){if(tab==='CONFIG')return;setEditing(null);setForm(empty(tab));setEditor(true);setMessage(null);}
+ const filtered=useMemo(()=>data.conteudos.filter(item=>tab!=='CONFIG'&&item.tipo===tab).sort((a,b)=>a.ordem-b.ordem||a.titulo.localeCompare(b.titulo,'pt-BR')),[data.conteudos,tab]);
+ function newEntry(){if(tab==='CONFIG')return;setEditing(null);setForm({...empty(tab),ordem:filtered.length});setEditor(true);setMessage(null);}
  function editEntry(item:Item){setEditing(item.id);setForm({tipo:item.tipo,categoria:item.categoria??null,titulo:item.titulo,descricao:item.descricao,ano:item.ano,link:item.link,textoBotao:item.textoBotao,linkSecundario:item.linkSecundario,textoBotaoSecundario:item.textoBotaoSecundario,destaque:item.destaque,ordem:item.ordem});setEditor(true);setMessage(null);}
  async function save(event:FormEvent){
   event.preventDefault();setBusy(true);setMessage(null);
   try{
-   await request('/conteudos'+(editing?'/'+editing:''),editing?'PATCH':'POST',form);
+   const payload:Form={...form};
+   if(tab==='ESTOQUE'){
+    if(payload.ano===null)throw Error('Informe o ano do estoque');
+    payload.titulo='Estoque de medicamentos '+payload.ano;
+    payload.descricao=null;payload.textoBotao='Baixar PDF';payload.linkSecundario=null;payload.textoBotaoSecundario=null;payload.destaque=false;
+   }
+   if(tab==='PORTARIA'){
+    payload.ano=null;payload.textoBotao=null;payload.linkSecundario=null;payload.textoBotaoSecundario=null;payload.destaque=false;
+   }
+   await request('/conteudos'+(editing?'/'+editing:''),editing?'PATCH':'POST',payload);
    await reload();setEditor(false);setEditing(null);setMessage({text:'Conteúdo salvo com sucesso.',error:false});
   }catch(e){setMessage({text:String(e),error:true});}finally{setBusy(false);}
  }
@@ -59,6 +70,22 @@ export default function SaudeAdmin(){
   setBusy(true);setMessage(null);
   try{await request('/conteudos/'+item.id,'DELETE');await reload();setMessage({text:'Conteúdo excluído.',error:false});}
   catch(e){setMessage({text:String(e),error:true});}finally{setBusy(false);}
+ }
+ async function reorder(sourceId:string,targetId:string){
+  setDragId(null);setDragOver(null);
+  if(!canManage||busy||tab==='CONFIG'||sourceId===targetId)return;
+  const ids=filtered.map(item=>item.id);
+  const from=ids.indexOf(sourceId),to=ids.indexOf(targetId);
+  if(from<0||to<0)return;
+  ids.splice(from,1);ids.splice(to,0,sourceId);
+  const previous=data.conteudos;
+  setData(current=>({...current,conteudos:current.conteudos.map(item=>item.tipo===tab?{...item,ordem:ids.indexOf(item.id)}:item)}));
+  setBusy(true);setMessage(null);
+  try{
+   await request('/ordenar','PATCH',{tipo:tab,ids});
+   setMessage({text:'Ordem atualizada e salva.',error:false});
+  }catch(error){setData(current=>({...current,conteudos:previous}));setMessage({text:String(error),error:true});}
+  finally{setBusy(false);}
  }
  const setField=<K extends keyof Form>(field:K,value:Form[K])=>setForm(previous=>({...previous,[field]:value}));
  const configField=<K extends keyof Config>(field:K,value:Config[K])=>setConfig(previous=>({...previous,[field]:value}));
@@ -80,8 +107,15 @@ export default function SaudeAdmin(){
    <div className="admin-two-fields"><div className="admin-field"><label htmlFor="health-address">Endereço</label><input id="health-address" maxLength={300} value={config.endereco||''} onChange={e=>configField('endereco',e.target.value||null)}/></div><div className="admin-field"><label htmlFor="health-hours">Horário de atendimento</label><input id="health-hours" maxLength={200} value={config.horario||''} onChange={e=>configField('horario',e.target.value||null)}/></div></div>
    <div className="admin-field"><label htmlFor="health-description">Descrição da secretaria</label><textarea id="health-description" rows={4} maxLength={3000} value={config.descricao||''} onChange={e=>configField('descricao',e.target.value||null)}/></div>
    {canManage&&<button type="submit" className="admin-button admin-button-primary" disabled={busy}>{busy?'Salvando...':'Salvar dados da secretaria'}</button>}
-  </form></section>:<section className="admin-panel health-admin-panel"><div className="admin-panel-title"><div><span className="admin-step">{tab}</span><h2>{names[tab]}</h2><p>Adicione e atualize os itens publicados nesta seção.</p></div>{canManage&&!editor&&<button type="button" className="admin-button admin-button-primary" onClick={newEntry}>+ Novo conteúdo</button>}</div>
-   {editor?<form onSubmit={save} className="health-admin-form">{tab==='ESCALA'?<>
+  </form></section>:<section className="admin-panel health-admin-panel"><div className="admin-panel-title"><div><span className="admin-step">{tab}</span><h2>{names[tab]}</h2><p>Adicione, edite e arraste os registros pela alça ⠿ para alterar a ordem de exibição.</p></div>{canManage&&!editor&&<button type="button" className="admin-button admin-button-primary" onClick={newEntry}>+ Novo conteúdo</button>}</div>
+   {editor?<form onSubmit={save} className="health-admin-form">{tab==='ESTOQUE'?<>
+     <div className="admin-field"><label htmlFor="estoque-year">Ano <b>*</b></label><input id="estoque-year" type="number" min="1900" max="2200" required value={form.ano??''} onChange={e=>setField('ano',e.target.value?Number(e.target.value):null)}/><small>Os rótulos Vigente, Exercício anterior e Histórico são calculados automaticamente pelo ano.</small></div>
+     <div className="admin-field"><label htmlFor="estoque-link">Link do PDF <b>*</b></label><input id="estoque-link" required type="url" pattern="https?://.+" maxLength={2048} placeholder="https://..." value={form.link} onChange={e=>setField('link',e.target.value)}/></div>
+    </>:tab==='PORTARIA'?<>
+     <div className="admin-field"><label htmlFor="portaria-name">Nome <b>*</b></label><input id="portaria-name" required maxLength={200} placeholder="Ex.: Portaria nº 19/2026" value={form.titulo} onChange={e=>setField('titulo',e.target.value)}/></div>
+     <div className="admin-field"><label htmlFor="portaria-description">Descrição</label><textarea id="portaria-description" rows={4} maxLength={5000} value={form.descricao||''} onChange={e=>setField('descricao',e.target.value||null)}/></div>
+     <div className="admin-field"><label htmlFor="portaria-link">Link do documento <b>*</b></label><input id="portaria-link" type="url" pattern="https?://.+" required maxLength={2048} placeholder="https://..." value={form.link} onChange={e=>setField('link',e.target.value)}/></div>
+    </>:tab==='ESCALA'?<>
     <div className="admin-two-fields"><div className="admin-field"><label htmlFor="escala-category">Categoria <b>*</b></label><input id="escala-category" required maxLength={120} placeholder="Ex.: Atenção Primária" value={form.categoria||''} onChange={e=>setField('categoria',e.target.value||null)}/></div><div className="admin-field"><label htmlFor="escala-name">Nome <b>*</b></label><input id="escala-name" required maxLength={200} placeholder="Ex.: PSF Viver Bem" value={form.titulo} onChange={e=>setField('titulo',e.target.value)}/></div></div>
     <div className="admin-field"><label htmlFor="escala-description">Descrição</label><textarea id="escala-description" rows={4} maxLength={5000} placeholder="Descreva os atendimentos e serviços..." value={form.descricao||''} onChange={e=>setField('descricao',e.target.value||null)}/></div>
     <div className="admin-two-fields"><div className="admin-field"><label htmlFor="escala-button-url">Link do botão <b>*</b></label><input id="escala-button-url" required type="url" pattern="https?://.+" maxLength={2048} placeholder="https://..." value={form.link} onChange={e=>setField('link',e.target.value)}/></div><div className="admin-field"><label htmlFor="escala-button-label">Nome do botão <b>*</b></label><input id="escala-button-label" required maxLength={90} placeholder="Ex.: Acessar Escala" value={form.textoBotao||''} onChange={e=>setField('textoBotao',e.target.value||null)}/></div></div>
@@ -92,7 +126,11 @@ export default function SaudeAdmin(){
     <div className="admin-two-fields"><div className="admin-field"><label htmlFor="health-link2">Segundo link (opcional)</label><input id="health-link2" type="url" pattern="https?://.+" maxLength={2048} placeholder="https://..." value={form.linkSecundario||''} onChange={e=>setField('linkSecundario',e.target.value||null)}/></div><div className="admin-field"><label htmlFor="health-button2">Texto do segundo botão</label><input id="health-button2" maxLength={90} value={form.textoBotaoSecundario||''} onChange={e=>setField('textoBotaoSecundario',e.target.value||null)}/></div></div>
     <label className="admin-check"><input type="checkbox" checked={form.destaque} onChange={e=>setField('destaque',e.target.checked)}/> Destacar este conteúdo na página pública</label></>}
     <div className="health-admin-actions"><button type="submit" disabled={busy} className="admin-button admin-button-primary">{busy?'Salvando...':editing?'Salvar alterações':'Cadastrar conteúdo'}</button><button type="button" className="admin-button admin-button-outline" onClick={()=>setEditor(false)}>Cancelar</button></div>
-   </form>:filtered.length?<div className="admin-table-scroll"><table className="admin-pages-table"><thead><tr><th>{tab==='ESCALA'?'Nome':'Título'}</th><th>{tab==='ESCALA'?'Categoria':'Ano'}</th><th>Destaque</th><th>Ordem</th><th>Ações</th></tr></thead><tbody>{filtered.map(item=><tr key={item.id}><td><strong>{item.titulo}</strong><span>{item.descricao?.slice(0,115)||item.link}</span></td><td>{tab==='ESCALA'?(item.categoria||'—'):(item.ano||'—')}</td><td>{item.destaque?'Sim':'—'}</td><td>{item.ordem}</td><td><div className="admin-row-actions"><a href={item.link} target="_blank" rel="noopener noreferrer">Abrir ↗</a>{canManage&&<><button type="button" onClick={()=>editEntry(item)}>Editar</button><button type="button" className="admin-danger-link" disabled={busy} onClick={()=>void remove(item)}>Excluir</button></>}</div></td></tr>)}</tbody></table></div>:<div className="admin-empty"><h3>Nenhum conteúdo cadastrado</h3><p>Os dados dessa seção aparecerão aqui depois do cadastro.</p>{canManage&&<button type="button" className="admin-button admin-button-primary" onClick={newEntry}>+ Adicionar conteúdo</button>}</div>}
+   </form>:filtered.length?<div className="admin-table-scroll"><table className="admin-pages-table"><thead><tr><th aria-label="Reordenar">Ordem</th><th>{tab==='ESCALA'||tab==='PORTARIA'?'Nome':tab==='ESTOQUE'?'Ano':'Título'}</th><th>{tab==='ESCALA'?'Categoria':tab==='ESTOQUE'?'Situação':'Ano'}</th><th>Ações</th></tr></thead><tbody>{filtered.map(item=><tr key={item.id} className={dragOver===item.id?'health-admin-drag-over':''} onDragOver={(event:DragEvent<HTMLTableRowElement>)=>{if(!canManage||busy||!dragId)return;event.preventDefault();setDragOver(item.id);}} onDragLeave={()=>setDragOver(null)} onDrop={event=>{event.preventDefault();if(dragId)void reorder(dragId,item.id);}}>
+<td><span className="health-admin-grip" draggable={Boolean(canManage&&!busy)} onDragStart={event=>{event.dataTransfer.effectAllowed='move';event.dataTransfer.setData('text/plain',item.id);setDragId(item.id);}} onDragEnd={()=>{setDragId(null);setDragOver(null);}} title="Arrastar para ordenar" aria-label={'Arrastar '+item.titulo}>⠿</span><span>{item.ordem+1}</span></td>
+<td><strong>{tab==='ESTOQUE'?(item.ano||'—'):item.titulo}</strong><span>{tab==='ESTOQUE'?'Baixar PDF':(item.descricao?.slice(0,115)||item.link)}</span></td>
+<td>{tab==='ESCALA'?(item.categoria||'—'):tab==='ESTOQUE'?(item.ano===new Date().getFullYear()?'Vigente':item.ano===new Date().getFullYear()-1?'Exercício anterior':'Histórico'):(item.ano||'—')}</td>
+<td><div className="admin-row-actions"><a href={item.link} target="_blank" rel="noopener noreferrer">Abrir ↗</a>{canManage&&<><button type="button" onClick={()=>editEntry(item)}>Editar</button><button type="button" className="admin-danger-link" disabled={busy} onClick={()=>void remove(item)}>Excluir</button></>}</div></td></tr>)}</tbody></table></div>:<div className="admin-empty"><h3>Nenhum conteúdo cadastrado</h3><p>Os dados dessa seção aparecerão aqui depois do cadastro.</p>{canManage&&<button type="button" className="admin-button admin-button-primary" onClick={newEntry}>+ Adicionar conteúdo</button>}</div>}
   </section>}
   <div className="admin-help-card"><div><strong>Conteúdo oficial e documentos</strong><p>Os dados ficam disponíveis no portal público após salvar. Utilize links institucionais válidos e confira os documentos antes da publicação.</p></div><Link className="admin-button admin-button-outline" href="/secretarias/saude" target="_blank">Abrir página pública ↗</Link></div>
  </div>;
