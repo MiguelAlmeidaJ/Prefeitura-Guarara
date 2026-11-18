@@ -125,3 +125,26 @@ npx pm2 start ecosystem.config.cjs
 ```
 
 `Test-Path` deve retornar `True`. Caso já exista `guarara-web` em execução, o PM2 apenas o reiniciará.
+
+## Diagnóstico: API reiniciando enquanto o PostgreSQL inicia
+
+O PrismaService possui retentativas limitadas de conexão (até 12 tentativas com intervalo de três segundos) para falhas temporárias, como `database system is starting up`. Senhas inválidas não são retentadas. O PM2 espera três segundos entre reinicializações e limita falhas repetidas.
+
+Antes de iniciar a API:
+
+```powershell
+docker compose up -d
+docker compose ps
+docker compose logs postgres --tail=30
+```
+
+Se o PostgreSQL estiver saudável, atualize e reinicie:
+
+```powershell
+git pull origin create
+npm run build
+npx pm2 restart ecosystem.config.cjs --update-env
+npx pm2 logs guarara-api --lines 40
+```
+
+Confira também `http://localhost:3007/api/health`. Logs de erro antigos podem permanecer em arquivos de log mesmo quando a API já está funcional. Se aparecer `P1000` (credenciais incorretas), revise `DATABASE_URL` em `apps/api/.env` sem compartilhar a senha.
