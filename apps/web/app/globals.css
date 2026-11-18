@@ -1251,3 +1251,9 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
 .comunicados-catalog-filters select{border:1px solid #d8e3ed;background:white;border-radius:9px;padding:13px 16px;color:#1A2E4A;font-size:12px;max-width:240px}
 .comunicados-catalog-filters input{min-width:200px}
 @media(max-width:650px){.categories-form{padding:0 16px 22px}.categories-form .admin-two-fields{grid-template-columns:1fr}.categories-list{padding:0 15px 20px}.categories-row{flex-wrap:wrap;gap:10px}.categories-thumb{flex-basis:85px;width:85px;height:55px}.categories-row .admin-row-actions{width:100%;justify-content:flex-end}.standard-category-grid{padding:0 15px 20px}.comunicados-catalog-filters,.comunicados-catalog-filters select,.comunicados-catalog-filters input{width:100%;max-width:none}}
+
+
+/* Destaque tipográfico nos conteúdos de comunicados */
+.rich-content strong,.rich-editor-visual strong,.rich-content b,.rich-editor-visual b{font-weight:800;color:#1A2E4A}
+.rich-content em,.rich-editor-visual em{font-style:italic}
+.comunicados-admin-form select{min-height:43px;border:1px solid #dbe6f0;border-radius:9px;background:#fff;padding:11px 13px;color:#1A2E4A;font-size:12px}
