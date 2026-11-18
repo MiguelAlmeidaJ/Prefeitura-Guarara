@@ -5,10 +5,11 @@ import {useEffect,useMemo,useState} from 'react';
 export type Comunicado={id:string;titulo:string;slug:string;resumo:string|null;conteudo:string;capaArquivo:string|null;categoriaId:string|null;categoriaRel:{id:string;nome:string;slug:string;capaArquivo:string|null}|null;publicadoEm:string|null;criadoEm:string};
 function dates(date:string|null){return date?new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'}).format(new Date(date)):'';}
 function Photo({className='',capaArquivo=null,capaCategoria=null}:{className?:string;capaArquivo?:string|null;capaCategoria?:string|null}){
- const [broken,setBroken]=useState(false);
- const source=capaArquivo||capaCategoria;
- useEffect(()=>setBroken(false),[source]);
- return <div className={'comunicado-cover '+className}>{!broken&&<img src={source?'/api/capas-comunicados/'+source:'/api/capa-comunicados'} loading="lazy" alt="" onError={()=>setBroken(true)}/>}<div className="comunicado-cover-placeholder" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 4 4 3-3 5 5"/></svg></div></div>;
+ const [failedIndex,setFailedIndex]=useState(0);
+ const sources=[...(capaArquivo?['/api/capas-comunicados/'+capaArquivo]:[]),...(capaCategoria&&capaCategoria!==capaArquivo?['/api/capas-comunicados/'+capaCategoria]:[]),'/api/capa-comunicados'];
+ const signature=capaArquivo+'|'+capaCategoria;
+ useEffect(()=>setFailedIndex(0),[signature]);
+ return <div className={'comunicado-cover '+className}>{failedIndex<sources.length&&<img key={sources[failedIndex]} src={sources[failedIndex]} loading="lazy" alt="" onError={()=>setFailedIndex(i=>i+1)}/>}<div className="comunicado-cover-placeholder" aria-hidden="true"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 6-6 4 4 3-3 5 5"/></svg></div></div>;
 }
 export function ComunicadoCard({item}:{item:Comunicado}){
  return <Link href={'/comunicados/'+item.slug} className="comunicado-card">
