@@ -9,7 +9,7 @@ export async function POST(req:Request){
   const result=await response.json() as {accessToken:string};
   if(typeof result.accessToken!=='string'||!result.accessToken)return NextResponse.json({error:'Sessão inválida'},{status:502});
   const out=NextResponse.json({ok:true});
-  out.cookies.set(COOKIE_NAME,result.accessToken,{httpOnly:true,sameSite:'lax',secure:process.env.NODE_ENV==='production'&&process.env.COOKIE_SECURE!=='false',path:'/',...(body.remember===true?{maxAge:60*60*8}:{})});
+  out.cookies.set(COOKIE_NAME,result.accessToken,{httpOnly:true,sameSite:'lax',secure:process.env.COOKIE_SECURE==='true'||(process.env.COOKIE_SECURE!=='false'&&new URL(req.url).protocol==='https:'),path:'/',...(body.remember===true?{maxAge:60*60*8}:{})});
   out.headers.set('Cache-Control','no-store');
   return out;
  }catch{return NextResponse.json({error:'API indisponível'},{status:502});}
