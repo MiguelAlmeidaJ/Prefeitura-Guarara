@@ -1202,3 +1202,21 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
 .sidebar-is-collapsed .admin-sidebar-modern .admin-brand-logo{width:53px;height:47px;flex-basis:47px}
 @media(max-width:1050px){.admin-sidebar-modern .admin-brand-logo{width:135px;max-width:145px}}
 @media(max-width:760px){.admin-sidebar-modern .admin-brand-logo{width:175px;max-width:190px}.sidebar-is-collapsed .admin-sidebar-modern .admin-brand-logo{width:170px;max-width:180px;flex:1 1 auto}}
+
+
+/* Upload integrado — URLs externas e arquivos locais */
+.document-upload{margin-top:12px;padding:14px 16px;background:#f6f9fd;border:1px dashed #c3d6e8;border-radius:11px;display:grid;gap:8px;min-width:0}
+.document-upload-heading{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#344c68;font-size:11px;font-weight:800}
+.document-upload-heading span:last-child{font-weight:600;color:#7d91a6;font-size:10px;white-space:nowrap}
+.document-upload-control{display:flex;justify-content:center;gap:8px;align-items:center;max-width:100%;min-height:40px;border:1px solid #bdd5e9;border-radius:8px;background:#fff;color:#3366A8;font-size:11px;font-weight:800;cursor:pointer;padding:10px 14px;transition:background .2s ease}
+.document-upload-control:hover{background:#eaf4fc}
+.document-upload-control.is-busy{opacity:.65;cursor:progress}
+.document-upload-control>span{font-size:17px;line-height:1}
+.document-upload input[type=file]{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;overflow:hidden!important;clip:rect(0 0 0 0)!important}
+.document-upload input[type=file]:focus-visible+.document-upload-control{outline:2px solid #3366A8}
+.document-upload small{color:#758a9f;font-size:10px;line-height:1.65}
+.document-upload-success{font-size:11px;color:#198444;font-weight:700;margin:2px 0}
+.document-upload-error{font-size:11px;color:#b42318;font-weight:700;margin:2px 0}
+.document-upload-preview{font-size:11px;color:#3366A8;font-weight:800;text-decoration:none}
+.document-upload-preview:hover{text-decoration:underline}
+@media(max-width:560px){.document-upload{padding:12px}.document-upload-heading{align-items:flex-start}}
