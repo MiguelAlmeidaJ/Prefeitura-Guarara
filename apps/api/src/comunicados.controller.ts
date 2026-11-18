@@ -45,6 +45,7 @@ export class ComunicadosController{
  async create(@Req() req:{user:AuthUser},@Body() body:unknown){
   requireRoles(req.user,'ADMINISTRADOR','GESTOR','EDITOR');
   const data=parse(body);
+  if(req.user.papel==='EDITOR'&&data.publicado)throw new BadRequestException('Somente gestores podem publicar comunicados');
   try{return await this.prisma.comunicado.create({data:{...data,publicadoEm:data.publicado?new Date():null}});}catch(e){dbError(e);}
  }
  @UseGuards(AuthGuard) @Patch('admin/comunicados/:id')
