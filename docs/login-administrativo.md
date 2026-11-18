@@ -6,7 +6,7 @@
 - O navegador usa `/api/admin-proxy/admin/...`, que injeta o JWT no servidor. O token não fica em localStorage nem é devolvido ao JavaScript do painel.
 - `POST /api/admin-logout` remove o cookie. Sem revogação server-side de JWT nesta versão.
 - `/admin/esqueci-senha` informa que a recuperação automática não foi implementada; não promete enviar e-mails.
-- Em ambientes com HTTPS, o cookie deve ser `Secure`. Para desenvolvimento com HTTP em localhost, ajuste `COOKIE_SECURE=false` no processo Next.js, se necessário. Em produção use HTTPS.
+- O cookie usa `Secure` automaticamente quando o acesso é HTTPS; para deployments atrás de proxy que terminam TLS, configure `COOKIE_SECURE=true` no Next.js e utilize HTTPS no acesso externo. A API proxy confere o cabeçalho `Origin` em operações mutáveis.
 - Antes de produção: rate limit / lockout de login, recuperação segura por token único, auditoria, proteção CSRF adicional para ações mutáveis, revisão de tempo de sessão e rotação/revogação de tokens.
 
 **Não use este fluxo em produção pública antes da revisão de segurança.**
