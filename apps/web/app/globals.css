@@ -1220,3 +1220,34 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
 .document-upload-preview{font-size:11px;color:#3366A8;font-weight:800;text-decoration:none}
 .document-upload-preview:hover{text-decoration:underline}
 @media(max-width:560px){.document-upload{padding:12px}.document-upload-heading{align-items:flex-start}}
+
+
+/* Categorias de comunicados */
+.categories-editor{margin-bottom:24px}
+.categories-form{padding:0 26px 28px;display:grid;gap:18px}
+.categories-form input[type=file]{padding:12px;border:1px solid #d8e5f0;background:#f7fafc;border-radius:9px;max-width:100%;font-size:12px}
+.categories-form .admin-field small{color:#6f839a;font-size:11px}
+.categories-list{display:grid;padding:0 26px 26px}
+.categories-row{display:flex;align-items:center;gap:17px;padding:15px 0;border-bottom:1px solid #e9eef5}
+.categories-row:last-child{border-bottom:none}
+.categories-thumb{width:115px;height:68px;flex:0 0 115px;border-radius:10px;display:grid;place-items:center;background:#e9f0f7;overflow:hidden}
+.categories-thumb img,.category-current-image img,.standard-category-image img{width:100%;height:100%;object-fit:cover}
+.categories-thumb span{font-size:10px;color:#8095a9}
+.categories-info{display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+.categories-info strong{font-size:13px;color:#1A2E4A}
+.categories-info small{font-size:11px;color:#7890a7}
+.categories-row .admin-row-actions{display:flex;gap:12px}
+.category-current-image{display:flex;align-items:center;gap:12px}
+.category-current-image img{max-width:210px;max-height:120px;border-radius:9px;object-fit:cover}
+.standard-categories-panel{margin-top:24px}
+.standard-category-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:15px;padding:0 26px 27px}
+.standard-category-card{border:1px solid #dfe9f2;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 5px 16px #1A2E4A08}
+.standard-category-image{aspect-ratio:16/9;background:#edf2f7;display:grid;place-items:center;overflow:hidden}
+.standard-category-image span{font-size:11px;color:#7d8fa5}
+.standard-category-card>div:last-child{display:flex;flex-direction:column;gap:5px;padding:12px 14px}
+.standard-category-card strong{font-size:12px;color:#1A2E4A}
+.standard-category-card small{font-size:10px;color:#788fa6}
+.comunicados-catalog-filters{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.comunicados-catalog-filters select{border:1px solid #d8e3ed;background:white;border-radius:9px;padding:13px 16px;color:#1A2E4A;font-size:12px;max-width:240px}
+.comunicados-catalog-filters input{min-width:200px}
+@media(max-width:650px){.categories-form{padding:0 16px 22px}.categories-form .admin-two-fields{grid-template-columns:1fr}.categories-list{padding:0 15px 20px}.categories-row{flex-wrap:wrap;gap:10px}.categories-thumb{flex-basis:85px;width:85px;height:55px}.categories-row .admin-row-actions{width:100%;justify-content:flex-end}.standard-category-grid{padding:0 15px 20px}.comunicados-catalog-filters,.comunicados-catalog-filters select,.comunicados-catalog-filters input{width:100%;max-width:none}}
