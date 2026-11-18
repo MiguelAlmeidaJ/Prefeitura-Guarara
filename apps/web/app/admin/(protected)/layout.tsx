@@ -25,6 +25,8 @@ export default async function ProtectedLayout({children}:Readonly<{children:Reac
     <div className="admin-sidebar-label admin-sidebar-group">SECRETARIAS</div>
     <Link href="/admin/secretarias/obras" className="admin-sidebar-link"><span aria-hidden="true">▥</span> Obras</Link>
     <Link href="/admin/secretarias/saude" className="admin-sidebar-link"><span aria-hidden="true">✚</span> Saúde</Link>
+    <div className="admin-sidebar-label admin-sidebar-group">CONFIGURAÇÕES</div>
+    <Link href="/admin/configuracoes/identidade" className="admin-sidebar-link"><span aria-hidden="true">◈</span> Identidade visual</Link>
     <Link href="/" target="_blank" rel="noopener noreferrer" className="admin-sidebar-link"><span aria-hidden="true">↗</span> Visualizar portal</Link>
    </nav>
    <div className="admin-sidebar-bottom"><span className="admin-sidebar-avatar">{(user.nome||'A').charAt(0).toUpperCase()}</span><div><strong>{user.nome||'Administrador'}</strong><small>{user.papel.toLowerCase()}</small></div></div>

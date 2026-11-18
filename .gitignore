@@ -7,3 +7,6 @@ coverage/
 !.env.example
 *.tsbuildinfo
 .DS_Store
+
+# Identidade visual enviada pelo painel (arquivos privados do servidor)
+apps/web/storage/

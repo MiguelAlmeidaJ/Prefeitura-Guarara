@@ -960,3 +960,18 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
  .public-nav-item.is-active>.public-nav-item-row:after{display:none}
 }
 @media(max-width:540px){.brand-uploaded{height:47px;max-width:104px;min-width:35px}.brand-uploaded img{max-width:104px;max-height:47px}.brand-text strong{font-size:18px}}
+
+
+/* Configurações de identidade institucional */
+.identity-admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-bottom:22px}
+.identity-admin-card{overflow:hidden}
+.identity-preview{min-height:190px;display:grid;place-items:center;background:repeating-conic-gradient(#edf2f7 0 25%,#fff 0 50%) 50%/20px 20px;border:1px solid #dfe8f1;border-radius:11px;margin:0 25px 19px;padding:22px}
+.identity-preview img{max-width:100%;max-height:150px;object-fit:contain;filter:drop-shadow(0 7px 11px #1A2E4A1b)}
+.identity-preview-empty{border-radius:9px;background:#ffffffd9;padding:14px;color:#687c94;font-size:12px;text-align:center}
+.identity-upload-area{padding:0 25px 25px;display:grid;gap:11px}
+.identity-upload-area label{font-size:12px;font-weight:700;color:#1A2E4A}
+.identity-upload-area input{max-width:100%;font-size:11px;background:#f5f8fc;border:1px solid #dbe6f0;border-radius:8px;padding:11px;color:#1A2E4A}
+.identity-upload-area small{font-size:10px;color:#63778e;line-height:1.7}
+.identity-upload-area .admin-button{justify-self:start}
+.identity-loading{padding:30px}
+@media(max-width:700px){.identity-admin-grid{grid-template-columns:1fr}.identity-preview{margin:0 16px 18px}.identity-upload-area{padding:0 16px 18px}}

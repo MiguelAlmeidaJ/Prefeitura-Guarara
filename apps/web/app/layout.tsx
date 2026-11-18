@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-export const metadata:Metadata={title:{default:'Prefeitura de Guarará - MG',template:'%s | Prefeitura de Guarará'},description:'Portal institucional da Prefeitura Municipal de Guarará.'};
+export const metadata:Metadata={title:{default:'Prefeitura de Guarará - MG',template:'%s | Prefeitura de Guarará'},description:'Portal institucional da Prefeitura Municipal de Guarará.',icons:{icon:'/api/identidade/favicon'}};
 export default function RootLayout({children}:Readonly<{children:React.ReactNode}>){
  return <html lang="pt-BR"><head>
  <link rel="preconnect" href="https://fonts.googleapis.com"/>
