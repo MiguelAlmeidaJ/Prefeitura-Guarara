@@ -148,3 +148,7 @@ npx pm2 logs guarara-api --lines 40
 ```
 
 Confira também `http://localhost:3007/api/health`. Logs de erro antigos podem permanecer em arquivos de log mesmo quando a API já está funcional. Se aparecer `P1000` (credenciais incorretas), revise `DATABASE_URL` em `apps/api/.env` sem compartilhar a senha.
+
+## Gerenciador de menu
+
+O painel em `/admin/menu` permite cadastrar itens e submenus, editar, remover e ordenar com arrastar e soltar. A navegação pública usa os dados cadastrados. Consulte [a documentação](docs/menu-administrativo.md). Após atualizar o código, execute `npm run db:generate` e `npm run db:migrate` antes do build.

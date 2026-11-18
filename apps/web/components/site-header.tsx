@@ -1,9 +1,20 @@
 import Link from 'next/link';
 import { HeaderSearch } from './header-search';
 import { sections } from '../lib/navigation';
+import { PublicMenu, type MenuEntry } from './public-menu';
 
 const navigation = sections.slice(0,6);
-export function SiteHeader(){
+async function getNavigation():Promise<MenuEntry[]>{
+ try{
+  const api=process.env.API_URL||'http://127.0.0.1:3007';
+  const response=await fetch(api+'/api/menu',{next:{revalidate:30}});
+  if(!response.ok)return [];
+  const data=await response.json() as MenuEntry[];
+  return Array.isArray(data)?data:[];
+ }catch{return [];}
+}
+export async function SiteHeader(){
+ const menu=await getNavigation();
  const photo=process.env.NEXT_PUBLIC_HEADER_IMAGE_URL?.trim();
  return <header className="site-header">
   <div className="site-utility"><div className="wrap utility-content">
@@ -19,7 +30,7 @@ export function SiteHeader(){
    <Link className="topbar-service" href="/atendimento">Atendimento <span aria-hidden="true">↗</span></Link>
   </div></div>
   <nav className="site-nav" aria-label="Navegação principal"><div className="wrap site-nav-items">
-   {navigation.map(item=><Link key={item.slug} href={'/'+item.slug}>{item.title.replace(' Municipal','')}</Link>)}
+   {menu.length?<PublicMenu items={menu}/>:navigation.map(item=><Link key={item.slug} href={'/'+item.slug}>{item.title.replace(' Municipal','')}</Link>)}
   </div></nav>
   <div className="site-banner" aria-label="Apresentação da Prefeitura de Guarará">
    {photo?<div className="site-banner-photo" style={{backgroundImage:'url('+JSON.stringify(photo)+')'}} aria-hidden="true"/>:<div className="site-banner-placeholder" aria-hidden="true"><span className="banner-orbit banner-orbit-one"/><span className="banner-orbit banner-orbit-two"/></div>}
