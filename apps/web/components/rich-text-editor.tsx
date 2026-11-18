@@ -101,7 +101,7 @@ function textParts(text:string):ReactNode[]{
  const result:ReactNode[]=[];let last=0,found:RegExpExecArray|null;
  while((found=pattern.exec(text))){
   if(found.index>last)result.push(text.slice(last,found.index));
-  if(found[1])result.push(<a key={found.index} href={safeLink(found[3])} target="_blank" rel="noopener noreferrer">{found[2]}</a>);
+  if(found[2]!==undefined&&found[3]!==undefined)result.push(<a key={found.index} href={safeLink(found[3])} target="_blank" rel="noopener noreferrer">{found[2]}</a>);
   else if(found[4])result.push(<strong key={found.index}>{found[4]}</strong>);
   else if(found[5])result.push(<em key={found.index}>{found[5]}</em>);
   last=pattern.lastIndex;
