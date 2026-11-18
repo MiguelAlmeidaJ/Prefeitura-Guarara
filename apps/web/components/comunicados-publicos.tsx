@@ -23,7 +23,7 @@ export function ComunicadosCarousel(){
  return <div className="comunicados-carousel">
   {items.length?<>
    <div className="comunicados-carousel-controls"><button aria-label="Comunicados anteriores" type="button" disabled={position===0} onClick={()=>move(-1)}>←</button><button aria-label="Próximos comunicados" type="button" disabled={position>=max} onClick={()=>move(1)}>→</button></div>
-   <div className="comunicados-carousel-viewport"><div className="comunicados-carousel-track" style={{transform:'translateX(calc(-'+position+' * (100% + 18px) / 3))'}}>{items.map(i=><ComunicadoCard key={i.id} item={i}/>)}</div></div>
+   <div className="comunicados-carousel-viewport"><div className="comunicados-carousel-track" style={{transform:'translateX(calc(-'+(position*100/3)+'% - '+(position*6)+'px))'}}>{items.map(i=><ComunicadoCard key={i.id} item={i}/>)}</div></div>
   </>:<div className="notice-empty"><div><strong>{loading?'Carregando comunicados...':'Nenhum comunicado publicado ainda'}</strong><p>Os comunicados oficiais aparecerão aqui após o cadastro no portal.</p></div></div>}
  </div>;
 }
