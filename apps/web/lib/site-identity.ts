@@ -13,7 +13,7 @@ export async function readSiteIdentity():Promise<Identity>{
  try{
   const parsed=JSON.parse(await readFile(configPath(),'utf8')) as Partial<Identity>;
   const clean=(asset:Asset|null|undefined):Asset|null=>{
-   if(!asset||!/^logo\.(png|jpg|webp)$|^favicon\.(png|jpg|webp|ico)$/.test(asset.file))return null;
+   if(!asset||! /^(logo|favicon)(?:-[a-f0-9-]{1,80})?\.(png|jpg|webp|ico)$/.test(asset.file))return null;
    if(!['image/png','image/jpeg','image/webp','image/x-icon'].includes(asset.mime))return null;
    return {file:asset.file,mime:asset.mime,version:Number(asset.version)||0};
   };
