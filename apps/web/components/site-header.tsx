@@ -7,11 +7,11 @@ const navigation = sections.slice(0,6);
 async function getNavigation():Promise<MenuEntry[]>{
  try{
   const api=process.env.API_URL||'http://127.0.0.1:3007';
-  const response=await fetch(api+'/api/menu',{next:{revalidate:30}});
-  if(!response.ok)return [];
+  const response=await fetch(api+'/api/menu',{cache:'no-store'});
+  if(!response.ok){console.error('[menu público] API retornou HTTP',response.status);return [];}
   const data=await response.json() as MenuEntry[];
   return Array.isArray(data)?data:[];
- }catch{return [];}
+ }catch(error){console.error('[menu público] Não foi possível buscar o menu:',error);return [];}
 }
 export async function SiteHeader(){
  const menu=await getNavigation();

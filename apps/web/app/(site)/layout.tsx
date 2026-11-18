@@ -1,5 +1,8 @@
 import Link from 'next/link';
 import { SiteHeader } from '../../components/site-header';
+
+// Menu vem do banco. Evita congelá-lo no HTML gerado durante o build.
+export const dynamic = 'force-dynamic';
 export default function PublicLayout({children}:Readonly<{children:React.ReactNode}>){
  return <>
   <a className="skip" href="#conteudo">Pular para o conteúdo</a>
