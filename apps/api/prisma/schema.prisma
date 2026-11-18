@@ -55,6 +55,16 @@ model Pagina {
  atualizadoEm DateTime @updatedAt
  @@index([estado,ordem])
 }
+model CategoriaComunicado {
+ id String @id @default(cuid())
+ nome String @unique
+ slug String @unique
+ capaArquivo String?
+ comunicados Comunicado[]
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+}
+
 model Comunicado {
  id String @id @default(cuid())
  titulo String
@@ -63,10 +73,13 @@ model Comunicado {
  conteudo String @db.Text
  capaArquivo String?
  categoria String?
+ categoriaId String?
+ categoriaRel CategoriaComunicado? @relation(fields:[categoriaId],references:[id],onDelete:SetNull)
  publicado Boolean @default(false)
  publicadoEm DateTime?
  criadoEm DateTime @default(now())
  atualizadoEm DateTime @updatedAt
+ @@index([categoriaId])
 }
 model Documento {
  id String @id @default(cuid())
