@@ -101,3 +101,18 @@ model Tabela {
  criadoEm DateTime @default(now())
  atualizadoEm DateTime @updatedAt
 }
+
+model MenuItem {
+ id String @id @default(cuid())
+ nome String
+ link String
+ novaGuia Boolean @default(false)
+ ordem Int @default(0)
+ ascendenteId String?
+ ascendente MenuItem? @relation("HierarquiaMenu", fields: [ascendenteId], references: [id], onDelete: Restrict)
+ descendentes MenuItem[] @relation("HierarquiaMenu")
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+
+ @@index([ascendenteId, ordem])
+}
