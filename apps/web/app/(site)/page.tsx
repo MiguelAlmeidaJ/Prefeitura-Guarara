@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { sections } from '../../lib/navigation';
+import {ComunicadosCarousel} from '../../components/comunicados-publicos';
 
 const featured=['atendimento','transparencia','licitacoes','concursos','municipio','administracao'];
 const iconMap:Record<string,string>={atendimento:'↗',transparencia:'◈',licitacoes:'▤',concursos:'♙',municipio:'⌂',administracao:'▦'};
@@ -16,7 +17,7 @@ export default function Home(){
   </div></section>
   <section className="section announcements-section"><div className="wrap">
    <div className="section-heading"><div><span className="section-kicker">FIQUE POR DENTRO</span><h2>Últimos comunicados</h2><p>Acompanhe as publicações da prefeitura.</p></div><Link className="text-link" href="/comunicados">Todos os comunicados <span aria-hidden="true">→</span></Link></div>
-   <div className="notice-empty"><span className="notice-icon" aria-hidden="true">▤</span><div><strong>Nenhum comunicado publicado ainda</strong><p>Os comunicados oficiais aparecerão aqui após o cadastro no portal.</p></div></div>
+   <ComunicadosCarousel/>
   </div></section>
  </>;
 }

@@ -26,7 +26,7 @@ type Entry={label:string;href:string};
 type Group={id:string;label:string;icon:Glyph;href?:string;items:Entry[]};
 const groups:Group[]=[
  {id:'conteudo',label:'Conteúdo',icon:'layers',items:[
-  {label:'Páginas e conteúdos',href:'/admin'},{label:'Tabelas reutilizáveis',href:'/admin/tabelas'},{label:'Menu do portal',href:'/admin/menu'}]},
+  {label:'Páginas e conteúdos',href:'/admin'},{label:'Comunicados',href:'/admin/comunicados'},{label:'Tabelas reutilizáveis',href:'/admin/tabelas'},{label:'Menu do portal',href:'/admin/menu'}]},
  {id:'transparencia',label:'Transparência',icon:'landmark',href:'/admin/transparencia',items:[
   {label:'Visão geral',href:'/admin/transparencia'},{label:'Leis municipais',href:'/admin/transparencia/leis'},{label:'Decretos municipais',href:'/admin/transparencia/decretos'},
   {label:'Portarias municipais',href:'/admin/transparencia/portarias'},{label:'Folha de pagamento',href:'/admin/transparencia/folha-de-pagamento'}]},
@@ -35,7 +35,7 @@ const groups:Group[]=[
  {id:'secretarias',label:'Secretarias',icon:'building',items:[
   {label:'Obras',href:'/admin/secretarias/obras'},{label:'Saúde',href:'/admin/secretarias/saude'}]},
  {id:'configuracoes',label:'Configurações',icon:'settings',items:[
-  {label:'Identidade visual',href:'/admin/configuracoes/identidade'}]}
+  {label:'Identidade visual',href:'/admin/configuracoes/identidade'},{label:'Imagens padronizadas',href:'/admin/configuracoes/imagens-padronizadas'}]}
 ];
 function belongs(path:string,href:string){return path===href||(href!=='/admin'&&path.startsWith(href+'/'));}
 export function AdminShell({children,user}:{children:React.ReactNode;user:{nome:string;papel:string}}){
