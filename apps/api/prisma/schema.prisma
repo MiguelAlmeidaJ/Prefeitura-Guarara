@@ -196,3 +196,25 @@ model ProtocoloFormulario {
  atualizadoEm DateTime @updatedAt
  @@index([ordem, criadoEm])
 }
+
+model GrupoEmailOficial {
+ id String @id @default(cuid())
+ nome String @unique
+ ordem Int @default(0)
+ emails EmailOficial[]
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([ordem, criadoEm])
+}
+
+model EmailOficial {
+ id String @id @default(cuid())
+ nome String
+ email String
+ grupoId String
+ grupo GrupoEmailOficial @relation(fields:[grupoId],references:[id],onDelete:Restrict)
+ ordem Int @default(0)
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([grupoId, ordem])
+}
