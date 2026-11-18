@@ -150,3 +150,38 @@ model ObraPublica {
  @@index([categoriaId])
  @@index([recursoId])
 }
+
+enum TipoConteudoSaude {
+  PAS
+  CONSELHO
+  PORTARIA
+  ESCALA
+  MEDICAMENTO
+  ESTOQUE
+}
+model SaudeConfiguracao {
+ id String @id @default("principal")
+ nomeSecretario String?
+ telefone String?
+ endereco String?
+ horario String?
+ descricao String? @db.Text
+ atualizadoEm DateTime @updatedAt
+}
+model SaudeConteudo {
+ id String @id @default(cuid())
+ tipo TipoConteudoSaude
+ titulo String
+ descricao String? @db.Text
+ ano Int?
+ link String
+ textoBotao String?
+ linkSecundario String?
+ textoBotaoSecundario String?
+ destaque Boolean @default(false)
+ ordem Int @default(0)
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([tipo, ordem])
+ @@index([ano])
+}
