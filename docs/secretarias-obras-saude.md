@@ -30,3 +30,9 @@ pm2 restart ecosystem.config.cjs --update-env
 ```
 
 A migração `20261118150000_saude` adiciona `SaudeConfiguracao` e `SaudeConteudo`. Nenhum dado anterior é excluído. Valide a compilação e os conteúdos antes de publicar links oficiais.
+
+## Formulário especial de Escalas de Atendimento
+
+A aba Escalas usa cinco campos próprios: **Categoria**, **Nome**, **Descrição**, **Link do botão** e **Nome do botão**. Categoria e nome do botão são obrigatórios para novos registros e alterações. Categoria é texto livre nesta versão. O nome é armazenado no campo `titulo`, e o botão reutiliza `link` e `textoBotao`. O campo `categoria` é opcional no banco para preservar escalas antigas, que exibem o rótulo genérico até serem editadas. Os outros tipos de conteúdo permanecem com o formulário anterior.
+
+Execute a migração `20261118170000_categoria_escala` após parar a API para gerar o Prisma Client sem bloqueio de DLL no Windows.

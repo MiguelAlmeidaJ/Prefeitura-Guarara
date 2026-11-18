@@ -171,6 +171,7 @@ model SaudeConfiguracao {
 model SaudeConteudo {
  id String @id @default(cuid())
  tipo TipoConteudoSaude
+ categoria String?
  titulo String
  descricao String? @db.Text
  ano Int?

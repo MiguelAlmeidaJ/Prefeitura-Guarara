@@ -8,6 +8,7 @@ const webLink=z.string().trim().url().max(2048).refine(value=>/^https?:\/\//i.te
 const optionalText=(max:number)=>z.string().trim().max(max).nullable();
 const recordInput=z.object({
  tipo:z.nativeEnum(TipoConteudoSaude),
+ categoria:optionalText(120).optional(),
  titulo:z.string().trim().min(2).max(200),
  descricao:optionalText(5000),
  ano:z.number().int().min(1900).max(2200).nullable(),
@@ -64,6 +65,8 @@ export class SaudeController {
   const parsed=recordInput.safeParse(input);
   if(!parsed.success)throw new BadRequestException(parsed.error.flatten());
   if(parsed.data.linkSecundario&&!parsed.data.textoBotaoSecundario)throw new BadRequestException('Informe o título do botão secundário');
-  return parsed.data;
+  if(parsed.data.tipo==='ESCALA'&&!parsed.data.categoria?.trim())throw new BadRequestException('Informe a categoria da escala');
+  if(parsed.data.tipo==='ESCALA'&&!parsed.data.textoBotao?.trim())throw new BadRequestException('Informe o nome do botão');
+  return {...parsed.data,categoria:parsed.data.tipo==='ESCALA'?(parsed.data.categoria?.trim()??null):null};
  }
 }

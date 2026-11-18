@@ -562,3 +562,6 @@ button:disabled{opacity:.65;cursor:not-allowed}
 
 /* Páginas de secretarias têm seus próprios cabeçalhos editoriais. */
 body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{display:none}
+
+/* Categoria das escalas de atendimento */
+.health-service-category{display:block;color:#0e8074;font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;margin-top:4px}
