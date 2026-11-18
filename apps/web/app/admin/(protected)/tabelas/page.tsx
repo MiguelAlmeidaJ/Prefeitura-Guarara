@@ -1,5 +1,5 @@
 'use client';
-import {DocumentUpload} from '../../../components/document-upload';
+import {DocumentUpload} from '../../../../components/document-upload';
 
 import {useEffect,useMemo,useState,type FormEvent} from 'react';
 import Link from 'next/link';
