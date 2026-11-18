@@ -366,3 +366,36 @@ button:disabled{opacity:.65;cursor:not-allowed}
 .admin-tables-sidehint{margin:0 20px 20px!important}
 .admin-tables-dashboard .admin-link-title button:disabled{opacity:.4;cursor:not-allowed}
 @media(max-width:760px){.admin-record-link .admin-two-fields{grid-template-columns:1fr}}
+
+
+/* Gerenciador de menu, hierarquia e arrastar-soltar */
+.admin-menu-dashboard .admin-stats{margin-bottom:22px}
+.menu-editor-panel{margin-bottom:24px}
+.menu-editor-close{border:0;background:transparent;color:var(--blue);font-weight:700;font-size:11px;cursor:pointer}
+.menu-editor-form{padding:0 26px 25px;display:grid;gap:18px}
+.menu-editor-form .admin-field{gap:7px}
+.menu-tab-option{font-size:12px;color:var(--navy)}
+.menu-tab-option span{color:var(--muted);font-size:10px}
+.menu-form-actions{display:flex;flex-wrap:wrap;gap:10px}
+.menu-tree{padding:13px 22px 24px}
+.menu-tree-node{display:block}
+.menu-admin-row{min-height:70px;border:1px solid #e4ebf2;background:#fff;border-radius:10px;margin-top:8px;padding:9px 13px;display:flex;align-items:center;gap:12px;transition:background .15s,border-color .15s}
+.menu-admin-row:hover{background:#f8fbfe}
+.menu-admin-row-over{background:#eef7ff;border:2px dashed var(--blue)}
+.menu-drag-handle{flex:0 0 24px;font-size:23px;color:#8297ac;cursor:grab;user-select:none;text-align:center}
+.menu-drag-handle:active{cursor:grabbing}
+.menu-fold{width:22px;flex-shrink:0;background:transparent;border:0;color:var(--blue);font-size:17px}
+.menu-fold:disabled{color:#c0cbd7}
+.menu-row-text{display:flex;flex-direction:column;gap:1px;min-width:100px;flex:1}
+.menu-row-text strong{font-size:12px;color:var(--navy)}
+.menu-row-text small{font-size:10px;color:var(--muted);overflow-wrap:anywhere}
+.menu-row-meta{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.menu-level-badge,.menu-new-tab{font-size:9px;border-radius:5px;padding:4px 8px;background:#edf3fa;color:var(--blue);font-weight:700;white-space:nowrap}
+.menu-root-badge{background:#e9f6ef;color:#16773d}
+.menu-new-tab{background:#fff4e5;color:#95601a}
+.menu-row-actions{display:flex;gap:11px;flex-wrap:wrap;justify-content:flex-end;max-width:195px}
+.menu-row-actions button{font-size:10px;color:var(--blue);border:0;background:transparent;font-weight:700;cursor:pointer;white-space:nowrap}
+.menu-row-actions .admin-danger-link{color:#b43b49}
+.menu-row-actions button:hover{text-decoration:underline}
+@media(max-width:950px){.menu-row-meta{display:none}.menu-admin-row{gap:7px}.menu-row-actions{max-width:150px}}
+@media(max-width:600px){.menu-editor-form{padding:0 18px 23px}.menu-editor-form .admin-two-fields{grid-template-columns:1fr}.menu-tree{padding:10px}.menu-admin-row{flex-wrap:wrap;padding:10px;gap:6px}.menu-row-text{flex-basis:60%}.menu-row-actions{flex-basis:100%;max-width:none;padding-left:34px;justify-content:flex-start}.menu-tab-option{flex-wrap:wrap}}

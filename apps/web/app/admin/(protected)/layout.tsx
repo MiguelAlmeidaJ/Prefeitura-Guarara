@@ -13,6 +13,7 @@ export default async function ProtectedLayout({children}:Readonly<{children:Reac
    <nav aria-label="Navegação administrativa">
     <Link href="/admin" className="admin-sidebar-link"><span aria-hidden="true">▦</span> Páginas e conteúdos</Link>
     <Link href="/admin/tabelas" className="admin-sidebar-link"><span aria-hidden="true">▤</span> Tabelas reutilizáveis</Link>
+    <Link href="/admin/menu" className="admin-sidebar-link"><span aria-hidden="true">☷</span> Menu do portal</Link>
     <Link href="/" target="_blank" rel="noopener noreferrer" className="admin-sidebar-link"><span aria-hidden="true">↗</span> Visualizar portal</Link>
    </nav>
    <div className="admin-sidebar-bottom"><span className="admin-sidebar-avatar">{(user.nome||'A').charAt(0).toUpperCase()}</span><div><strong>{user.nome||'Administrador'}</strong><small>{user.papel.toLowerCase()}</small></div></div>
