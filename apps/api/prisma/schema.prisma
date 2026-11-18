@@ -275,3 +275,23 @@ model AtoNormativo {
  @@index([tipo,ano])
  @@index([tipo,publicado])
 }
+
+enum TipoFolhaPagamento {
+ COMISSIONADOS
+ EFETIVOS
+ CONTRATADOS
+}
+
+model FolhaPagamento {
+ id String @id @default(cuid())
+ tipo TipoFolhaPagamento
+ ano Int
+ mes Int
+ link String
+ publicado Boolean @default(true)
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+
+ @@unique([tipo, ano, mes])
+ @@index([tipo, publicado, ano])
+}
