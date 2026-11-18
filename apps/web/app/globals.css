@@ -339,3 +339,30 @@ button:disabled{opacity:.65;cursor:not-allowed}
 @media(max-width:1100px){.admin-shell{grid-template-columns:215px minmax(0,1fr)}.admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-editor-grid{grid-template-columns:minmax(0,1fr)}.admin-editor-aside{position:static}}
 @media(max-width:760px){.admin-shell{display:block}.admin-sidebar{position:static;height:auto;padding:14px}.admin-sidebar-brand{padding:0 0 10px}.admin-sidebar-label,.admin-sidebar-bottom{display:none}.admin-sidebar nav{display:flex;overflow-x:auto;gap:5px}.admin-sidebar-link{white-space:nowrap}.admin-workspace-header{height:auto;min-height:56px;padding:12px 20px}.admin-dashboard{padding:25px 18px 44px}.admin-dashboard-header{align-items:flex-start}.admin-page-types{grid-template-columns:1fr}.admin-two-fields{grid-template-columns:1fr}.admin-help-card{flex-direction:column;align-items:flex-start}.admin-workspace-header-right{font-size:0}.admin-workspace-header-right .admin-logout{font-size:11px}}
 @media(max-width:460px){.admin-dashboard-header{flex-direction:column}.admin-stats{gap:10px}.admin-stat{padding:16px;min-height:115px}.admin-stat strong{font-size:26px}.admin-toolbar{flex-direction:column;align-items:stretch}.admin-search-filter{max-width:none;width:100%}.admin-panel-title{padding:21px 18px 15px}.admin-editor-section>.admin-field,.admin-editor-section>.admin-content-block{margin-left:18px;margin-right:18px}.admin-page-types{margin-left:18px;margin-right:18px}.admin-workspace-header-right .admin-online-dot{display:none}}
+
+
+/* Gerenciamento de tabelas no padrão visual do painel */
+.admin-tables-dashboard .admin-tables-loading{padding:36px;color:var(--muted);font-size:12px}
+.admin-tables-list td:first-child span{max-width:350px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.admin-tables-content{margin-top:0!important}
+.admin-tables-content>.admin-content-head{margin-bottom:18px}
+.admin-tables-content .admin-link-card{margin-bottom:16px}
+.admin-tables-type{margin-top:14px;max-width:300px}
+.admin-tables-content .admin-link-card .admin-check{margin-top:14px}
+.admin-table-record{padding:18px;margin:0 0 16px;min-width:0}
+.admin-table-record legend{padding:0 6px;color:var(--navy);font-size:12px;font-weight:800}
+.admin-record-field{margin:10px 0 18px}
+.admin-record-links{display:grid;gap:11px}
+.admin-record-link{border:1px solid #e2e9f1;border-radius:9px;background:white;padding:13px}
+.admin-record-link .admin-two-fields{grid-template-columns:1fr 1.4fr}
+.admin-inline-remove{border:0;background:transparent;color:#b43b49;padding:5px 0;font-size:11px;font-weight:700;cursor:pointer}
+.admin-inline-remove:hover{text-decoration:underline}
+.admin-mini-empty{padding:28px 22px;text-align:center;border:1px dashed #ccd9e7;border-radius:11px;background:#f8fafd}
+.admin-mini-empty strong{color:var(--navy);font-size:12px}
+.admin-mini-empty p{color:var(--muted);font-size:11px;margin:5px 0 0}
+.admin-tables-summary{margin:0 20px 20px;display:grid;gap:8px}
+.admin-tables-summary>div{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:var(--muted)}
+.admin-tables-summary strong{font-size:16px;color:var(--navy)}
+.admin-tables-sidehint{margin:0 20px 20px!important}
+.admin-tables-dashboard .admin-link-title button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:760px){.admin-record-link .admin-two-fields{grid-template-columns:1fr}}
