@@ -5,3 +5,13 @@ CREATE INDEX "TransparenciaGrupo_ordem_criadoEm_idx" ON "TransparenciaGrupo"("or
 CREATE TABLE "TransparenciaLink" ("id" TEXT NOT NULL,"titulo" TEXT NOT NULL,"descricao" TEXT,"url" TEXT NOT NULL,"etiqueta" TEXT,"novaGuia" BOOLEAN NOT NULL DEFAULT true,"grupoId" TEXT NOT NULL,"ordem" INTEGER NOT NULL DEFAULT 0,"criadoEm" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,"atualizadoEm" TIMESTAMP(3) NOT NULL,CONSTRAINT "TransparenciaLink_pkey" PRIMARY KEY ("id"));
 CREATE INDEX "TransparenciaLink_grupoId_ordem_idx" ON "TransparenciaLink"("grupoId","ordem");
 ALTER TABLE "TransparenciaLink" ADD CONSTRAINT "TransparenciaLink_grupoId_fkey" FOREIGN KEY ("grupoId") REFERENCES "TransparenciaGrupo"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+
+-- Grupos iniciais de organização, sem links ou URLs não verificados.
+INSERT INTO "TransparenciaGrupo" ("id","nome","descricao","ordem","atualizadoEm")
+VALUES
+ ('transp-financas','Finanças Públicas','Receitas, despesas, orçamentos e contas públicas',0,CURRENT_TIMESTAMP),
+ ('transp-contratacoes','Licitações e Contratos','Compras, contratações e convênios municipais',1,CURRENT_TIMESTAMP),
+ ('transp-gestao','Pessoal, Obras e Dados','Servidores, obras públicas e informações abertas',2,CURRENT_TIMESTAMP),
+ ('transp-cidadao','Serviços ao Cidadão','Acesso à informação, ouvidoria e serviços públicos',3,CURRENT_TIMESTAMP),
+ ('transp-documentos','Informações Complementares','Documentos, declarações e publicações complementares',4,CURRENT_TIMESTAMP);
