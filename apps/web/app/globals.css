@@ -1370,3 +1370,74 @@ body:has(.health-hero) .site-banner,body:has(.obras-public-hero) .site-banner{di
 @media(max-width:940px){.home-quick-layout{grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:28px}.home-quick-heading{min-height:94px}.home-quick-list{column-gap:13px}.home-quick-link{font-size:12px;min-height:82px}.city-carousel{aspect-ratio:1/1.08}}
 @media(max-width:700px){.home-quick-section{padding:50px 0 60px}.home-quick-layout{grid-template-columns:1fr;gap:34px}.home-quick-heading{min-height:0;margin-bottom:20px}.home-quick-heading h2{font-size:30px}.city-carousel{aspect-ratio:16/11}.home-quick-list{grid-template-columns:repeat(2,minmax(0,1fr))}.home-quick-link{min-height:82px}.home-quick-footer{padding-top:16px}}
 @media(max-width:430px){.home-quick-list{grid-template-columns:1fr}.home-quick-link{min-height:68px}.city-slide-details p{font-size:13px}.city-slide-overlay{padding:60px 16px 23px}.city-slide-progress{left:16px}}
+
+
+/* Home: seção de contato / telefones úteis */
+.home-contact-section{background:#f6f9fc;padding:78px 0 88px;border-top:1px solid #e8eef5}
+.home-contact-header{max-width:680px;margin:0 0 35px}
+.home-contact-header .section-kicker{font-size:10px;letter-spacing:.16em;font-weight:800;color:#198444}
+.home-contact-header h2{margin:12px 0 12px;font-size:clamp(29px,3vw,39px);line-height:1.18;letter-spacing:-.055em;color:#1A2E4A;font-weight:800}
+.home-contact-header h2 em{font-style:normal;font-weight:500;color:#3366A8}
+.home-contact-header p{font-size:12px;color:#6d8196;line-height:1.8;margin:0}
+.home-contact-grid{display:grid;grid-template-columns:minmax(0,1.23fr) minmax(0,1fr);gap:24px;align-items:stretch}
+.home-contact-panel,.home-contact-phones{background:#fff;border:1px solid #e0e8f1;border-radius:17px;padding:30px;box-shadow:0 8px 30px #1A2E4A06;min-width:0}
+.home-contact-panel-head{display:flex;align-items:start;gap:14px;margin-bottom:26px}
+.home-contact-panel-number{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:10px;background:#e9f5ee;color:#198444;font-size:11px;font-weight:800}
+.home-contact-panel-head h3{font-size:17px;font-weight:800;color:#1A2E4A;margin:0 0 5px;letter-spacing:-.035em}
+.home-contact-panel-head p{font-size:11px;line-height:1.65;color:#7a8da3;margin:0}
+.home-contact-form{display:grid;gap:18px}
+.home-contact-form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.home-contact-field{display:flex;flex-direction:column;min-width:0}
+.home-contact-field label{font-size:11px;font-weight:750;color:#29405e;margin-bottom:8px}
+.home-contact-field label span{color:#198444}
+.home-contact-field input,.home-contact-field textarea{width:100%;border:1px solid #dbe4ed;border-radius:10px;background:#fbfcfe;color:#1A2E4A;padding:13px 14px;font:inherit;font-size:12px;line-height:1.55;transition:border-color .15s,box-shadow .15s}
+.home-contact-field input{min-height:46px}
+.home-contact-field textarea{min-height:130px;resize:vertical}
+.home-contact-field input::placeholder,.home-contact-field textarea::placeholder{color:#96a7b8}
+.home-contact-field input:focus,.home-contact-field textarea:focus{outline:0;border-color:#3366A8;box-shadow:0 0 0 3px #3366A81c;background:#fff}
+.home-contact-field small{align-self:end;font-size:10px;color:#90a0b2;margin-top:6px}
+.home-contact-submit-row{border-top:1px solid #edf1f5;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.home-contact-submit-row p{color:#8294a8;font-size:10px;line-height:1.6;max-width:270px;margin:0}
+.home-contact-submit-row button{display:flex;align-items:center;justify-content:center;gap:25px;white-space:nowrap;border:0;border-radius:9px;padding:15px 19px;min-height:47px;background:#198444;color:white;font-weight:800;font-size:11px;box-shadow:0 5px 15px #19844420}
+.home-contact-submit-row button:hover:not(:disabled){background:#136e39}
+.home-contact-submit-row button:disabled{opacity:.65;cursor:progress}
+.home-contact-submit-row button span{font-size:16px;font-weight:400}
+.home-contact-error{margin:0;font-size:11px;color:#b42318;background:#fff2f2;border-radius:8px;padding:11px}
+.home-contact-honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.home-contact-success{min-height:335px;display:flex;align-items:flex-start;justify-content:center;flex-direction:column;gap:13px}
+.home-contact-success-mark{width:45px;height:45px;display:grid;place-items:center;border-radius:50%;background:#e5f7ec;color:#198444;font-weight:900;font-size:25px}
+.home-contact-success h3{margin:0;color:#1A2E4A;font-size:22px}
+.home-contact-success p{color:#667f96;font-size:12px;line-height:1.8;margin:0}
+.home-contact-success button{border:0;background:transparent;color:#198444;font-size:12px;font-weight:800;padding:0;margin-top:9px}
+.home-contact-phones{background:#fff;display:flex;flex-direction:column}
+.home-phones-list{display:flex;flex-direction:column;border-top:1px solid #e8eef4}
+.home-phones-item{display:flex;align-items:center;gap:12px;padding:17px 1px;border-bottom:1px solid #e8eef4;text-decoration:none;color:#1A2E4A;transition:color .15s}
+.home-phones-item:hover{color:#198444}
+.home-phones-index{font-size:10px;color:#9aabbc;flex:0 0 20px}
+.home-phones-description{font-size:11px;font-weight:700;flex:1;min-width:0;line-height:1.5}
+.home-phones-item strong{white-space:nowrap;color:#3366A8;font-size:11px}
+.home-phones-icon{font-size:15px;color:#96aac0}
+.home-contact-phones-footer{margin-top:auto;padding-top:22px;display:flex;align-items:center;gap:11px}
+.home-contact-phones-dot{width:7px;height:7px;border-radius:50%;background:#198444;flex:0 0 7px}
+.home-contact-phones-footer p{color:#8597a8;font-size:10px;line-height:1.65;margin:0}
+.home-messages-list{padding:0 25px 25px}
+.home-message-entry{border-bottom:1px solid #e4ebf2}
+.home-message-trigger{display:flex;align-items:center;gap:13px;width:100%;min-width:0;background:transparent;border:0;padding:17px 0;text-align:left;color:#1A2E4A}
+.home-message-trigger:hover{background:#fafcfe}
+.home-message-status{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#d8e1eb}
+.home-message-entry.is-unread .home-message-status{background:#198444}
+.home-message-person{display:flex;flex-direction:column;gap:4px;width:190px;flex:0 0 190px;min-width:0}
+.home-message-person strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home-message-person small{font-size:10px;color:#7d90a3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home-message-excerpt{font-size:11px;color:#6f8196;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.home-message-trigger time{white-space:nowrap;font-size:10px;color:#8b9db0}
+.home-message-detail{padding:0 18px 25px 20px;background:#fbfcff;border-radius:0 0 9px 9px}
+.home-message-detail-label{padding-top:15px;text-transform:uppercase;letter-spacing:.12em;font-size:9px;font-weight:800;color:#8a9eb2;margin:0 0 10px}
+.home-message-detail-text{font-size:12px;color:#29435d;white-space:pre-wrap;line-height:1.8;overflow-wrap:anywhere;margin:0 0 18px}
+.home-message-contacts{display:flex;gap:25px;flex-wrap:wrap}
+.home-message-contacts>div{display:flex;flex-direction:column;gap:5px}
+.home-message-contacts strong{font-size:10px;color:#7990a7}
+.home-message-contacts a,.home-message-contacts span{font-size:12px;color:#3366A8;overflow-wrap:anywhere}
+.home-message-updating{padding:0 25px;font-size:11px;color:#718aa1}
+@media(max-width:900px){.home-contact-grid{grid-template-columns:1fr}.home-contact-phones-footer{margin-top:20px}}
+@media(max-width:650px){.home-contact-section{padding:53px 0 60px}.home-contact-panel,.home-contact-phones{padding:20px}.home-contact-form-row{grid-template-columns:1fr;gap:18px}.home-contact-submit-row{flex-direction:column;align-items:stretch}.home-contact-submit-row button{width:100%}.home-messages-list{padding:0 14px 20px}.home-message-trigger{flex-wrap:wrap}.home-message-person{width:calc(100% - 40px);flex:1}.home-message-excerpt{width:100%;flex-basis:100%}.home-message-trigger time{margin-left:18px}.home-phones-item{gap:7px}.home-phones-item strong{font-size:10px}}
