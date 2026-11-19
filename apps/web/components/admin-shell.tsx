@@ -26,7 +26,7 @@ type Entry={label:string;href:string};
 type Group={id:string;label:string;icon:Glyph;href?:string;items:Entry[]};
 const groups:Group[]=[
  {id:'conteudo',label:'Conteúdo',icon:'layers',items:[
-  {label:'Acesso Rápido',href:'/admin/acesso-rapido'},{label:'Imagens da Cidade',href:'/admin/imagens-da-cidade'},{label:'Comunicados',href:'/admin/comunicados'},{label:'Categorias de comunicados',href:'/admin/comunicados/categorias'},{label:'Menu do portal',href:'/admin/menu'}]},
+  {label:'Acesso Rápido',href:'/admin/acesso-rapido'},{label:'Imagens da Cidade',href:'/admin/imagens-da-cidade'},{label:'Mensagens de contato',href:'/admin/contatos'},{label:'Comunicados',href:'/admin/comunicados'},{label:'Categorias de comunicados',href:'/admin/comunicados/categorias'},{label:'Menu do portal',href:'/admin/menu'}]},
  {id:'transparencia',label:'Transparência',icon:'landmark',href:'/admin/transparencia',items:[
   {label:'Visão geral',href:'/admin/transparencia'},{label:'Leis municipais',href:'/admin/transparencia/leis'},{label:'Decretos municipais',href:'/admin/transparencia/decretos'},
   {label:'Portarias municipais',href:'/admin/transparencia/portarias'},{label:'Folha de pagamento',href:'/admin/transparencia/folha-de-pagamento'}]},
