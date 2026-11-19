@@ -331,3 +331,16 @@ model ImagemCidade {
  atualizadoEm DateTime @updatedAt
  @@index([ativo,ordem])
 }
+
+model MensagemContato {
+ id String @id @default(cuid())
+ nome String
+ endereco String?
+ telefone String?
+ email String
+ descricao String @db.Text
+ lida Boolean @default(false)
+ criadoEm DateTime @default(now())
+ @@index([criadoEm])
+ @@index([email,criadoEm])
+}
