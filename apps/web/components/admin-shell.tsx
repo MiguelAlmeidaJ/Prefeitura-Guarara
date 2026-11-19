@@ -74,7 +74,7 @@ export function AdminShell({children,user}:{children:React.ReactNode;user:{nome:
    <div className="admin-sidebar-scroll">
     <div className="admin-sidebar-caption">NAVEGAÇÃO</div>
     <nav className="admin-nav-modern" aria-label="Navegação administrativa">
-     {groups.map(group=>({...group,items:group.items.filter(item=>item.href!=='/admin/configuracoes/usuarios'||user.papel==='ADMINISTRADOR')})).map(group=>{
+     {groups.map(group=>({...group,items:group.items.filter(item=>(item.href!=='/admin/configuracoes/usuarios'||user.papel==='ADMINISTRADOR')&&(item.href!=='/admin/contatos'||user.papel==='ADMINISTRADOR'||user.papel==='GESTOR'))})).map(group=>{
       const isOpen=expanded.includes(group.id);
       const groupActive=group.items.some(i=>belongs(pathname,i.href));
       return <div key={group.id} className={'admin-nav-section'+(groupActive?' is-active':'')}>
