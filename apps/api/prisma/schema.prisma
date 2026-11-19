@@ -309,3 +309,25 @@ model FolhaPagamento {
  @@unique([tipo, ano, mes])
  @@index([tipo, publicado, ano])
 }
+
+model AcessoRapido {
+ id String @id @default(cuid())
+ titulo String
+ url String
+ novaGuia Boolean @default(false)
+ ordem Int @default(0)
+ ativo Boolean @default(true)
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([ativo,ordem])
+}
+model ImagemCidade {
+ id String @id @default(cuid())
+ titulo String
+ arquivo String
+ ordem Int @default(0)
+ ativo Boolean @default(true)
+ criadoEm DateTime @default(now())
+ atualizadoEm DateTime @updatedAt
+ @@index([ativo,ordem])
+}
