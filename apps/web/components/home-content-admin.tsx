@@ -13,6 +13,7 @@ async function request<T>(kind:Kind,path='',method='GET',data?:unknown):Promise<
 }
 export function HomeContentAdmin({kind}:{kind:Kind}){
  const photos=kind==='fotos';
+ const maxPhotos=6;
  const [items,setItems]=useState<Entry[]>([]),[loading,setLoading]=useState(true);
  const [draft,setDraft]=useState<Draft>({...blank}),[editing,setEditing]=useState<string|null>(null);
  const [busy,setBusy]=useState(false),[message,setMessage]=useState(''),[error,setError]=useState('');
@@ -23,6 +24,7 @@ export function HomeContentAdmin({kind}:{kind:Kind}){
  function edit(item:Entry){setDraft({titulo:item.titulo,url:item.url||'/',novaGuia:item.novaGuia||false,ativo:item.ativo,arquivo:item.arquivo||''});setEditing(item.id);setSelected(null);window.scrollTo({top:0,behavior:'smooth'});}
  async function save(e:FormEvent){e.preventDefault();setBusy(true);setError('');setMessage('');
   try{
+   if(photos&&!editing&&items.length>=maxPhotos)throw Error('O limite de 6 imagens foi atingido. Exclua uma foto antes de cadastrar outra.');
    let arquivo=draft.arquivo;
    if(photos&&selected){
     if(selected.size>4*1024*1024)throw Error('Imagem maior que 4 MB');
@@ -51,14 +53,15 @@ export function HomeContentAdmin({kind}:{kind:Kind}){
  }
  function onDrop(e:DragEvent<HTMLElement>,id:string){e.preventDefault();void order(id);}
  return <div className="admin-dashboard home-content-admin">
-  <div className="admin-dashboard-header"><div><span className="admin-kicker">CONTEÚDO / PÁGINA INICIAL</span><h1>{photos?'Imagens da Cidade':'Acesso Rápido'}</h1><p>{photos?'Cadastre fotografias que serão exibidas no carrossel da home.':'Gerencie os atalhos objetivos e sem descrições na página inicial.'}</p></div><Link href="/" target="_blank" className="admin-button admin-button-outline">Ver home ↗</Link></div>
+  <div className="admin-dashboard-header"><div><span className="admin-kicker">CONTEÚDO / PÁGINA INICIAL</span><h1>{photos?'Imagens da Cidade':'Acesso Rápido'}</h1><p>{photos?'Selecione e ordene até 6 fotografias para o carrossel da página inicial.':'Gerencie os atalhos objetivos e sem descrições na página inicial.'}</p></div><Link href="/" target="_blank" className="admin-button admin-button-outline">Ver home ↗</Link></div>
   {error&&<div className="admin-alert admin-alert-error" role="alert">{error}</div>}{message&&<div className="admin-alert admin-alert-ok" role="status">{message}</div>}
+  {photos&&<div className="home-photo-limit"><span><strong>{items.length} de 6</strong> imagens cadastradas</span><div className="home-photo-limit-meter" role="progressbar" aria-label="Imagens cadastradas" aria-valuenow={Math.min(items.length,6)} aria-valuemin={0} aria-valuemax={6}><span style={{width:Math.min(items.length/6*100,100)+'%'}}/></div>{items.length>=6&&<small>Limite atingido: exclua uma foto para incluir outra.</small>}</div>}
   <section className="admin-panel home-content-editor"><div className="admin-panel-title"><div><span className="admin-step">{editing?'EDIÇÃO':'NOVO ITEM'}</span><h2>{editing?'Editar item':photos?'Adicionar fotografia':'Adicionar acesso rápido'}</h2></div></div>
   <form className="home-content-form" onSubmit={save}>
    <div className="admin-field"><label htmlFor="hc-title">{photos?'Título / legenda da foto':'Nome do acesso'} <b>*</b></label><input id="hc-title" maxLength={photos?130:110} required value={draft.titulo} onChange={e=>setDraft(p=>({...p,titulo:e.target.value}))} placeholder={photos?'Ex.: Praça central de Guarará':'Ex.: Portal da Transparência'}/></div>
    {photos?<div className="admin-field"><label htmlFor="hc-photo">Foto da cidade {editing?'':'*'}</label><input id="hc-photo" type="file" accept="image/png,image/jpeg,image/webp" onChange={e=>setSelected(e.target.files?.[0]||null)}/><small>PNG, JPG ou WebP, até 4 MB. Prefira fotografias horizontais.</small>{draft.arquivo&&<img className="hc-photo-preview" src={'/api/capas-comunicados/'+draft.arquivo} alt="Imagem atual"/>}</div>:<><div className="admin-field"><label htmlFor="hc-url">Link <b>*</b></label><input id="hc-url" value={draft.url} required onChange={e=>setDraft(p=>({...p,url:e.target.value}))} placeholder="/transparencia ou https://..."/></div><label className="admin-check"><input type="checkbox" checked={draft.novaGuia} onChange={e=>setDraft(p=>({...p,novaGuia:e.target.checked}))}/> Abrir em nova guia</label></>}
    <label className="admin-check"><input type="checkbox" checked={draft.ativo} onChange={e=>setDraft(p=>({...p,ativo:e.target.checked}))}/> Exibir na página pública</label>
-   <div className="health-admin-actions"><button type="submit" disabled={busy} className="admin-button admin-button-primary">{busy?'Salvando...':editing?'Salvar alterações':'Cadastrar item'}</button>{editing&&<button className="admin-button admin-button-outline" type="button" onClick={reset}>Cancelar edição</button>}</div>
+   <div className="health-admin-actions"><button type="submit" disabled={busy||(photos&&!editing&&items.length>=maxPhotos)} className="admin-button admin-button-primary">{busy?'Salvando...':editing?'Salvar alterações':'Cadastrar item'}</button>{editing&&<button className="admin-button admin-button-outline" type="button" onClick={reset}>Cancelar edição</button>}</div>
   </form></section>
   <section className="admin-panel"><div className="admin-panel-title"><div><h2>Itens cadastrados</h2><p>Arraste pelo marcador para alterar a ordem de exibição.</p></div><span className="admin-results">{items.length} item(ns)</span></div>
    {loading?<div className="admin-empty">Carregando itens...</div>:items.length?<div className="home-admin-list">{items.map(item=><div key={item.id} className={'home-admin-item'+(dragged===item.id?' is-dragging':'')} draggable onDragStart={e=>{e.dataTransfer.effectAllowed='move';setDragged(item.id);}} onDragOver={e=>e.preventDefault()} onDrop={e=>onDrop(e,item.id)} onDragEnd={()=>setDragged(null)}>
