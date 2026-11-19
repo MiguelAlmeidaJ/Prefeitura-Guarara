@@ -1,6 +1,6 @@
 import {NextResponse} from 'next/server';
 import {getAdminUser} from '../../../lib/admin-session';
-import {getStandardCover,saveStandardCover} from '../../../lib/standard-images';
+import {getStandardCover,saveStandardCover,getHomeBanner,saveHomeBanner} from '../../../lib/standard-images';
 export const runtime='nodejs';
 export const dynamic='force-dynamic';
 const max=4*1024*1024;
@@ -17,7 +17,7 @@ function originMatches(req:Request){
 export async function GET(){
  const user=await getAdminUser();
  if(!user)return NextResponse.json({error:'Não autenticado'},{status:401});
- return NextResponse.json({capaComunicados:await getStandardCover()},{headers:{'Cache-Control':'no-store'}});
+ return NextResponse.json({capaComunicados:await getStandardCover(),bannerHome:await getHomeBanner()},{headers:{'Cache-Control':'no-store'}});
 }
 export async function POST(req:Request){
  if(!originMatches(req))return NextResponse.json({error:'Origem não autorizada'},{status:403});
@@ -31,6 +31,12 @@ export async function POST(req:Request){
   if(!(file instanceof File)||file.size<12||file.size>max)return NextResponse.json({error:'Selecione uma imagem com até 4 MB'},{status:400});
   const bytes=Buffer.from(await file.arrayBuffer()),mime=signature(bytes);
   if(!mime)return NextResponse.json({error:'Use uma imagem PNG, JPG ou WebP'},{status:400});
+  const type=form.get('tipo');
+  if(type==='banner-home'){
+   const banner=await saveHomeBanner(bytes,mime);
+   return NextResponse.json({bannerHome:banner},{headers:{'Cache-Control':'no-store'}});
+  }
+  if(type!==null&&type!=='capa-comunicados')return NextResponse.json({error:'Tipo de imagem inválido'},{status:400});
   const cover=await saveStandardCover(bytes,mime);
   return NextResponse.json({capaComunicados:cover},{headers:{'Cache-Control':'no-store'}});
  }catch(error){console.error('[imagens padronizadas]',error);return NextResponse.json({error:'Falha no armazenamento da imagem'},{status:500});}

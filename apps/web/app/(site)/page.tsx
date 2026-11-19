@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import { sections } from '../../lib/navigation';
 import {ComunicadosCarousel} from '../../components/comunicados-publicos';
+import {getHomeBanner} from '../../lib/standard-images';
 
 const featured=['atendimento','transparencia','licitacoes','concursos','municipio','administracao'];
 const iconMap:Record<string,string>={atendimento:'↗',transparencia:'◈',licitacoes:'▤',concursos:'♙',municipio:'⌂',administracao:'▦'};
-export default function Home(){
+export default async function Home(){
+ const banner=await getHomeBanner();
  const highlights=featured.map(slug=>sections.find(section=>section.slug===slug)!).filter(Boolean);
  return <>
+  {banner&&<section className="home-banner" aria-label="Banner institucional da Prefeitura de Guarará"><div className="home-banner-frame"><img src={'/api/banner-home?v='+banner.version} width={1600} height={600} alt="Banner institucional da Prefeitura Municipal de Guarará" fetchPriority="high"/></div></section>}
   <section className="section home-services"><div className="wrap">
    <div className="section-heading"><div><span className="section-kicker">ACESSO RÁPIDO</span><h2>Como podemos ajudar?</h2><p>Encontre informações, documentos e serviços municipais.</p></div><Link className="text-link" href="/atendimento">Ver atendimento <span aria-hidden="true">→</span></Link></div>
    <div className="services-grid">{highlights.map(section=><Link key={section.slug} href={'/'+section.slug} className="service-card"><span className="service-card-icon" aria-hidden="true">{iconMap[section.slug]}</span><strong>{section.title}</strong><p>{section.description}</p><span className="card-arrow" aria-hidden="true">↗</span></Link>)}</div>
