@@ -1,4 +1,4 @@
-import {BadRequestException,Body,Controller,Delete,Get,NotFoundException,Param,Patch,Post,Req,UseGuards} from '@nestjs/common';
+import {BadRequestException,ConflictException,Body,Controller,Delete,Get,NotFoundException,Param,Patch,Post,Req,UseGuards} from '@nestjs/common';
 import {Prisma} from '@prisma/client';
 import {z} from 'zod';
 import {PrismaService} from './prisma.service';
@@ -23,7 +23,7 @@ export class HomeContentController {
  async home(){
   const [acessos,fotos]=await Promise.all([
    this.prisma.acessoRapido.findMany({where:{ativo:true},orderBy:[{ordem:'asc'},{criadoEm:'asc'}]}),
-   this.prisma.imagemCidade.findMany({where:{ativo:true},orderBy:[{ordem:'asc'},{criadoEm:'asc'}]})
+   this.prisma.imagemCidade.findMany({where:{ativo:true},orderBy:[{ordem:'asc'},{criadoEm:'asc'}],take:6})
   ]);
   return {acessos,fotos};
  }
@@ -57,9 +57,14 @@ export class HomeContentController {
  @UseGuards(AuthGuard) @Get('admin/home/fotos')
  allPhotos(){return this.prisma.imagemCidade.findMany({orderBy:[{ordem:'asc'},{criadoEm:'asc'}]});}
  @UseGuards(AuthGuard) @Post('admin/home/fotos')
- addPhoto(@Req() req:{user:AuthUser},@Body() body:unknown){
+ async addPhoto(@Req() req:{user:AuthUser},@Body() body:unknown){
   requireRoles(req.user,'ADMINISTRADOR','GESTOR');
-  return this.prisma.imagemCidade.create({data:validate(photo,body)});
+  const data=validate(photo,body);
+  return this.prisma.$transaction(async tx=>{
+   const count=await tx.imagemCidade.count();
+   if(count>=6)throw new ConflictException('O carrossel permite no máximo 6 imagens. Exclua uma fotografia antes de adicionar outra.');
+   return tx.imagemCidade.create({data});
+  },{isolationLevel:Prisma.TransactionIsolationLevel.Serializable});
  }
  @UseGuards(AuthGuard) @Patch('admin/home/fotos/:id')
  async editPhoto(@Req() req:{user:AuthUser},@Param('id') id:string,@Body() body:unknown){
