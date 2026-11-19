@@ -2,8 +2,8 @@ import {Body,Controller,Get,Post,Patch,Delete,Param,Req,UseGuards,BadRequestExce
 import {JwtService} from '@nestjs/jwt';
 import {PrismaService} from './prisma.service';
 import {AuthGuard,AuthUser,requireRoles} from './auth.guard';
-import {pageInput,userInput,tableInput} from './page-schema';
-import {compare,hash} from 'bcryptjs';
+import {pageInput,tableInput} from './page-schema';
+import {compare} from 'bcryptjs';
 import {Prisma,EstadoPagina} from '@prisma/client';
 @Controller()
 export class CmsController {
@@ -72,14 +72,6 @@ export class CmsController {
   requireRoles(req.user,'ADMINISTRADOR');
   try{await this.prisma.pagina.delete({where:{id}});return {ok:true};}
   catch(e){if(e instanceof Prisma.PrismaClientKnownRequestError&&e.code==='P2025')throw new NotFoundException();throw e;}
- }
- @UseGuards(AuthGuard) @Post('admin/usuarios')
- async createUser(@Req() req:{user:AuthUser},@Body() body:unknown){
-  requireRoles(req.user,'ADMINISTRADOR');
-  const parsed=userInput.safeParse(body);if(!parsed.success)throw new BadRequestException(parsed.error.flatten());
-  const {senha,...data}=parsed.data;
-  try{return await this.prisma.usuario.create({data:{...data,email:data.email.trim().toLowerCase(),senhaHash:await hash(senha,12)},select:{id:true,nome:true,email:true,papel:true}});}
-  catch(e){if(e instanceof Prisma.PrismaClientKnownRequestError&&e.code==='P2002')throw new ConflictException('Email em uso');throw e;}
  }
  private async ensureTables(tipo:string,conteudo:unknown){
   const data=conteudo as {tabelaId?:string;abas?:Array<{tabelaId?:string}>};
