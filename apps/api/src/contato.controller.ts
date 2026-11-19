@@ -1,4 +1,4 @@
-import {BadRequestException,Body,Controller,Get,Patch,Param,Post,Req,TooManyRequestsException,UseGuards,NotFoundException} from '@nestjs/common';
+import {BadRequestException,Body,Controller,Get,Patch,Param,Post,Req,HttpException,HttpStatus,UseGuards,NotFoundException} from '@nestjs/common';
 import {z} from 'zod';
 import {PrismaService} from './prisma.service';
 import {AuthGuard,AuthUser,requireRoles} from './auth.guard';
@@ -25,7 +25,7 @@ export class ContatoController {
   const email=parsed.data.email.toLowerCase();
   const since=new Date(Date.now()-5*60*1000);
   const recent=await this.prisma.mensagemContato.count({where:{email,criadoEm:{gte:since}}});
-  if(recent>=2)throw new TooManyRequestsException('Aguarde alguns minutos antes de enviar outra mensagem.');
+  if(recent>=2)throw new HttpException('Aguarde alguns minutos antes de enviar outra mensagem.',HttpStatus.TOO_MANY_REQUESTS);
   await this.prisma.mensagemContato.create({
    data:{nome,endereco:endereco||null,telefone:telefone||null,email,descricao}
   });
